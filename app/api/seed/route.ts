@@ -21,6 +21,9 @@ export async function POST() {
     return Response.json({ success: true, message: 'Seeded' })
   } catch (e) {
     const message = e instanceof Error ? e.message : String(e)
-    return Response.json({ success: false, message }, { status: 500 })
+    const detail = (e as any)?.detail ?? null
+    const code = (e as any)?.code ?? null
+    const hint = (e as any)?.hint ?? null
+    return Response.json({ success: false, message, detail, code, hint }, { status: 500 })
   }
 }
