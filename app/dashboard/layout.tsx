@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { auth, signOut } from '@/auth'
 import Link from 'next/link'
+import { cookies } from 'next/headers'
 import {
   LayoutDashboard,
   BarChart2,
@@ -17,17 +18,6 @@ import { db } from '@/lib/db'
 import { workspaces } from '@/lib/db/schema'
 import ClientSwitcher from '@/components/ClientSwitcher'
 
-const navItems = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/dashboard/clients', label: 'Clients', icon: UserSquare2 },
-  { href: '/dashboard/audit', label: 'Audit', icon: BarChart2 },
-  { href: '/dashboard/rocks', label: 'Rocks & Goals', icon: Target },
-  { href: '/dashboard/oracle', label: 'Oracle', icon: Database },
-  { href: '/dashboard/responsibility', label: 'Responsibility Matrix', icon: Users },
-  { href: '/dashboard/logins', label: 'Login Directory', icon: Key },
-  { href: '/dashboard/playbooks', label: 'Playbooks', icon: BookOpen },
-]
-
 export default async function DashboardLayout({
   children,
 }: {
@@ -39,6 +29,22 @@ export default async function DashboardLayout({
   const isAdmin = session.user.role === 'admin'
   const allWorkspaces = await db.select({ id: workspaces.id, clientName: workspaces.clientName }).from(workspaces)
 
+  const jar = await cookies()
+  const selectedClientId = jar.get('selected_client_id')?.value ?? null
+  const selectedClientName = jar.get('selected_client_name')?.value ?? null
+
+  const cid = selectedClientId
+  const navItems = [
+    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/dashboard/clients', label: 'Clients', icon: UserSquare2 },
+    { href: cid ? `/dashboard/clients/${cid}/audit` : '/dashboard/audit', label: 'Audit', icon: BarChart2 },
+    { href: cid ? `/dashboard/clients/${cid}/rocks` : '/dashboard/rocks', label: 'Rocks & Goals', icon: Target },
+    { href: cid ? `/dashboard/clients/${cid}/oracle` : '/dashboard/oracle', label: 'Oracle', icon: Database },
+    { href: cid ? `/dashboard/clients/${cid}/matrix` : '/dashboard/responsibility', label: 'Responsibility Matrix', icon: Users },
+    { href: cid ? `/dashboard/clients/${cid}/logins` : '/dashboard/logins', label: 'Login Directory', icon: Key },
+    { href: cid ? `/dashboard/clients/${cid}/playbooks` : '/dashboard/playbooks', label: 'Playbooks', icon: BookOpen },
+  ]
+
   return (
     <div className="flex h-screen overflow-hidden bg-zinc-950">
       {/* Sidebar */}
@@ -48,7 +54,16 @@ export default async function DashboardLayout({
           <div className="text-xl font-bold text-white tracking-tight mb-3">
             Marchitect
           </div>
-          <ClientSwitcher workspaces={allWorkspaces} />
+          <ClientSwitcher
+            workspaces={allWorkspaces}
+            selectedClientId={selectedClientId}
+            selectedClientName={selectedClientName}
+          />
+          {selectedClientName && (
+            <p className="text-xs text-zinc-500 mt-1.5 px-1 truncate">
+              Viewing: {selectedClientName}
+            </p>
+          )}
         </div>
 
         {/* Nav */}
