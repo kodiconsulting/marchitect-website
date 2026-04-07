@@ -12,10 +12,12 @@ import {
   Settings,
   LogOut,
   ChevronDown,
+  UserSquare2,
 } from 'lucide-react'
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/dashboard/clients', label: 'Clients', icon: UserSquare2 },
   { href: '/dashboard/audit', label: 'Audit', icon: BarChart2 },
   { href: '/dashboard/rocks', label: 'Rocks & Goals', icon: Target },
   { href: '/dashboard/oracle', label: 'Oracle', icon: Database },
