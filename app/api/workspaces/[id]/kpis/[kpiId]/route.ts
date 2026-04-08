@@ -69,3 +69,29 @@ export async function PUT(
     return Response.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
+
+export async function DELETE(
+  _request: Request,
+  { params }: { params: Promise<{ id: string; kpiId: string }> }
+) {
+  try {
+    const session = await auth()
+    if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+
+    const { id, kpiId } = await params
+
+    const [deleted] = await db
+      .delete(kpis)
+      .where(and(eq(kpis.id, kpiId), eq(kpis.workspaceId, id)))
+      .returning()
+
+    if (!deleted) {
+      return Response.json({ error: 'KPI not found' }, { status: 404 })
+    }
+
+    return Response.json({ success: true })
+  } catch (e) {
+    console.error(e)
+    return Response.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}

@@ -56,3 +56,29 @@ export async function PUT(
     return Response.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
+
+export async function DELETE(
+  _request: Request,
+  { params }: { params: Promise<{ id: string; goalId: string }> }
+) {
+  try {
+    const session = await auth()
+    if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+
+    const { id, goalId } = await params
+
+    const [deleted] = await db
+      .delete(goals)
+      .where(and(eq(goals.id, goalId), eq(goals.workspaceId, id)))
+      .returning()
+
+    if (!deleted) {
+      return Response.json({ error: 'Goal not found' }, { status: 404 })
+    }
+
+    return Response.json({ success: true })
+  } catch (e) {
+    console.error(e)
+    return Response.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}

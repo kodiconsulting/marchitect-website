@@ -3,7 +3,7 @@ import { z } from 'zod/v4'
 import { eq, and } from 'drizzle-orm'
 import { db } from '@/lib/db'
 import { rocks } from '@/lib/db/schema'
-import { verifyRequest, requireWorkspaceAccess } from '@/lib/auth'
+import { auth } from '@/auth'
 
 const postSchema = z.object({
   quarter: z.string().min(1),
