@@ -28,20 +28,20 @@ function ScoreBadge({ score }: { score: number | null }) {
   if (score === 0) {
     return (
       <span className="inline-flex items-center text-xs font-medium px-2 py-0.5 rounded-md bg-red-400/10 text-red-400 border border-red-400/20">
-        Red
+        Not Done
       </span>
     )
   }
   if (score === 1) {
     return (
       <span className="inline-flex items-center text-xs font-medium px-2 py-0.5 rounded-md bg-yellow-400/10 text-yellow-400 border border-yellow-400/20">
-        Yellow
+        In Progress
       </span>
     )
   }
   return (
     <span className="inline-flex items-center text-xs font-medium px-2 py-0.5 rounded-md bg-green-400/10 text-green-400 border border-green-400/20">
-      Green
+      Complete
     </span>
   )
 }
@@ -152,21 +152,21 @@ export default function AuditItemRow({ item, score, workspaceId }: Props) {
           disabled={loading}
           className={`text-xs font-medium px-3 py-1 rounded border transition-colors disabled:opacity-50 bg-red-500/20 hover:bg-red-500/40 text-red-300 border-red-400/20 ${currentScore === 0 ? 'ring-1 ring-red-400/60' : ''}`}
         >
-          Red
+          Not Done
         </button>
         <button
           onClick={() => handleScore(1)}
           disabled={loading}
           className={`text-xs font-medium px-3 py-1 rounded border transition-colors disabled:opacity-50 bg-yellow-500/20 hover:bg-yellow-500/40 text-yellow-300 border-yellow-400/20 ${currentScore === 1 ? 'ring-1 ring-yellow-400/60' : ''}`}
         >
-          Yellow
+          In Progress
         </button>
         <button
           onClick={() => handleScore(2)}
           disabled={loading}
           className={`text-xs font-medium px-3 py-1 rounded border transition-colors disabled:opacity-50 bg-green-500/20 hover:bg-green-500/40 text-green-300 border-green-400/20 ${currentScore === 2 ? 'ring-1 ring-green-400/60' : ''}`}
         >
-          Green
+          Complete
         </button>
       </div>
     </div>
