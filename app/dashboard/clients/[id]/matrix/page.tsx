@@ -29,7 +29,7 @@ export default async function ClientMatrixPage({
   const allFunctions = await db.select().from(marketingFunctions)
 
   const members = await db
-    .select({ id: teamMembers.id, name: teamMembers.name, title: teamMembers.title })
+    .select({ id: teamMembers.id, name: teamMembers.name, title: teamMembers.title, isExternal: teamMembers.isExternal })
     .from(teamMembers)
     .where(eq(teamMembers.workspaceId, id))
 

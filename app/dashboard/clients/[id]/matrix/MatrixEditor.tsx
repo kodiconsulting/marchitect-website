@@ -39,7 +39,7 @@ function gwcLabel(row: MatrixRow) {
   return parts.length > 0 ? parts.join('/') : '—'
 }
 
-interface TeamMember { id: string; name: string; title: string | null }
+interface TeamMember { id: string; name: string; title: string | null; isExternal: boolean }
 
 export default function MatrixEditor({
   workspaceId,
@@ -142,8 +142,12 @@ export default function MatrixEditor({
                                 <select
                                   value={row.assignedOwner ?? ''}
                                   onChange={e => {
-                                    const val = e.target.value || null
-                                    save(row.functionId, { assignedOwner: val })
+                                    const name = e.target.value || null
+                                    const member = teamMembers.find(m => m.name === name)
+                                    const ie = member
+                                      ? (member.isExternal ? 'External' : 'Internal')
+                                      : null
+                                    save(row.functionId, { assignedOwner: name, internalExternal: ie })
                                   }}
                                   className="bg-[#f1f1f4] border border-[#e8e8e8] rounded px-2 py-1 text-[#4b5675] text-sm outline-none focus:border-blue-500 cursor-pointer"
                                 >
@@ -174,24 +178,18 @@ export default function MatrixEditor({
                             )}
                           </td>
 
-                          {/* Internal / External */}
+                          {/* Internal / External — derived from team member */}
                           <td className="px-4 py-3">
-                            {editing ? (
-                              <select
-                                value={row.internalExternal ?? ''}
-                                onChange={e => {
-                                  const val = e.target.value || null
-                                  save(row.functionId, { internalExternal: val })
-                                }}
-                                className="bg-[#f1f1f4] border border-[#e8e8e8] rounded px-2 py-1 text-[#4b5675] text-sm outline-none focus:border-blue-500 cursor-pointer"
-                              >
-                                <option value="">—</option>
-                                <option value="Internal">Internal</option>
-                                <option value="External">External</option>
-                                <option value="Hybrid">Hybrid</option>
-                              </select>
+                            {row.internalExternal ? (
+                              <span className={`inline-flex items-center rounded px-2 py-0.5 text-xs font-medium ${
+                                row.internalExternal === 'External'
+                                  ? 'bg-purple-50 text-purple-700 border border-purple-200'
+                                  : 'bg-green-50 text-green-700 border border-green-200'
+                              }`}>
+                                {row.internalExternal}
+                              </span>
                             ) : (
-                              <span className="text-[#78829d]">{row.internalExternal ?? '—'}</span>
+                              <span className="text-[#78829d]">—</span>
                             )}
                           </td>
 

@@ -11,6 +11,8 @@ const postSchema = z.object({
   email: z.string().optional(),
   phone: z.string().optional(),
   reportsTo: z.string().uuid().optional().nullable(),
+  category: z.string().optional(),
+  isExternal: z.boolean().optional(),
 })
 
 export async function GET(
@@ -47,6 +49,8 @@ export async function POST(
       email: parsed.data.email ?? null,
       phone: parsed.data.phone ?? null,
       reportsTo: parsed.data.reportsTo ?? null,
+      category: parsed.data.category ?? 'client',
+      isExternal: parsed.data.isExternal ?? false,
     }).returning()
     return Response.json(created, { status: 201 })
   } catch (e) {

@@ -11,6 +11,7 @@ export interface TeamMember {
   phone: string | null
   reportsTo: string | null
   category: string
+  isExternal: boolean
 }
 
 interface Props {
@@ -33,7 +34,7 @@ const CATEGORY_GROUPS: { value: string; label: string }[] = [
   { value: 'vendor', label: 'Vendors & Contractors' },
 ]
 
-const EMPTY_FORM = { name: '', title: '', email: '', phone: '', reportsTo: '', category: 'client' }
+const EMPTY_FORM = { name: '', title: '', email: '', phone: '', reportsTo: '', category: 'client', isExternal: false }
 
 function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
   return (
@@ -71,6 +72,7 @@ export default function TeamMembersManager({ members: initial, workspaceId }: Pr
       phone: m.phone ?? '',
       reportsTo: m.reportsTo ?? '',
       category: m.category ?? 'client',
+      isExternal: m.isExternal ?? false,
     })
     setEditing(m)
   }
@@ -96,6 +98,7 @@ export default function TeamMembersManager({ members: initial, workspaceId }: Pr
         phone: form.phone.trim() || null,
         reportsTo: form.reportsTo || null,
         category: form.category,
+        isExternal: form.isExternal,
       }
       if (editing) {
         const res = await fetch(`/api/workspaces/${workspaceId}/team/${editing.id}`, {
@@ -176,6 +179,7 @@ export default function TeamMembersManager({ members: initial, workspaceId }: Pr
                       <tr className="border-b border-[#e8e8e8]">
                         <th className="text-left px-5 py-3 text-xs font-semibold text-[#78829d] uppercase tracking-wider">Name</th>
                         <th className="text-left px-4 py-3 text-xs font-semibold text-[#78829d] uppercase tracking-wider">Title</th>
+                        <th className="text-left px-4 py-3 text-xs font-semibold text-[#78829d] uppercase tracking-wider">Int / Ext</th>
                         <th className="text-left px-4 py-3 text-xs font-semibold text-[#78829d] uppercase tracking-wider">Email</th>
                         <th className="text-left px-4 py-3 text-xs font-semibold text-[#78829d] uppercase tracking-wider">Phone</th>
                         <th className="text-left px-4 py-3 text-xs font-semibold text-[#78829d] uppercase tracking-wider">Reports To</th>
@@ -187,6 +191,15 @@ export default function TeamMembersManager({ members: initial, workspaceId }: Pr
                         <tr key={m.id} className="border-t border-[#e8e8e8] hover:bg-[#f9f9f9] transition-colors">
                           <td className="px-5 py-3 font-medium text-[#252f4a]">{m.name}</td>
                           <td className="px-4 py-3 text-[#4b5675]">{m.title ?? '—'}</td>
+                          <td className="px-4 py-3">
+                            <span className={`inline-flex items-center rounded px-2 py-0.5 text-xs font-medium ${
+                              m.isExternal
+                                ? 'bg-purple-50 text-purple-700 border border-purple-200'
+                                : 'bg-green-50 text-green-700 border border-green-200'
+                            }`}>
+                              {m.isExternal ? 'External' : 'Internal'}
+                            </span>
+                          </td>
                           <td className="px-4 py-3 text-[#4b5675]">{m.email ?? '—'}</td>
                           <td className="px-4 py-3 text-[#4b5675]">{m.phone ?? '—'}</td>
                           <td className="px-4 py-3 text-[#4b5675]">{reportsToName(m.reportsTo)}</td>
@@ -239,6 +252,17 @@ export default function TeamMembersManager({ members: initial, workspaceId }: Pr
                   {CATEGORY_OPTIONS.map(o => (
                     <option key={o.value} value={o.value}>{o.label}</option>
                   ))}
+                </select>
+              </div>
+              <div>
+                <label className={LABEL}>Internal / External</label>
+                <select
+                  value={form.isExternal ? 'external' : 'internal'}
+                  onChange={e => setForm({ ...form, isExternal: e.target.value === 'external' })}
+                  className={INPUT}
+                >
+                  <option value="internal">Internal</option>
+                  <option value="external">External</option>
                 </select>
               </div>
             </div>

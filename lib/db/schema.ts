@@ -376,6 +376,7 @@ export const teamMembers = pgTable('team_members', {
   phone: text('phone'),
   reportsTo: uuid('reports_to'), // self-reference; FK enforced in DB only
   category: text('category').notNull().default('client'),
+  isExternal: boolean('is_external').notNull().default(false),
   createdAt: timestamp('created_at').notNull().default(sql`now()`),
 })
 

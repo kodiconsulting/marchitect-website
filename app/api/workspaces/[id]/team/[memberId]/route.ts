@@ -11,6 +11,8 @@ const putSchema = z.object({
   email: z.string().optional(),
   phone: z.string().optional(),
   reportsTo: z.string().uuid().optional().nullable(),
+  category: z.string().optional(),
+  isExternal: z.boolean().optional(),
 })
 
 export async function PUT(
@@ -31,6 +33,8 @@ export async function PUT(
     if (d.email !== undefined) updateData.email = d.email
     if (d.phone !== undefined) updateData.phone = d.phone
     if ('reportsTo' in d) updateData.reportsTo = d.reportsTo ?? null
+    if (d.category !== undefined) updateData.category = d.category
+    if (d.isExternal !== undefined) updateData.isExternal = d.isExternal
     const [updated] = await db.update(teamMembers).set(updateData)
       .where(and(eq(teamMembers.id, memberId), eq(teamMembers.workspaceId, id))).returning()
     if (!updated) return Response.json({ error: 'Not found' }, { status: 404 })
