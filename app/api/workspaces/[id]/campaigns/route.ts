@@ -2,17 +2,18 @@ import { NextRequest } from 'next/server'
 import { z } from 'zod/v4'
 import { eq } from 'drizzle-orm'
 import { db } from '@/lib/db'
-import { kpis } from '@/lib/db/schema'
+import { campaigns } from '@/lib/db/schema'
 import { auth } from '@/auth'
 
 const postSchema = z.object({
   name: z.string().min(1),
-  definition: z.string().optional(),
-  owner: z.string().optional(),
-  targetValue: z.number().optional(),
-  currentValue: z.number().optional(),
-  unit: z.string().optional(),
-  updateFrequency: z.string().min(1),
+  channel: z.string().optional(),
+  offer: z.string().optional(),
+  audience: z.string().optional(),
+  budget: z.number().optional(),
+  cpl: z.number().optional(),
+  status: z.string().optional(),
+  notes: z.string().optional(),
 })
 
 export async function GET(
@@ -27,8 +28,8 @@ export async function GET(
 
     const results = await db
       .select()
-      .from(kpis)
-      .where(eq(kpis.workspaceId, id))
+      .from(campaigns)
+      .where(eq(campaigns.workspaceId, id))
 
     return Response.json(results)
   } catch (e) {
@@ -54,16 +55,17 @@ export async function POST(
     }
 
     const [created] = await db
-      .insert(kpis)
+      .insert(campaigns)
       .values({
         workspaceId: id,
         name: parsed.data.name,
-        definition: parsed.data.definition ?? null,
-        owner: parsed.data.owner ?? null,
-        targetValue: parsed.data.targetValue?.toString() ?? null,
-        currentValue: parsed.data.currentValue?.toString() ?? null,
-        unit: parsed.data.unit ?? '',
-        updateFrequency: parsed.data.updateFrequency,
+        channel: parsed.data.channel ?? null,
+        offer: parsed.data.offer ?? null,
+        audience: parsed.data.audience ?? null,
+        budget: parsed.data.budget != null ? parsed.data.budget.toString() : null,
+        cpl: parsed.data.cpl != null ? parsed.data.cpl.toString() : null,
+        status: parsed.data.status ?? 'active',
+        notes: parsed.data.notes ?? null,
       })
       .returning()
 

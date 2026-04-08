@@ -2,17 +2,15 @@ import { NextRequest } from 'next/server'
 import { z } from 'zod/v4'
 import { eq } from 'drizzle-orm'
 import { db } from '@/lib/db'
-import { kpis } from '@/lib/db/schema'
+import { brandAssets } from '@/lib/db/schema'
 import { auth } from '@/auth'
 
 const postSchema = z.object({
-  name: z.string().min(1),
-  definition: z.string().optional(),
-  owner: z.string().optional(),
-  targetValue: z.number().optional(),
-  currentValue: z.number().optional(),
-  unit: z.string().optional(),
-  updateFrequency: z.string().min(1),
+  assetName: z.string().min(1),
+  assetType: z.string().optional(),
+  haveIt: z.string().optional(),
+  link: z.string().optional(),
+  notes: z.string().optional(),
 })
 
 export async function GET(
@@ -27,8 +25,8 @@ export async function GET(
 
     const results = await db
       .select()
-      .from(kpis)
-      .where(eq(kpis.workspaceId, id))
+      .from(brandAssets)
+      .where(eq(brandAssets.workspaceId, id))
 
     return Response.json(results)
   } catch (e) {
@@ -54,16 +52,14 @@ export async function POST(
     }
 
     const [created] = await db
-      .insert(kpis)
+      .insert(brandAssets)
       .values({
         workspaceId: id,
-        name: parsed.data.name,
-        definition: parsed.data.definition ?? null,
-        owner: parsed.data.owner ?? null,
-        targetValue: parsed.data.targetValue?.toString() ?? null,
-        currentValue: parsed.data.currentValue?.toString() ?? null,
-        unit: parsed.data.unit ?? '',
-        updateFrequency: parsed.data.updateFrequency,
+        assetName: parsed.data.assetName,
+        assetType: parsed.data.assetType ?? null,
+        haveIt: parsed.data.haveIt ?? 'pending',
+        link: parsed.data.link ?? null,
+        notes: parsed.data.notes ?? null,
       })
       .returning()
 

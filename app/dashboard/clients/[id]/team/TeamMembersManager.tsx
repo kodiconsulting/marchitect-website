@@ -10,6 +10,7 @@ export interface TeamMember {
   email: string | null
   phone: string | null
   reportsTo: string | null
+  category: string
 }
 
 interface Props {
@@ -17,21 +18,36 @@ interface Props {
   workspaceId: string
 }
 
+const INPUT = 'w-full bg-[#f9f9f9] border border-[#e8e8e8] rounded-lg px-3 py-2 text-sm text-[#252f4a] placeholder-[#78829d] outline-none focus:border-[#1B84FF] transition-colors'
+const LABEL = 'block text-xs font-medium text-[#78829d] mb-1'
+
+const CATEGORY_OPTIONS = [
+  { value: 'client', label: 'Client Team' },
+  { value: 'marchitect', label: 'Marchitect Team' },
+  { value: 'vendor', label: 'Vendor/Contractor' },
+]
+
+const CATEGORY_GROUPS: { value: string; label: string }[] = [
+  { value: 'client', label: 'Client Team' },
+  { value: 'marchitect', label: 'Marchitect Team' },
+  { value: 'vendor', label: 'Vendors & Contractors' },
+]
+
+const EMPTY_FORM = { name: '', title: '', email: '', phone: '', reportsTo: '', category: 'client' }
+
 function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={onClose}>
-      <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-6 w-full max-w-md mx-4 shadow-xl" onClick={e => e.stopPropagation()}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
+      <div className="bg-white border border-[#e8e8e8] rounded-xl p-6 w-full max-w-lg mx-4 shadow-xl" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-white font-semibold text-base">{title}</h2>
-          <button onClick={onClose} className="text-zinc-500 hover:text-white text-xl leading-none">&times;</button>
+          <h2 className="text-[#252f4a] font-semibold text-base">{title}</h2>
+          <button onClick={onClose} className="text-[#78829d] hover:text-[#252f4a] text-xl leading-none">&times;</button>
         </div>
         {children}
       </div>
     </div>
   )
 }
-
-const EMPTY_FORM = { name: '', title: '', email: '', phone: '', reportsTo: '' }
 
 export default function TeamMembersManager({ members: initial, workspaceId }: Props) {
   const router = useRouter()
@@ -54,6 +70,7 @@ export default function TeamMembersManager({ members: initial, workspaceId }: Pr
       email: m.email ?? '',
       phone: m.phone ?? '',
       reportsTo: m.reportsTo ?? '',
+      category: m.category ?? 'client',
     })
     setEditing(m)
   }
@@ -74,10 +91,11 @@ export default function TeamMembersManager({ members: initial, workspaceId }: Pr
     try {
       const body = {
         name: form.name.trim(),
-        title: form.title.trim() || undefined,
-        email: form.email.trim() || undefined,
-        phone: form.phone.trim() || undefined,
+        title: form.title.trim() || null,
+        email: form.email.trim() || null,
+        phone: form.phone.trim() || null,
         reportsTo: form.reportsTo || null,
+        category: form.category,
       }
       if (editing) {
         const res = await fetch(`/api/workspaces/${workspaceId}/team/${editing.id}`, {
@@ -120,56 +138,72 @@ export default function TeamMembersManager({ members: initial, workspaceId }: Pr
     }
   }
 
+  const hasAnyMembers = members.length > 0
+
   return (
     <>
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Team</h1>
-          <p className="text-zinc-400 mt-1 text-sm">Manage client team members and reporting structure.</p>
+          <h1 className="text-2xl font-bold text-[#252f4a]">Team</h1>
+          <p className="text-[#78829d] mt-1 text-sm">Manage client team members and reporting structure.</p>
         </div>
         <button
           onClick={openAdd}
-          className="text-sm bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition-colors"
+          className="text-sm bg-[#1B84FF] hover:bg-[#1366cc] text-white font-medium px-4 py-2 rounded-lg transition-colors"
         >
           Add Member
         </button>
       </div>
 
-      {members.length === 0 ? (
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl py-16 text-center">
-          <p className="text-zinc-500 text-sm">No team members yet. Add the first one.</p>
+      {!hasAnyMembers ? (
+        <div className="bg-white border border-[#e8e8e8] rounded-xl py-16 text-center">
+          <p className="text-[#78829d] text-sm mb-3">No team members yet. Add the first one.</p>
+          <button onClick={openAdd} className="text-sm bg-[#1B84FF] hover:bg-[#1366cc] text-white font-medium px-4 py-2 rounded-lg transition-colors">
+            Add Member
+          </button>
         </div>
       ) : (
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-zinc-800">
-                <th className="text-left px-5 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wider">Name</th>
-                <th className="text-left px-4 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wider">Title</th>
-                <th className="text-left px-4 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wider">Email</th>
-                <th className="text-left px-4 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wider">Phone</th>
-                <th className="text-left px-4 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wider">Reports To</th>
-                <th className="px-4 py-3"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {members.map(m => (
-                <tr key={m.id} className="border-t border-zinc-800 hover:bg-zinc-800/40 transition-colors">
-                  <td className="px-5 py-3 text-white font-medium">{m.name}</td>
-                  <td className="px-4 py-3 text-zinc-400">{m.title ?? '—'}</td>
-                  <td className="px-4 py-3 text-zinc-400">{m.email ?? '—'}</td>
-                  <td className="px-4 py-3 text-zinc-400">{m.phone ?? '—'}</td>
-                  <td className="px-4 py-3 text-zinc-400">{reportsToName(m.reportsTo)}</td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-3 justify-end">
-                      <button onClick={() => openEdit(m)} className="text-xs text-zinc-500 hover:text-zinc-200 transition-colors">Edit</button>
-                      <button onClick={() => setDeleting(m)} className="text-xs text-red-500 hover:text-red-400 transition-colors">Delete</button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="space-y-6">
+          {CATEGORY_GROUPS.map(group => {
+            const groupMembers = members.filter(m => (m.category ?? 'client') === group.value)
+            if (groupMembers.length === 0) return null
+            return (
+              <div key={group.value}>
+                <h2 className="text-sm font-semibold text-[#78829d] uppercase tracking-wider mb-2">{group.label}</h2>
+                <div className="bg-white border border-[#e8e8e8] rounded-xl overflow-hidden">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-[#e8e8e8]">
+                        <th className="text-left px-5 py-3 text-xs font-semibold text-[#78829d] uppercase tracking-wider">Name</th>
+                        <th className="text-left px-4 py-3 text-xs font-semibold text-[#78829d] uppercase tracking-wider">Title</th>
+                        <th className="text-left px-4 py-3 text-xs font-semibold text-[#78829d] uppercase tracking-wider">Email</th>
+                        <th className="text-left px-4 py-3 text-xs font-semibold text-[#78829d] uppercase tracking-wider">Phone</th>
+                        <th className="text-left px-4 py-3 text-xs font-semibold text-[#78829d] uppercase tracking-wider">Reports To</th>
+                        <th className="px-4 py-3"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {groupMembers.map(m => (
+                        <tr key={m.id} className="border-t border-[#e8e8e8] hover:bg-[#f9f9f9] transition-colors">
+                          <td className="px-5 py-3 font-medium text-[#252f4a]">{m.name}</td>
+                          <td className="px-4 py-3 text-[#4b5675]">{m.title ?? '—'}</td>
+                          <td className="px-4 py-3 text-[#4b5675]">{m.email ?? '—'}</td>
+                          <td className="px-4 py-3 text-[#4b5675]">{m.phone ?? '—'}</td>
+                          <td className="px-4 py-3 text-[#4b5675]">{reportsToName(m.reportsTo)}</td>
+                          <td className="px-4 py-3">
+                            <div className="flex items-center gap-3 justify-end">
+                              <button onClick={() => openEdit(m)} className="text-xs text-[#78829d] hover:text-[#252f4a] transition-colors">Edit</button>
+                              <button onClick={() => setDeleting(m)} className="text-xs text-[#f8285a] hover:text-red-600 transition-colors">Delete</button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )
+          })}
         </div>
       )}
 
@@ -177,51 +211,65 @@ export default function TeamMembersManager({ members: initial, workspaceId }: Pr
         <Modal title={editing ? 'Edit Team Member' : 'Add Team Member'} onClose={() => { setShowAdd(false); setEditing(null) }}>
           <div className="space-y-3">
             <div>
-              <label className="block text-xs text-zinc-400 mb-1">Name *</label>
+              <label className={LABEL}>Name *</label>
               <input
                 value={form.name}
                 onChange={e => setForm({ ...form, name: e.target.value })}
-                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white placeholder-zinc-500 outline-none focus:border-zinc-500"
+                className={INPUT}
                 placeholder="Full name"
-              />
-            </div>
-            <div>
-              <label className="block text-xs text-zinc-400 mb-1">Title</label>
-              <input
-                value={form.title}
-                onChange={e => setForm({ ...form, title: e.target.value })}
-                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white placeholder-zinc-500 outline-none focus:border-zinc-500"
-                placeholder="e.g. VP of Marketing"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs text-zinc-400 mb-1">Email</label>
+                <label className={LABEL}>Title</label>
+                <input
+                  value={form.title}
+                  onChange={e => setForm({ ...form, title: e.target.value })}
+                  className={INPUT}
+                  placeholder="e.g. VP of Marketing"
+                />
+              </div>
+              <div>
+                <label className={LABEL}>Category</label>
+                <select
+                  value={form.category}
+                  onChange={e => setForm({ ...form, category: e.target.value })}
+                  className={INPUT}
+                >
+                  {CATEGORY_OPTIONS.map(o => (
+                    <option key={o.value} value={o.value}>{o.label}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className={LABEL}>Email</label>
                 <input
                   type="email"
                   value={form.email}
                   onChange={e => setForm({ ...form, email: e.target.value })}
-                  className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white placeholder-zinc-500 outline-none focus:border-zinc-500"
+                  className={INPUT}
                   placeholder="email@company.com"
                 />
               </div>
               <div>
-                <label className="block text-xs text-zinc-400 mb-1">Phone</label>
+                <label className={LABEL}>Phone</label>
                 <input
                   type="tel"
                   value={form.phone}
                   onChange={e => setForm({ ...form, phone: e.target.value })}
-                  className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white placeholder-zinc-500 outline-none focus:border-zinc-500"
+                  className={INPUT}
                   placeholder="(555) 000-0000"
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs text-zinc-400 mb-1">Reports To</label>
+              <label className={LABEL}>Reports To</label>
               <select
                 value={form.reportsTo}
                 onChange={e => setForm({ ...form, reportsTo: e.target.value })}
-                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-zinc-500"
+                className={INPUT}
               >
                 <option value="">— None —</option>
                 {reportsToOptions.map(m => (
@@ -232,12 +280,14 @@ export default function TeamMembersManager({ members: initial, workspaceId }: Pr
             <div className="flex justify-end gap-2 pt-1">
               <button
                 onClick={() => { setShowAdd(false); setEditing(null) }}
-                className="text-sm text-zinc-400 hover:text-white px-3 py-1.5"
-              >Cancel</button>
+                className="text-sm border border-[#e8e8e8] text-[#4b5675] hover:bg-[#f1f1f4] px-3 py-1.5 rounded-lg transition-colors"
+              >
+                Cancel
+              </button>
               <button
                 onClick={handleSave}
                 disabled={saving || !form.name.trim()}
-                className="text-sm bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium px-4 py-1.5 rounded-lg transition-colors"
+                className="text-sm bg-[#1B84FF] hover:bg-[#1366cc] disabled:opacity-50 text-white font-medium px-4 py-1.5 rounded-lg transition-colors"
               >
                 {saving ? 'Saving…' : 'Save'}
               </button>
@@ -248,11 +298,11 @@ export default function TeamMembersManager({ members: initial, workspaceId }: Pr
 
       {deleting && (
         <Modal title="Remove Team Member" onClose={() => setDeleting(null)}>
-          <p className="text-zinc-300 text-sm mb-2">Remove <span className="text-white font-medium">{deleting.name}</span> from this team?</p>
-          <p className="text-zinc-500 text-xs mb-5">This will not affect existing rocks, KPIs, or matrix assignments that reference their name.</p>
+          <p className="text-[#4b5675] text-sm mb-2">Remove <span className="text-[#252f4a] font-medium">{deleting.name}</span> from this team?</p>
+          <p className="text-[#78829d] text-xs mb-5">This will not affect existing rocks, KPIs, or matrix assignments that reference their name.</p>
           <div className="flex justify-end gap-2">
-            <button onClick={() => setDeleting(null)} className="text-sm text-zinc-400 hover:text-white px-3 py-1.5">Cancel</button>
-            <button onClick={handleDelete} disabled={saving} className="text-sm bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white font-medium px-4 py-1.5 rounded-lg transition-colors">
+            <button onClick={() => setDeleting(null)} className="text-sm border border-[#e8e8e8] text-[#4b5675] hover:bg-[#f1f1f4] px-3 py-1.5 rounded-lg transition-colors">Cancel</button>
+            <button onClick={handleDelete} disabled={saving} className="text-sm bg-[#f8285a] hover:bg-red-600 disabled:opacity-50 text-white font-medium px-4 py-1.5 rounded-lg transition-colors">
               {saving ? 'Removing…' : 'Remove'}
             </button>
           </div>

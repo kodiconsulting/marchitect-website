@@ -375,5 +375,107 @@ export const teamMembers = pgTable('team_members', {
   email: text('email'),
   phone: text('phone'),
   reportsTo: uuid('reports_to'), // self-reference; FK enforced in DB only
+  category: text('category').notNull().default('client'),
+  createdAt: timestamp('created_at').notNull().default(sql`now()`),
+})
+
+export const workspaceLocations = pgTable('workspace_locations', {
+  id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
+  workspaceId: uuid('workspace_id').notNull().references(() => workspaces.id, { onDelete: 'cascade' }),
+  name: text('name').notNull(),
+  address: text('address'),
+  services: text('services'),
+  notes: text('notes'),
+  createdAt: timestamp('created_at').notNull().default(sql`now()`),
+})
+
+export const campaigns = pgTable('campaigns', {
+  id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
+  workspaceId: uuid('workspace_id').notNull().references(() => workspaces.id, { onDelete: 'cascade' }),
+  name: text('name').notNull(),
+  channel: text('channel'),
+  offer: text('offer'),
+  audience: text('audience'),
+  budget: numeric('budget'),
+  cpl: numeric('cpl'),
+  status: text('status').notNull().default('active'),
+  notes: text('notes'),
+  createdAt: timestamp('created_at').notNull().default(sql`now()`),
+})
+
+export const promoEntries = pgTable('promo_entries', {
+  id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
+  workspaceId: uuid('workspace_id').notNull().references(() => workspaces.id, { onDelete: 'cascade' }),
+  month: text('month').notNull(),
+  year: integer('year').notNull(),
+  serviceCategory: text('service_category'),
+  offer: text('offer'),
+  status: text('status').notNull().default('upcoming'),
+  notes: text('notes'),
+  createdAt: timestamp('created_at').notNull().default(sql`now()`),
+})
+
+export const leadSequences = pgTable('lead_sequences', {
+  id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
+  workspaceId: uuid('workspace_id').notNull().references(() => workspaces.id, { onDelete: 'cascade' }),
+  name: text('name').notNull(),
+  stage: text('stage'),
+  platform: text('platform'),
+  docLink: text('doc_link'),
+  notes: text('notes'),
+  createdAt: timestamp('created_at').notNull().default(sql`now()`),
+})
+
+export const adSpendEntries = pgTable('ad_spend_entries', {
+  id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
+  workspaceId: uuid('workspace_id').notNull().references(() => workspaces.id, { onDelete: 'cascade' }),
+  channel: text('channel').notNull(),
+  weeklyAvg: numeric('weekly_avg'),
+  monthlyBudget: numeric('monthly_budget'),
+  notes: text('notes'),
+  createdAt: timestamp('created_at').notNull().default(sql`now()`),
+})
+
+export const budgetExpenses = pgTable('budget_expenses', {
+  id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
+  workspaceId: uuid('workspace_id').notNull().references(() => workspaces.id, { onDelete: 'cascade' }),
+  purpose: text('purpose').notNull(),
+  vendor: text('vendor'),
+  costPerMonth: numeric('cost_per_month'),
+  notes: text('notes'),
+  createdAt: timestamp('created_at').notNull().default(sql`now()`),
+})
+
+export const brandAssets = pgTable('brand_assets', {
+  id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
+  workspaceId: uuid('workspace_id').notNull().references(() => workspaces.id, { onDelete: 'cascade' }),
+  assetName: text('asset_name').notNull(),
+  assetType: text('asset_type'),
+  haveIt: text('have_it').notNull().default('pending'),
+  link: text('link'),
+  notes: text('notes'),
+  createdAt: timestamp('created_at').notNull().default(sql`now()`),
+})
+
+export const sourceDocuments = pgTable('source_documents', {
+  id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
+  workspaceId: uuid('workspace_id').notNull().references(() => workspaces.id, { onDelete: 'cascade' }),
+  docDate: text('doc_date'),
+  docType: text('doc_type'),
+  fileName: text('file_name').notNull(),
+  fileLink: text('file_link'),
+  keyThemes: text('key_themes'),
+  createdAt: timestamp('created_at').notNull().default(sql`now()`),
+})
+
+export const clientProjects = pgTable('client_projects', {
+  id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
+  workspaceId: uuid('workspace_id').notNull().references(() => workspaces.id, { onDelete: 'cascade' }),
+  name: text('name').notNull(),
+  owner: text('owner'),
+  status: text('status').notNull().default('open'),
+  isPast: boolean('is_past').notNull().default(false),
+  dueDate: date('due_date'),
+  notes: text('notes'),
   createdAt: timestamp('created_at').notNull().default(sql`now()`),
 })

@@ -15,6 +15,14 @@ import {
   Target,
   Database,
   Users,
+  Megaphone,
+  CalendarDays,
+  DollarSign,
+  Palette,
+  FolderOpen,
+  ClipboardList,
+  Key,
+  Contact,
 } from 'lucide-react'
 
 function getQuickLinks(id: string) {
@@ -42,6 +50,54 @@ function getQuickLinks(id: string) {
       href: `/dashboard/clients/${id}/matrix`,
       icon: Users,
       description: 'Assign marketing functions',
+    },
+    {
+      label: 'Campaigns',
+      href: `/dashboard/clients/${id}/campaigns`,
+      icon: Megaphone,
+      description: 'Active and past marketing campaigns',
+    },
+    {
+      label: 'Promo Calendar',
+      href: `/dashboard/clients/${id}/promo`,
+      icon: CalendarDays,
+      description: 'Monthly promotional planning',
+    },
+    {
+      label: 'Budgets',
+      href: `/dashboard/clients/${id}/budgets`,
+      icon: DollarSign,
+      description: 'Ad spend and operating expenses',
+    },
+    {
+      label: 'Brand Assets',
+      href: `/dashboard/clients/${id}/brand-assets`,
+      icon: Palette,
+      description: 'Logos, colors, and brand materials',
+    },
+    {
+      label: 'Source Materials',
+      href: `/dashboard/clients/${id}/source-docs`,
+      icon: FolderOpen,
+      description: 'Research docs and reference files',
+    },
+    {
+      label: 'Projects',
+      href: `/dashboard/clients/${id}/projects`,
+      icon: ClipboardList,
+      description: 'Active and past marketing projects',
+    },
+    {
+      label: 'Login Directory',
+      href: `/dashboard/clients/${id}/logins`,
+      icon: Key,
+      description: 'Tools, platforms, and credentials',
+    },
+    {
+      label: 'Team',
+      href: `/dashboard/clients/${id}/team`,
+      icon: Contact,
+      description: 'Client and marchitect team members',
     },
   ]
 }
