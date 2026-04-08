@@ -4,51 +4,51 @@
     {
       "id": 7,
       "subject": "Task 1: Portal — GET + POST /oracle/sync endpoint",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** Create the sync route that Cowork calls to pull all Oracle data and push field updates using API key auth.\n\n**Files:**\n- Create: `app/api/workspaces/[id]/oracle/sync/route.ts`\n\n**Acceptance Criteria:**\n- [ ] GET with valid API key returns values-only grouped response\n- [ ] GET with session token also works\n- [ ] GET with wrong-workspace API key returns 403\n- [ ] POST upserts fields; absent fields untouched\n- [ ] POST returns `{ synced, skipped, fields }`\n- [ ] POST with invalid body returns 400\n- [ ] Missing auth returns 401\n\n**Verify:** Six curl smoke tests in Task 2, Step 3.\n\n```json:metadata\n{\"files\":[\"app/api/workspaces/[id]/oracle/sync/route.ts\"],\"verifyCommand\":\"npx tsc --noEmit\",\"acceptanceCriteria\":[\"GET returns values-only grouped by category\",\"POST upserts and returns synced count\",\"Wrong-workspace API key returns 403\",\"Missing auth returns 401\"]}\n```"
     },
     {
       "id": 8,
       "subject": "Task 2: Portal — API key generation script",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [7],
       "description": "**Goal:** Create a utility script to generate workspace API keys so the sync endpoint can be tested end-to-end.\n\n**Files:**\n- Create: `scripts/create-api-key.ts`\n\n**Acceptance Criteria:**\n- [ ] Running with a workspace UUID prints a raw `sk-` prefixed key\n- [ ] Key hash is inserted into `workspace_api_keys`\n- [ ] Running with no args prints usage and exits 1\n\n**Verify:** `npx tsx scripts/create-api-key.ts <workspace-id>` prints a raw key; all six curl tests in Step 3 pass.\n\n```json:metadata\n{\"files\":[\"scripts/create-api-key.ts\"],\"verifyCommand\":\"npx tsx scripts/create-api-key.ts 2>&1 | grep 'Usage'\",\"acceptanceCriteria\":[\"Script prints raw API key for valid workspace\",\"No-args run prints usage and exits 1\",\"Six curl smoke tests all pass\"]}\n```"
     },
     {
       "id": 9,
       "subject": "Task 3: Cowork — Config foundation",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [8],
       "description": "**Goal:** Create mapping.json with all initial section→field mappings, and create .portal.json for at least one real client.\n\n**Files:**\n- Create: `<SANDBOX_ROOT>/marchitect-portal/mapping.json`\n- Create: `<SANDBOX_ROOT>/Clients/<ClientName>/.portal.json`\n\n**Acceptance Criteria:**\n- [ ] mapping.json exists with 31 initial entries\n- [ ] .portal.json created for at least one real client\n\n**Verify:** `python3 -c \"import json; print(len(json.load(open('<SANDBOX_ROOT>/marchitect-portal/mapping.json'))))\"` → 31\n\n```json:metadata\n{\"files\":[\"<SANDBOX_ROOT>/marchitect-portal/mapping.json\"],\"verifyCommand\":\"python3 -c \\\"import json; print(len(json.load(open('<SANDBOX_ROOT>/marchitect-portal/mapping.json'))))\\\"\",\"acceptanceCriteria\":[\"mapping.json has 31 entries\",\"At least one client .portal.json exists\"]}\n```"
     },
     {
       "id": 10,
       "subject": "Task 4: Cowork — portal-pull skill",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [7, 9],
       "description": "**Goal:** Create the skill instruction file Claude follows to fetch Portal Oracle state and write portal-snapshot.md.\n\n**Files:**\n- Create: `<SANDBOX_ROOT>/Skills/portal-pull.md`\n\n**Verify:** In Cowork: \"Run portal-pull for [ClientName]\" → portal-snapshot.md created in client folder.\n\n```json:metadata\n{\"files\":[\"<SANDBOX_ROOT>/Skills/portal-pull.md\"],\"verifyCommand\":\"manual: invoke in Cowork and verify portal-snapshot.md is written\",\"acceptanceCriteria\":[\"Skill file exists\",\"portal-snapshot.md written with correct format\",\"Fields shown as Title Case\"]}\n```"
     },
     {
       "id": 11,
       "subject": "Task 5: Cowork — portal-sync skill",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [7, 9],
       "description": "**Goal:** Create the skill that diffs workshop output against live Portal and pushes confirmed changes.\n\n**Files:**\n- Create: `<SANDBOX_ROOT>/Skills/portal-sync.md`\n\n**Verify:** Test with 2026-04-08-test-sync.md — diff shown for 2 fields, Workshop Notes reported as unmapped.\n\n```json:metadata\n{\"files\":[\"<SANDBOX_ROOT>/Skills/portal-sync.md\"],\"verifyCommand\":\"manual: invoke in Cowork with test workshop file\",\"acceptanceCriteria\":[\"Diff shown before push\",\"Only confirmed fields pushed\",\"Unmapped sections reported\",\"Snapshot updated after push\"]}\n```"
     },
     {
       "id": 12,
       "subject": "Task 6: Cowork — portal-discover skill",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [7, 9],
       "description": "**Goal:** Create the skill that interactively maps unmapped workshop sections to Oracle fields.\n\n**Files:**\n- Create: `<SANDBOX_ROOT>/Skills/portal-discover.md`\n\n**Verify:** In Cowork: \"Run portal-discover for [ClientName]\" with test file → unmapped section presented → skip → mapping.json unchanged.\n\n```json:metadata\n{\"files\":[\"<SANDBOX_ROOT>/Skills/portal-discover.md\"],\"verifyCommand\":\"manual: invoke in Cowork with test workshop file\",\"acceptanceCriteria\":[\"Unmapped headers identified\",\"Available fields shown per category\",\"New mappings written to mapping.json\",\"Skip works correctly\"]}\n```"
     },
     {
       "id": 13,
       "subject": "Task 7: Cowork — CLAUDE.md auto-pull instruction",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [10],
       "description": "**Goal:** Add an instruction to CLAUDE.md so Claude auto-runs portal-pull when a client session is established.\n\n**Files:**\n- Edit: `<SANDBOX_ROOT>/CLAUDE.md`\n\n**Verify:** New Cowork session → \"Let's work on [ClientName]\" → Claude runs portal-pull once and confirms before proceeding.\n\n```json:metadata\n{\"files\":[\"<SANDBOX_ROOT>/CLAUDE.md\"],\"verifyCommand\":\"manual: new Cowork session, establish client context, verify auto-pull fires once\",\"acceptanceCriteria\":[\"Auto-pull fires on client context establishment\",\"Does not repeat on every message\"]}\n```"
     }
   ],
-  "lastUpdated": "2026-04-08T00:00:00Z"
+  "lastUpdated": "2026-04-08T17:05:00Z"
 }
