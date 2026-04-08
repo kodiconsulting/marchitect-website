@@ -6,6 +6,9 @@ export default function SeedPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
   const [message, setMessage] = useState('')
 
+  const [auditStatus, setAuditStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
+  const [auditMessage, setAuditMessage] = useState('')
+
   async function handleSeed() {
     setStatus('loading')
     try {
@@ -16,6 +19,19 @@ export default function SeedPage() {
     } catch {
       setMessage('Something went wrong.')
       setStatus('error')
+    }
+  }
+
+  async function handleSeedAudit() {
+    setAuditStatus('loading')
+    try {
+      const res = await fetch('/api/seed-audit', { method: 'POST' })
+      const data = await res.json()
+      setAuditMessage(data.message)
+      setAuditStatus(data.success ? 'done' : 'error')
+    } catch {
+      setAuditMessage('Something went wrong.')
+      setAuditStatus('error')
     }
   }
 
@@ -57,6 +73,36 @@ export default function SeedPage() {
             Login: admin@marchitect.com / marchitect2026
           </div>
         )}
+
+        <div className="w-full border-t border-zinc-800 pt-4 flex flex-col gap-3">
+          <p className="text-zinc-400 text-sm text-center">
+            Seed the audit item library (12 pillars, 156 items).
+          </p>
+
+          {auditStatus === 'done' && (
+            <div className="bg-green-500/10 border border-green-500/30 text-green-400 rounded-lg px-4 py-3 text-sm w-full text-center">
+              {auditMessage}
+            </div>
+          )}
+
+          {auditStatus === 'error' && (
+            <div className="bg-red-500/10 border border-red-500/30 text-red-400 rounded-lg px-4 py-3 text-sm w-full text-center">
+              {auditMessage}
+            </div>
+          )}
+
+          <button
+            onClick={handleSeedAudit}
+            disabled={auditStatus === 'loading' || auditStatus === 'done'}
+            className="w-full bg-zinc-700 hover:bg-zinc-600 disabled:opacity-50 text-white font-medium py-2.5 rounded-lg transition-colors"
+          >
+            {auditStatus === 'loading'
+              ? 'Seeding…'
+              : auditStatus === 'done'
+              ? 'Audit Items Seeded'
+              : 'Seed Audit Items'}
+          </button>
+        </div>
       </div>
     </div>
   )
