@@ -89,15 +89,15 @@ export default function MatrixEditor({
     <div>
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Responsibility Matrix</h1>
-          <p className="text-gray-500 mt-1 text-sm">
+          <h1 className="text-2xl font-bold text-[#252f4a]">Responsibility Matrix</h1>
+          <p className="text-[#78829d] mt-1 text-sm">
             Every marketing function mapped to an owner.
           </p>
         </div>
         <button
           type="button"
           onClick={() => setEditing(e => !e)}
-          className="inline-flex h-8 items-center justify-center rounded-lg bg-violet-600 px-4 text-sm font-medium text-white transition-colors hover:bg-violet-700"
+          className="inline-flex h-8 items-center justify-center rounded-lg bg-[#1B84FF] px-4 text-sm font-medium text-white transition-colors hover:bg-[#1366cc]"
         >
           {editing ? 'Done' : 'Edit Matrix'}
         </button>
@@ -105,20 +105,20 @@ export default function MatrixEditor({
 
       <div className="space-y-6">
         {CATEGORIES.filter(cat => byCategory[cat]?.length).map(cat => (
-          <Card key={cat} className="bg-white border-gray-200">
+          <Card key={cat} className="bg-white border-[#e8e8e8]">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-semibold text-gray-900">{cat}</CardTitle>
+              <CardTitle className="text-sm font-semibold text-[#252f4a]">{cat}</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-t border-gray-200">
-                      <th className="text-left px-6 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider w-1/3">Function</th>
-                      <th className="text-left px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">Owner</th>
-                      <th className="text-left px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">Internal / External</th>
-                      <th className="text-left px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">GWC</th>
-                      <th className="text-left px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">Notes</th>
+                    <tr className="border-t border-[#e8e8e8]">
+                      <th className="text-left px-6 py-2 text-xs font-medium text-[#78829d] uppercase tracking-wider w-1/3">Function</th>
+                      <th className="text-left px-4 py-2 text-xs font-medium text-[#78829d] uppercase tracking-wider">Owner</th>
+                      <th className="text-left px-4 py-2 text-xs font-medium text-[#78829d] uppercase tracking-wider">Internal / External</th>
+                      <th className="text-left px-4 py-2 text-xs font-medium text-[#78829d] uppercase tracking-wider">GWC</th>
+                      <th className="text-left px-4 py-2 text-xs font-medium text-[#78829d] uppercase tracking-wider">Notes</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -127,9 +127,9 @@ export default function MatrixEditor({
                       return (
                         <tr
                           key={row.functionId}
-                          className={`border-t border-gray-200 transition-colors ${isSaving ? 'opacity-60' : 'hover:bg-gray-50'}`}
+                          className={`border-t border-[#e8e8e8] transition-colors ${isSaving ? 'opacity-60' : 'hover:bg-[#f9f9f9]'}`}
                         >
-                          <td className="px-6 py-3 text-gray-600">{row.functionName}</td>
+                          <td className="px-6 py-3 text-[#4b5675]">{row.functionName}</td>
 
                           {/* Owner */}
                           <td className="px-4 py-3">
@@ -142,13 +142,13 @@ export default function MatrixEditor({
                                   if (val !== row.assignedOwner) save(row.functionId, { assignedOwner: val })
                                 }}
                                 placeholder="Add owner…"
-                                className="w-full bg-gray-100 border border-gray-200 rounded px-2 py-1 text-gray-700 placeholder-zinc-600 text-sm outline-none focus:border-blue-500"
+                                className="w-full bg-[#f1f1f4] border border-[#e8e8e8] rounded px-2 py-1 text-[#4b5675] placeholder-[#78829d] text-sm outline-none focus:border-blue-500"
                               />
                             ) : (
                               <div className="flex items-center gap-2">
-                                <span className="text-gray-500">{row.assignedOwner ?? 'Unassigned'}</span>
+                                <span className="text-[#78829d]">{row.assignedOwner ?? 'Unassigned'}</span>
                                 {!row.assignedOwner && (
-                                  <Badge className="bg-yellow-500/10 text-yellow-400 border-yellow-500/20 text-xs">Gap</Badge>
+                                  <Badge className="bg-[#f6a600]/10 text-[#f6a600] border-[#f6a600]/20 text-xs">Gap</Badge>
                                 )}
                               </div>
                             )}
@@ -163,7 +163,7 @@ export default function MatrixEditor({
                                   const val = e.target.value || null
                                   save(row.functionId, { internalExternal: val })
                                 }}
-                                className="bg-gray-100 border border-gray-200 rounded px-2 py-1 text-gray-700 text-sm outline-none focus:border-blue-500 cursor-pointer"
+                                className="bg-[#f1f1f4] border border-[#e8e8e8] rounded px-2 py-1 text-[#4b5675] text-sm outline-none focus:border-blue-500 cursor-pointer"
                               >
                                 <option value="">—</option>
                                 <option value="Internal">Internal</option>
@@ -171,7 +171,7 @@ export default function MatrixEditor({
                                 <option value="Hybrid">Hybrid</option>
                               </select>
                             ) : (
-                              <span className="text-gray-400">{row.internalExternal ?? '—'}</span>
+                              <span className="text-[#78829d]">{row.internalExternal ?? '—'}</span>
                             )}
                           </td>
 
@@ -180,19 +180,19 @@ export default function MatrixEditor({
                             {editing ? (
                               <div className="flex items-center gap-3">
                                 {(['gwcGet', 'gwcWant', 'gwcCapacity'] as const).map((key, i) => (
-                                  <label key={key} className="flex items-center gap-1 cursor-pointer text-gray-500 text-xs select-none">
+                                  <label key={key} className="flex items-center gap-1 cursor-pointer text-[#78829d] text-xs select-none">
                                     <input
                                       type="checkbox"
                                       checked={row[key] ?? false}
                                       onChange={e => save(row.functionId, { [key]: e.target.checked })}
-                                      className="accent-blue-500"
+                                      className="accent-[#1B84FF]"
                                     />
                                     {['G', 'W', 'C'][i]}
                                   </label>
                                 ))}
                               </div>
                             ) : (
-                              <span className="text-gray-400">{gwcLabel(row)}</span>
+                              <span className="text-[#78829d]">{gwcLabel(row)}</span>
                             )}
                           </td>
 
@@ -207,10 +207,10 @@ export default function MatrixEditor({
                                   if (val !== row.notes) save(row.functionId, { notes: val })
                                 }}
                                 placeholder="Notes…"
-                                className="w-full bg-gray-100 border border-gray-200 rounded px-2 py-1 text-gray-700 placeholder-zinc-600 text-sm outline-none focus:border-blue-500"
+                                className="w-full bg-[#f1f1f4] border border-[#e8e8e8] rounded px-2 py-1 text-[#4b5675] placeholder-[#78829d] text-sm outline-none focus:border-blue-500"
                               />
                             ) : (
-                              <span className="text-gray-400">{row.notes || '—'}</span>
+                              <span className="text-[#78829d]">{row.notes || '—'}</span>
                             )}
                           </td>
                         </tr>

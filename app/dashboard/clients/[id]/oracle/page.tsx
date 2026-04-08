@@ -81,14 +81,14 @@ export default async function ClientOraclePage({
     <div className="p-8 max-w-6xl mx-auto">
       <Link
         href={`/dashboard/clients/${id}`}
-        className="text-sm text-gray-500 hover:text-gray-900 transition-colors mb-6 inline-block"
+        className="text-sm text-[#78829d] hover:text-[#252f4a] transition-colors mb-6 inline-block"
       >
         ← Back to {workspace.clientName}
       </Link>
 
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Content Oracle</h1>
-        <p className="text-gray-500 mt-1 text-sm">
+        <h1 className="text-2xl font-bold text-[#252f4a]">Content Oracle</h1>
+        <p className="text-[#78829d] mt-1 text-sm">
           {workspace.clientName} — knowledge base fields
         </p>
       </div>
@@ -111,18 +111,18 @@ export default async function ClientOraclePage({
           const badgeClass = allFilled
             ? 'bg-green-500/20 text-green-400 border border-green-500/30'
             : someFilled
-            ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
-            : 'bg-gray-100 text-gray-400 border border-gray-200'
+            ? 'bg-yellow-500/20 text-[#f6a600] border border-yellow-500/30'
+            : 'bg-[#f1f1f4] text-[#78829d] border border-[#e8e8e8]'
 
           return (
-            <Card key={category.id} className="bg-white border-gray-200">
+            <Card key={category.id} className="bg-white border-[#e8e8e8]">
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="size-9 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
-                      <Icon className="size-4 text-gray-500" />
+                    <div className="size-9 rounded-lg bg-[#f1f1f4] flex items-center justify-center shrink-0">
+                      <Icon className="size-4 text-[#78829d]" />
                     </div>
-                    <CardTitle className="text-sm font-semibold text-gray-900">
+                    <CardTitle className="text-sm font-semibold text-[#252f4a]">
                       {category.label}
                     </CardTitle>
                   </div>
@@ -132,7 +132,7 @@ export default async function ClientOraclePage({
                     </span>
                     <Link
                       href={`/dashboard/clients/${id}/oracle/${category.id}`}
-                      className="inline-flex h-7 items-center justify-center rounded-lg border border-gray-200 px-3 text-xs font-medium text-gray-600 transition-colors hover:border-zinc-500 hover:text-gray-900"
+                      className="inline-flex h-7 items-center justify-center rounded-lg border border-[#e8e8e8] px-3 text-xs font-medium text-[#4b5675] transition-colors hover:border-[#1B84FF] hover:text-[#252f4a]"
                     >
                       Edit
                     </Link>
@@ -153,19 +153,19 @@ export default async function ClientOraclePage({
                       <li key={field.id} className="py-3 first:pt-0 last:pb-0">
                         <div className="flex items-start justify-between gap-4">
                           <div className="min-w-0 flex-1">
-                            <p className="text-xs font-medium text-gray-500 mb-0.5">
+                            <p className="text-xs font-medium text-[#78829d] mb-0.5">
                               {field.label}
                             </p>
                             {displayValue ? (
-                              <p className="text-sm text-gray-900 whitespace-pre-wrap break-words">
+                              <p className="text-sm text-[#252f4a] whitespace-pre-wrap break-words">
                                 {displayValue}
                               </p>
                             ) : (
-                              <p className="text-sm text-gray-400">—</p>
+                              <p className="text-sm text-[#78829d]">—</p>
                             )}
                           </div>
                           {data?.lastUpdated && (
-                            <p className="text-xs text-gray-400 shrink-0 mt-0.5">
+                            <p className="text-xs text-[#78829d] shrink-0 mt-0.5">
                               {formatDate(data.lastUpdated)}
                             </p>
                           )}

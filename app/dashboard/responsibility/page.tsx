@@ -72,14 +72,14 @@ export default async function MatrixPage() {
     <div className="p-8 max-w-6xl mx-auto">
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Responsibility Matrix</h1>
-          <p className="text-gray-500 mt-1 text-sm">
+          <h1 className="text-2xl font-bold text-[#252f4a]">Responsibility Matrix</h1>
+          <p className="text-[#78829d] mt-1 text-sm">
             Every marketing function mapped to an owner.
           </p>
         </div>
         <button
           type="button"
-          className="inline-flex h-8 items-center justify-center rounded-lg bg-violet-600 px-4 text-sm font-medium text-white transition-colors hover:bg-violet-700"
+          className="inline-flex h-8 items-center justify-center rounded-lg bg-[#1B84FF] px-4 text-sm font-medium text-white transition-colors hover:bg-[#1366cc]"
         >
           Edit Matrix
         </button>
@@ -87,9 +87,9 @@ export default async function MatrixPage() {
 
       <div className="space-y-6">
         {sections.map((section) => (
-          <Card key={section.heading} className="bg-white border-gray-200">
+          <Card key={section.heading} className="bg-white border-[#e8e8e8]">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-semibold text-gray-900">
+              <CardTitle className="text-sm font-semibold text-[#252f4a]">
                 {section.heading}
               </CardTitle>
             </CardHeader>
@@ -97,20 +97,20 @@ export default async function MatrixPage() {
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-t border-gray-200">
-                      <th className="text-left px-6 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider w-1/3">
+                    <tr className="border-t border-[#e8e8e8]">
+                      <th className="text-left px-6 py-2 text-xs font-medium text-[#78829d] uppercase tracking-wider w-1/3">
                         Function
                       </th>
-                      <th className="text-left px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      <th className="text-left px-4 py-2 text-xs font-medium text-[#78829d] uppercase tracking-wider">
                         Owner
                       </th>
-                      <th className="text-left px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      <th className="text-left px-4 py-2 text-xs font-medium text-[#78829d] uppercase tracking-wider">
                         Internal / External
                       </th>
-                      <th className="text-left px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      <th className="text-left px-4 py-2 text-xs font-medium text-[#78829d] uppercase tracking-wider">
                         GWC
                       </th>
-                      <th className="text-left px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      <th className="text-left px-4 py-2 text-xs font-medium text-[#78829d] uppercase tracking-wider">
                         Notes
                       </th>
                     </tr>
@@ -119,20 +119,20 @@ export default async function MatrixPage() {
                     {section.rows.map((row) => (
                       <tr
                         key={row.function}
-                        className="border-t border-gray-200 hover:bg-gray-50 transition-colors"
+                        className="border-t border-[#e8e8e8] hover:bg-[#f9f9f9] transition-colors"
                       >
-                        <td className="px-6 py-3 text-gray-600">{row.function}</td>
+                        <td className="px-6 py-3 text-[#4b5675]">{row.function}</td>
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-2">
-                            <span className="text-gray-400">{row.owner}</span>
-                            <Badge className="bg-yellow-500/10 text-yellow-400 border-yellow-500/20 text-xs">
+                            <span className="text-[#78829d]">{row.owner}</span>
+                            <Badge className="bg-[#f6a600]/10 text-[#f6a600] border-[#f6a600]/20 text-xs">
                               Gap
                             </Badge>
                           </div>
                         </td>
-                        <td className="px-4 py-3 text-gray-400">{row.type}</td>
-                        <td className="px-4 py-3 text-gray-400">{row.gwc}</td>
-                        <td className="px-4 py-3 text-gray-400">{row.notes || '—'}</td>
+                        <td className="px-4 py-3 text-[#78829d]">{row.type}</td>
+                        <td className="px-4 py-3 text-[#78829d]">{row.gwc}</td>
+                        <td className="px-4 py-3 text-[#78829d]">{row.notes || '—'}</td>
                       </tr>
                     ))}
                   </tbody>

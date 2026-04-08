@@ -36,16 +36,16 @@ export default async function OracleCategoryPage({
       <div className="p-8 max-w-3xl mx-auto">
         <Link
           href={`/dashboard/clients/${id}/oracle`}
-          className="text-sm text-gray-500 hover:text-gray-900 transition-colors mb-6 inline-block"
+          className="text-sm text-[#78829d] hover:text-[#252f4a] transition-colors mb-6 inline-block"
         >
           ← Back to Oracle
         </Link>
-        <Card className="bg-white border-gray-200">
+        <Card className="bg-white border-[#e8e8e8]">
           <CardContent className="py-16 text-center">
-            <p className="text-gray-900 font-semibold text-lg mb-2">
+            <p className="text-[#252f4a] font-semibold text-lg mb-2">
               Client not found
             </p>
-            <p className="text-gray-400 text-sm">
+            <p className="text-[#78829d] text-sm">
               This workspace does not exist or has been removed.
             </p>
           </CardContent>
@@ -59,16 +59,16 @@ export default async function OracleCategoryPage({
       <div className="p-8 max-w-3xl mx-auto">
         <Link
           href={`/dashboard/clients/${id}/oracle`}
-          className="text-sm text-gray-500 hover:text-gray-900 transition-colors mb-6 inline-block"
+          className="text-sm text-[#78829d] hover:text-[#252f4a] transition-colors mb-6 inline-block"
         >
           ← Back to Oracle
         </Link>
-        <Card className="bg-white border-gray-200">
+        <Card className="bg-white border-[#e8e8e8]">
           <CardContent className="py-16 text-center">
-            <p className="text-gray-900 font-semibold text-lg mb-2">
+            <p className="text-[#252f4a] font-semibold text-lg mb-2">
               Category not found
             </p>
-            <p className="text-gray-400 text-sm">
+            <p className="text-[#78829d] text-sm">
               The Oracle category &ldquo;{categoryId}&rdquo; does not exist.
             </p>
           </CardContent>
@@ -99,21 +99,21 @@ export default async function OracleCategoryPage({
     <div className="p-8 max-w-3xl mx-auto">
       <Link
         href={`/dashboard/clients/${id}/oracle`}
-        className="text-sm text-gray-500 hover:text-gray-900 transition-colors mb-6 inline-block"
+        className="text-sm text-[#78829d] hover:text-[#252f4a] transition-colors mb-6 inline-block"
       >
         ← Back to Oracle
       </Link>
 
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">{matchedCategory.label}</h1>
-        <p className="text-gray-500 mt-1 text-sm">
+        <h1 className="text-2xl font-bold text-[#252f4a]">{matchedCategory.label}</h1>
+        <p className="text-[#78829d] mt-1 text-sm">
           {workspace.clientName} — edit Oracle fields
         </p>
       </div>
 
-      <Card className="bg-white border-gray-200">
+      <Card className="bg-white border-[#e8e8e8]">
         <CardHeader>
-          <CardTitle className="text-base font-semibold text-gray-900">
+          <CardTitle className="text-base font-semibold text-[#252f4a]">
             {matchedCategory.label}
           </CardTitle>
         </CardHeader>

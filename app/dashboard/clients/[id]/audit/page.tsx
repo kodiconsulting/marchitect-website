@@ -9,7 +9,7 @@ import { ChevronRight } from 'lucide-react'
 
 function scoreColor(score: number) {
   if (score >= 70) return 'text-green-400 bg-green-400/10'
-  if (score >= 40) return 'text-yellow-400 bg-yellow-400/10'
+  if (score >= 40) return 'text-[#f6a600] bg-yellow-400/10'
   return 'text-red-400 bg-red-400/10'
 }
 
@@ -50,7 +50,7 @@ function HealthRing({ score }: { score: number }) {
         />
       </svg>
       <div className="absolute flex flex-col items-center">
-        <span className="text-3xl font-bold text-gray-900">{score}%</span>
+        <span className="text-3xl font-bold text-[#252f4a]">{score}%</span>
       </div>
     </div>
   )
@@ -140,28 +140,28 @@ export default async function ClientAuditPage({
     <div className="p-8 max-w-6xl mx-auto">
       <Link
         href={`/dashboard/clients/${id}`}
-        className="text-sm text-gray-500 hover:text-gray-900 transition-colors mb-6 inline-block"
+        className="text-sm text-[#78829d] hover:text-[#252f4a] transition-colors mb-6 inline-block"
       >
         &larr; Back to {workspace.clientName}
       </Link>
 
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Marketing Audit</h1>
-        <p className="text-gray-500 mt-1 text-sm">
+        <h1 className="text-2xl font-bold text-[#252f4a]">Marketing Audit</h1>
+        <p className="text-[#78829d] mt-1 text-sm">
           {workspace.clientName} &mdash; health score and pillar breakdown.
         </p>
       </div>
 
       {/* Health score */}
-      <Card className="bg-white border-gray-200 mb-8">
+      <Card className="bg-white border-[#e8e8e8] mb-8">
         <CardContent className="flex flex-col sm:flex-row items-center gap-6 py-8">
           <HealthRing score={overallScore} />
           <div>
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
+            <p className="text-xs font-semibold text-[#78829d] uppercase tracking-wider mb-1">
               Marketing Health Score
             </p>
-            <p className="text-4xl font-bold text-gray-900">{overallScore}%</p>
-            <p className="text-gray-400 text-sm mt-1">
+            <p className="text-4xl font-bold text-[#252f4a]">{overallScore}%</p>
+            <p className="text-[#78829d] text-sm mt-1">
               {allPillars.length === 0
                 ? 'Audit items will appear here once the item library is seeded.'
                 : 'Score based on green-rated audit items across all pillars.'}
@@ -172,15 +172,15 @@ export default async function ClientAuditPage({
 
       {/* Pillar cards */}
       <div className="mb-8">
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
+        <h2 className="text-sm font-semibold text-[#78829d] uppercase tracking-wider mb-3">
           Pillar Scores
         </h2>
         {allPillars.length === 0 ? (
-          <Card className="bg-white border-gray-200">
+          <Card className="bg-white border-[#e8e8e8]">
             <CardContent className="py-8 text-center">
-              <p className="text-gray-400 text-sm">
+              <p className="text-[#78829d] text-sm">
                 No pillars found. Visit{' '}
-                <Link href="/seed" className="text-violet-600 underline">
+                <Link href="/seed" className="text-[#1B84FF] underline">
                   /seed
                 </Link>{' '}
                 to seed the audit item library.
@@ -201,17 +201,17 @@ export default async function ClientAuditPage({
                 <Link
                   key={pillar.id}
                   href={`/dashboard/clients/${id}/audit/pillar/${pillar.pillarNumber}`}
-                  className="block bg-white border border-gray-200 rounded-lg hover:border-zinc-600 hover:bg-gray-50 transition-colors cursor-pointer"
+                  className="block bg-white border border-[#e8e8e8] rounded-lg hover:border-[#1B84FF] hover:bg-[#f9f9f9] transition-colors cursor-pointer"
                 >
                   <div className="py-4 px-4">
                     <div className="flex items-start justify-between gap-1 mb-2">
-                      <p className="text-xs text-gray-500 leading-snug flex-1">
+                      <p className="text-xs text-[#78829d] leading-snug flex-1">
                         {pillar.name}
                       </p>
-                      <ChevronRight className="w-3.5 h-3.5 text-gray-400 flex-shrink-0 mt-0.5" />
+                      <ChevronRight className="w-3.5 h-3.5 text-[#78829d] flex-shrink-0 mt-0.5" />
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-lg font-bold text-gray-900">{pct}%</span>
+                      <span className="text-lg font-bold text-[#252f4a]">{pct}%</span>
                       <span
                         className={`text-xs font-medium px-1.5 py-0.5 rounded-md ${colorClass}`}
                       >
@@ -228,12 +228,12 @@ export default async function ClientAuditPage({
 
       {/* Audit items summary */}
       <div>
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
+        <h2 className="text-sm font-semibold text-[#78829d] uppercase tracking-wider mb-3">
           Audit Items
         </h2>
-        <Card className="bg-white border-gray-200">
+        <Card className="bg-white border-[#e8e8e8]">
           <CardContent className="py-12 text-center">
-            <p className="text-gray-400 text-sm max-w-sm mx-auto">
+            <p className="text-[#78829d] text-sm max-w-sm mx-auto">
               {allPillars.length === 0
                 ? `No audit data yet. Items will appear here once audit items are seeded and scored for ${workspace.clientName}.`
                 : 'Click a pillar above to view and score individual audit items.'}

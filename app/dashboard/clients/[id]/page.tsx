@@ -65,16 +65,16 @@ export default async function ClientDetailPage({
       <div className="p-8 max-w-6xl mx-auto">
         <Link
           href="/dashboard/clients"
-          className="text-sm text-gray-500 hover:text-gray-900 transition-colors mb-6 inline-block"
+          className="text-sm text-[#78829d] hover:text-[#252f4a] transition-colors mb-6 inline-block"
         >
           ← Back to Clients
         </Link>
-        <Card className="bg-white border-gray-200">
+        <Card className="bg-white border-[#e8e8e8]">
           <CardContent className="py-16 text-center">
-            <p className="text-gray-900 font-semibold text-lg mb-2">
+            <p className="text-[#252f4a] font-semibold text-lg mb-2">
               Client not found
             </p>
-            <p className="text-gray-400 text-sm">
+            <p className="text-[#78829d] text-sm">
               This workspace does not exist or has been removed.
             </p>
           </CardContent>
@@ -122,27 +122,27 @@ export default async function ClientDetailPage({
     <div className="p-8 max-w-6xl mx-auto">
       <Link
         href="/dashboard/clients"
-        className="text-sm text-gray-500 hover:text-gray-900 transition-colors mb-6 inline-block"
+        className="text-sm text-[#78829d] hover:text-[#252f4a] transition-colors mb-6 inline-block"
       >
         ← Back to Clients
       </Link>
 
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">{workspace.clientName}</h1>
-        <p className="text-gray-500 mt-1 text-sm">Client workspace overview</p>
+        <h1 className="text-2xl font-bold text-[#252f4a]">{workspace.clientName}</h1>
+        <p className="text-[#78829d] mt-1 text-sm">Client workspace overview</p>
       </div>
 
       {/* Info cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {infoCards.map(({ label, value }) => (
-          <Card key={label} className="bg-white border-gray-200">
+          <Card key={label} className="bg-white border-[#e8e8e8]">
             <CardHeader className="pb-1">
-              <CardTitle className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <CardTitle className="text-xs font-medium text-[#78829d] uppercase tracking-wider">
                 {label}
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold text-gray-900">{value}</p>
+              <p className="text-2xl font-bold text-[#252f4a]">{value}</p>
             </CardContent>
           </Card>
         ))}
@@ -150,20 +150,20 @@ export default async function ClientDetailPage({
 
       {/* Quick links */}
       <div className="mb-8">
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
+        <h2 className="text-sm font-semibold text-[#78829d] uppercase tracking-wider mb-3">
           Quick Links
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {quickLinks.map(({ label, href, icon: Icon, description }) => (
             <Link key={label} href={href}>
-              <Card className="bg-white border-gray-200 hover:border-zinc-600 transition-colors cursor-pointer h-full">
+              <Card className="bg-white border-[#e8e8e8] hover:border-[#1B84FF] transition-colors cursor-pointer h-full">
                 <CardContent className="flex items-start gap-4 py-5">
-                  <div className="size-10 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
-                    <Icon className="size-5 text-violet-600" />
+                  <div className="size-10 rounded-lg bg-[#f1f1f4] flex items-center justify-center shrink-0">
+                    <Icon className="size-5 text-[#1B84FF]" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-gray-900">{label}</p>
-                    <p className="text-xs text-gray-500 mt-0.5">{description}</p>
+                    <p className="text-sm font-semibold text-[#252f4a]">{label}</p>
+                    <p className="text-xs text-[#78829d] mt-0.5">{description}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -174,10 +174,10 @@ export default async function ClientDetailPage({
 
       {/* Client details */}
       <div>
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
+        <h2 className="text-sm font-semibold text-[#78829d] uppercase tracking-wider mb-3">
           Client Details
         </h2>
-        <Card className="bg-white border-gray-200">
+        <Card className="bg-white border-[#e8e8e8]">
           <CardContent className="py-5">
             <ul className="divide-y divide-zinc-800">
               {toggleDetails.map(({ label, value }) => (
@@ -185,13 +185,13 @@ export default async function ClientDetailPage({
                   key={label}
                   className="flex items-center justify-between py-3 first:pt-0 last:pb-0"
                 >
-                  <span className="text-sm text-gray-600">{label}</span>
+                  <span className="text-sm text-[#4b5675]">{label}</span>
                   {value ? (
-                    <span className="inline-flex items-center rounded px-2 py-0.5 text-xs font-semibold bg-violet-600/20 text-violet-600 border border-blue-600/30">
+                    <span className="inline-flex items-center rounded px-2 py-0.5 text-xs font-semibold bg-[#1B84FF]/20 text-[#1B84FF] border border-blue-600/30">
                       Active
                     </span>
                   ) : (
-                    <span className="inline-flex items-center rounded px-2 py-0.5 text-xs font-semibold bg-gray-100 text-gray-400 border border-gray-200">
+                    <span className="inline-flex items-center rounded px-2 py-0.5 text-xs font-semibold bg-[#f1f1f4] text-[#78829d] border border-[#e8e8e8]">
                       Inactive
                     </span>
                   )}

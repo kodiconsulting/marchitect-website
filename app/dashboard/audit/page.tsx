@@ -17,7 +17,7 @@ const PILLARS = [
 
 function scoreColor(score: number) {
   if (score >= 70) return 'text-green-400 bg-green-400/10'
-  if (score >= 40) return 'text-yellow-400 bg-yellow-400/10'
+  if (score >= 40) return 'text-[#f6a600] bg-yellow-400/10'
   return 'text-red-400 bg-red-400/10'
 }
 
@@ -52,7 +52,7 @@ function HealthRing({ score }: { score: number }) {
         />
       </svg>
       <div className="absolute flex flex-col items-center">
-        <span className="text-3xl font-bold text-gray-900">{score}%</span>
+        <span className="text-3xl font-bold text-[#252f4a]">{score}%</span>
       </div>
     </div>
   )
@@ -64,22 +64,22 @@ export default function AuditPage() {
   return (
     <div className="p-8 max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Marketing Audit</h1>
-        <p className="text-gray-500 mt-1 text-sm">
+        <h1 className="text-2xl font-bold text-[#252f4a]">Marketing Audit</h1>
+        <p className="text-[#78829d] mt-1 text-sm">
           Health score and pillar breakdown for the selected client workspace.
         </p>
       </div>
 
       {/* Health score */}
-      <Card className="bg-white border-gray-200 mb-8">
+      <Card className="bg-white border-[#e8e8e8] mb-8">
         <CardContent className="flex flex-col sm:flex-row items-center gap-6 py-8">
           <HealthRing score={overallScore} />
           <div>
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
+            <p className="text-xs font-semibold text-[#78829d] uppercase tracking-wider mb-1">
               Marketing Health Score
             </p>
-            <p className="text-4xl font-bold text-gray-900">{overallScore}%</p>
-            <p className="text-gray-400 text-sm mt-1">
+            <p className="text-4xl font-bold text-[#252f4a]">{overallScore}%</p>
+            <p className="text-[#78829d] text-sm mt-1">
               No client workspace selected — select a client to see live data.
             </p>
           </div>
@@ -88,7 +88,7 @@ export default function AuditPage() {
 
       {/* Pillar cards */}
       <div className="mb-8">
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
+        <h2 className="text-sm font-semibold text-[#78829d] uppercase tracking-wider mb-3">
           Pillar Scores
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -96,11 +96,11 @@ export default function AuditPage() {
             const score = 0
             const colorClass = scoreColor(score)
             return (
-              <Card key={i} className="bg-white border-gray-200">
+              <Card key={i} className="bg-white border-[#e8e8e8]">
                 <CardContent className="py-4 px-4">
-                  <p className="text-xs text-gray-500 mb-2 leading-snug">{pillar}</p>
+                  <p className="text-xs text-[#78829d] mb-2 leading-snug">{pillar}</p>
                   <div className="flex items-center gap-2">
-                    <span className="text-lg font-bold text-gray-900">{score}%</span>
+                    <span className="text-lg font-bold text-[#252f4a]">{score}%</span>
                     <span
                       className={`text-xs font-medium px-1.5 py-0.5 rounded-md ${colorClass}`}
                     >
@@ -116,12 +116,12 @@ export default function AuditPage() {
 
       {/* Audit items table */}
       <div>
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
+        <h2 className="text-sm font-semibold text-[#78829d] uppercase tracking-wider mb-3">
           Audit Items
         </h2>
-        <Card className="bg-white border-gray-200">
+        <Card className="bg-white border-[#e8e8e8]">
           <CardContent className="py-12 text-center">
-            <p className="text-gray-400 text-sm max-w-sm mx-auto">
+            <p className="text-[#78829d] text-sm max-w-sm mx-auto">
               No audit data yet. Items will appear here once audit items are seeded
               and a client workspace is set up.
             </p>

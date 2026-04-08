@@ -50,14 +50,14 @@ export default async function ClientRocksPage({
     <div className="p-8 max-w-6xl mx-auto">
       <Link
         href={`/dashboard/clients/${id}`}
-        className="text-sm text-gray-500 hover:text-gray-900 transition-colors mb-6 inline-block"
+        className="text-sm text-[#78829d] hover:text-[#252f4a] transition-colors mb-6 inline-block"
       >
         ← Back to {workspace.clientName}
       </Link>
 
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Rocks & Goals</h1>
-        <p className="text-gray-500 mt-1 text-sm">
+        <h1 className="text-2xl font-bold text-[#252f4a]">Rocks & Goals</h1>
+        <p className="text-[#78829d] mt-1 text-sm">
           {workspace.clientName} — quarterly priorities and key performance indicators.
         </p>
       </div>

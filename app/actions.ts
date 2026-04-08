@@ -1,5 +1,6 @@
 'use server'
 import { cookies } from 'next/headers'
+import { signOut } from '@/auth'
 
 export async function selectClient(clientId: string, clientName: string) {
   const jar = await cookies()
@@ -11,4 +12,8 @@ export async function clearSelectedClient() {
   const jar = await cookies()
   jar.delete('selected_client_id')
   jar.delete('selected_client_name')
+}
+
+export async function signOutAction() {
+  await signOut({ redirectTo: '/login' })
 }

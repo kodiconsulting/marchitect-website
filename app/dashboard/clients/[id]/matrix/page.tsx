@@ -54,7 +54,7 @@ export default async function ClientMatrixPage({
     <div className="p-8 max-w-6xl mx-auto">
       <Link
         href={`/dashboard/clients/${id}`}
-        className="text-sm text-gray-500 hover:text-gray-900 transition-colors mb-6 inline-block"
+        className="text-sm text-[#78829d] hover:text-[#252f4a] transition-colors mb-6 inline-block"
       >
         ← Back to {workspace.clientName}
       </Link>
