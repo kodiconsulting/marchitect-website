@@ -8,7 +8,9 @@ export default auth((req) => {
   const isPublicPage = req.nextUrl.pathname === '/'
   const isSeedRoute = req.nextUrl.pathname === '/api/seed' || req.nextUrl.pathname === '/seed'
 
-  if (isAuthRoute || isLoginPage || isPublicPage || isSeedRoute) return NextResponse.next()
+  const hasApiKey = !!req.headers.get('x-api-key')
+
+  if (isAuthRoute || isLoginPage || isPublicPage || isSeedRoute || hasApiKey) return NextResponse.next()
   if (!isLoggedIn) return NextResponse.redirect(new URL('/login', req.url))
   return NextResponse.next()
 })
