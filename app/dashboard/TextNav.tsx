@@ -5,27 +5,24 @@ import Link from 'next/link'
 import { LogOut } from 'lucide-react'
 import { signOutAction } from '@/app/actions'
 import ClientSwitcher from '@/components/ClientSwitcher'
-import type { NavItem } from './IconRail'
+import { buildNav } from './navConfig'
 
-export type NavSection = {
-  heading: string | null
-  items: NavItem[]
-}
-
-function isActive(pathname: string, item: NavItem) {
-  if (item.exact) return pathname === item.href
-  return pathname === item.href || pathname.startsWith(item.href + '/')
+function isActive(pathname: string, href: string, exact?: boolean) {
+  if (exact) return pathname === href
+  return pathname === href || pathname.startsWith(href + '/')
 }
 
 export default function TextNav({
-  navSections,
+  cid,
+  isAdmin,
   workspaces,
   selectedClientId,
   selectedClientName,
   userName,
   userRole,
 }: {
-  navSections: NavSection[]
+  cid: string | null
+  isAdmin: boolean
   workspaces: { id: string; clientName: string }[]
   selectedClientId: string | null
   selectedClientName: string | null
@@ -33,6 +30,7 @@ export default function TextNav({
   userRole: string
 }) {
   const pathname = usePathname()
+  const { navSections } = buildNav(cid, isAdmin)
 
   return (
     <div className="w-[220px] shrink-0 bg-[#fafafa] border-r border-[#e8e8e8] flex flex-col">
@@ -56,7 +54,7 @@ export default function TextNav({
             )}
             <div className="space-y-0.5">
               {section.items.map((item) => {
-                const active = isActive(pathname, item)
+                const active = isActive(pathname, item.href, item.exact)
                 return (
                   <Link
                     key={item.href}

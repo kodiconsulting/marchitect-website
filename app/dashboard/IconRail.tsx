@@ -2,28 +2,24 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import type { LucideIcon } from 'lucide-react'
+import { buildNav } from './navConfig'
 
-export type NavItem = {
-  href: string
-  label: string
-  icon: LucideIcon
-  exact?: boolean
-}
-
-function isActive(pathname: string, item: NavItem) {
-  if (item.exact) return pathname === item.href
-  return pathname === item.href || pathname.startsWith(item.href + '/')
+function isActive(pathname: string, href: string, exact?: boolean) {
+  if (exact) return pathname === href
+  return pathname === href || pathname.startsWith(href + '/')
 }
 
 export default function IconRail({
-  navItems,
+  cid,
+  isAdmin,
   userInitials,
 }: {
-  navItems: NavItem[]
+  cid: string | null
+  isAdmin: boolean
   userInitials: string
 }) {
   const pathname = usePathname()
+  const { allNavItems } = buildNav(cid, isAdmin)
 
   return (
     <div className="w-[60px] shrink-0 bg-white border-r border-[#e8e8e8] flex flex-col items-center py-4">
@@ -34,8 +30,8 @@ export default function IconRail({
 
       {/* Nav icons */}
       <nav className="flex flex-col items-center gap-1 flex-1 w-full px-2">
-        {navItems.map((item) => {
-          const active = isActive(pathname, item)
+        {allNavItems.map((item) => {
+          const active = isActive(pathname, item.href, item.exact)
           const Icon = item.icon
           return (
             <Link
