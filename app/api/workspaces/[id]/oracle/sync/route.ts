@@ -12,6 +12,10 @@ export async function GET(
   try {
     const auth = await requireAuth(request)
     const { id } = await params
+    // For API key auth, verify the key is scoped to this workspace
+    if (auth.userId.startsWith('api-key:') && !auth.workspaceIds.includes(id)) {
+      return Response.json({ error: 'Forbidden' }, { status: 403 })
+    }
     await requireWorkspaceAccess(auth.userId, id)
 
     const rows = await db
@@ -51,6 +55,10 @@ export async function POST(
   try {
     const auth = await requireAuth(request)
     const { id } = await params
+    // For API key auth, verify the key is scoped to this workspace
+    if (auth.userId.startsWith('api-key:') && !auth.workspaceIds.includes(id)) {
+      return Response.json({ error: 'Forbidden' }, { status: 403 })
+    }
     await requireWorkspaceAccess(auth.userId, id)
 
     const body = await request.json()
