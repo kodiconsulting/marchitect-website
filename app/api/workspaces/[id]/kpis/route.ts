@@ -3,7 +3,7 @@ import { z } from 'zod/v4'
 import { eq } from 'drizzle-orm'
 import { db } from '@/lib/db'
 import { kpis } from '@/lib/db/schema'
-import { verifyRequest, requireWorkspaceAccess } from '@/lib/auth'
+import { auth } from '@/auth'
 
 const postSchema = z.object({
   name: z.string().min(1),
@@ -11,20 +11,19 @@ const postSchema = z.object({
   owner: z.string().optional(),
   targetValue: z.number().optional(),
   currentValue: z.number().optional(),
-  unit: z.string().min(1),
+  unit: z.string().optional(),
   updateFrequency: z.string().min(1),
 })
 
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const auth = await verifyRequest(request)
-    if (!auth) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+    const session = await auth()
+    if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
     const { id } = await params
-    await requireWorkspaceAccess(auth.userId, id)
 
     const results = await db
       .select()
@@ -33,7 +32,6 @@ export async function GET(
 
     return Response.json(results)
   } catch (e) {
-    if (e instanceof Response) return e
     console.error(e)
     return Response.json({ error: 'Internal server error' }, { status: 500 })
   }
@@ -44,11 +42,10 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const auth = await verifyRequest(request)
-    if (!auth) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+    const session = await auth()
+    if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
     const { id } = await params
-    await requireWorkspaceAccess(auth.userId, id)
 
     const body = await request.json()
     const parsed = postSchema.safeParse(body)
@@ -65,14 +62,13 @@ export async function POST(
         owner: parsed.data.owner ?? null,
         targetValue: parsed.data.targetValue?.toString() ?? null,
         currentValue: parsed.data.currentValue?.toString() ?? null,
-        unit: parsed.data.unit,
+        unit: parsed.data.unit ?? null,
         updateFrequency: parsed.data.updateFrequency,
       })
       .returning()
 
     return Response.json(created, { status: 201 })
   } catch (e) {
-    if (e instanceof Response) return e
     console.error(e)
     return Response.json({ error: 'Internal server error' }, { status: 500 })
   }

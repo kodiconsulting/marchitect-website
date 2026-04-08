@@ -21,12 +21,10 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const auth = await verifyRequest(request)
-    if (!auth) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+    const session = await auth()
+    if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
     const { id } = await params
-    await requireWorkspaceAccess(auth.userId, id)
-
     const quarter = request.nextUrl.searchParams.get('quarter')
 
     const conditions = [eq(rocks.workspaceId, id)]
@@ -41,7 +39,6 @@ export async function GET(
 
     return Response.json(results)
   } catch (e) {
-    if (e instanceof Response) return e
     console.error(e)
     return Response.json({ error: 'Internal server error' }, { status: 500 })
   }
@@ -52,11 +49,10 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const auth = await verifyRequest(request)
-    if (!auth) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+    const session = await auth()
+    if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
     const { id } = await params
-    await requireWorkspaceAccess(auth.userId, id)
 
     const body = await request.json()
     const parsed = postSchema.safeParse(body)
@@ -81,7 +77,6 @@ export async function POST(
 
     return Response.json(created, { status: 201 })
   } catch (e) {
-    if (e instanceof Response) return e
     console.error(e)
     return Response.json({ error: 'Internal server error' }, { status: 500 })
   }
