@@ -3,13 +3,7 @@ import { z } from 'zod/v4'
 import { eq } from 'drizzle-orm'
 import { db } from '@/lib/db'
 import { oracleFields } from '@/lib/db/schema'
-import { requireAuth } from '@/lib/auth'
-
-function assertWorkspaceAccess(workspaceIds: string[], id: string): void {
-  if (!workspaceIds.includes(id)) {
-    throw Response.json({ error: 'Forbidden' }, { status: 403 })
-  }
-}
+import { requireAuth, requireWorkspaceAccess } from '@/lib/auth'
 
 export async function GET(
   request: NextRequest,
@@ -18,7 +12,7 @@ export async function GET(
   try {
     const auth = await requireAuth(request)
     const { id } = await params
-    assertWorkspaceAccess(auth.workspaceIds, id)
+    await requireWorkspaceAccess(auth.userId, id)
 
     const rows = await db
       .select()
@@ -46,7 +40,7 @@ const syncFieldSchema = z.object({
 })
 
 const postSchema = z.object({
-  fields: z.array(syncFieldSchema).min(1),
+  fields: z.array(syncFieldSchema).min(1).max(200),
   updatedBy: z.string().optional(),
 })
 
@@ -57,7 +51,7 @@ export async function POST(
   try {
     const auth = await requireAuth(request)
     const { id } = await params
-    assertWorkspaceAccess(auth.workspaceIds, id)
+    await requireWorkspaceAccess(auth.userId, id)
 
     const body = await request.json()
     const parsed = postSchema.safeParse(body)
@@ -94,7 +88,7 @@ export async function POST(
     return Response.json({
       synced: fields.length,
       skipped: 0,
-      fields: fields.map((f) => f.fieldName),
+      fields: fields.map((f) => ({ category: f.category, fieldName: f.fieldName })),
     })
   } catch (e) {
     if (e instanceof Response) return e
