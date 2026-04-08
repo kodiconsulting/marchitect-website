@@ -3,7 +3,7 @@ import { z } from 'zod/v4'
 import { eq, and } from 'drizzle-orm'
 import { db } from '@/lib/db'
 import { auditScores, auditScoreHistory } from '@/lib/db/schema'
-import { verifyRequest, requireWorkspaceAccess } from '@/lib/auth'
+import { auth } from '@/auth'
 
 const putSchema = z.object({
   scores: z.array(
@@ -21,11 +21,10 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const auth = await verifyRequest(request)
-    if (!auth) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+    const session = await auth()
+    if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
     const { id } = await params
-    await requireWorkspaceAccess(auth.userId, id)
 
     const body = await request.json()
     const parsed = putSchema.safeParse(body)
