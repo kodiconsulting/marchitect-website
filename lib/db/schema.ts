@@ -364,3 +364,16 @@ export const intakeResponses = pgTable('intake_responses', {
   submissionDate: timestamp('submission_date').notNull().default(sql`now()`),
   submittedBy: uuid('submitted_by').references(() => users.id),
 })
+
+export const teamMembers = pgTable('team_members', {
+  id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
+  workspaceId: uuid('workspace_id')
+    .notNull()
+    .references(() => workspaces.id, { onDelete: 'cascade' }),
+  name: text('name').notNull(),
+  title: text('title'),
+  email: text('email'),
+  phone: text('phone'),
+  reportsTo: uuid('reports_to'), // self-reference; FK enforced in DB only
+  createdAt: timestamp('created_at').notNull().default(sql`now()`),
+})

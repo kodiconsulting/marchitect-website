@@ -1,7 +1,7 @@
 import { auth } from '@/auth'
 import { redirect, notFound } from 'next/navigation'
 import { db } from '@/lib/db'
-import { workspaces, functionAssignments, marketingFunctions } from '@/lib/db/schema'
+import { workspaces, functionAssignments, marketingFunctions, teamMembers } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
 import Link from 'next/link'
 import MatrixEditor, { type MatrixRow } from './MatrixEditor'
@@ -27,6 +27,11 @@ export default async function ClientMatrixPage({
   }
 
   const allFunctions = await db.select().from(marketingFunctions)
+
+  const members = await db
+    .select({ id: teamMembers.id, name: teamMembers.name, title: teamMembers.title })
+    .from(teamMembers)
+    .where(eq(teamMembers.workspaceId, id))
 
   const wsAssignments = await db
     .select()
@@ -59,7 +64,7 @@ export default async function ClientMatrixPage({
         ← Back to {workspace.clientName}
       </Link>
 
-      <MatrixEditor workspaceId={id} initialRows={rows} />
+      <MatrixEditor workspaceId={id} initialRows={rows} teamMembers={members} />
     </div>
   )
 }

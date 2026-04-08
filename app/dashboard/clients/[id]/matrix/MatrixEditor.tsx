@@ -39,12 +39,16 @@ function gwcLabel(row: MatrixRow) {
   return parts.length > 0 ? parts.join('/') : '—'
 }
 
+interface TeamMember { id: string; name: string; title: string | null }
+
 export default function MatrixEditor({
   workspaceId,
   initialRows,
+  teamMembers = [],
 }: {
   workspaceId: string
   initialRows: MatrixRow[]
+  teamMembers?: TeamMember[]
 }) {
   const router = useRouter()
   const [editing, setEditing] = useState(false)
@@ -134,16 +138,32 @@ export default function MatrixEditor({
                           {/* Owner */}
                           <td className="px-4 py-3">
                             {editing ? (
-                              <input
-                                type="text"
-                                defaultValue={row.assignedOwner ?? ''}
-                                onBlur={e => {
-                                  const val = e.target.value.trim() || null
-                                  if (val !== row.assignedOwner) save(row.functionId, { assignedOwner: val })
-                                }}
-                                placeholder="Add owner…"
-                                className="w-full bg-[#f1f1f4] border border-[#e8e8e8] rounded px-2 py-1 text-[#4b5675] placeholder-[#78829d] text-sm outline-none focus:border-blue-500"
-                              />
+                              teamMembers.length > 0 ? (
+                                <select
+                                  value={row.assignedOwner ?? ''}
+                                  onChange={e => {
+                                    const val = e.target.value || null
+                                    save(row.functionId, { assignedOwner: val })
+                                  }}
+                                  className="bg-[#f1f1f4] border border-[#e8e8e8] rounded px-2 py-1 text-[#4b5675] text-sm outline-none focus:border-blue-500 cursor-pointer"
+                                >
+                                  <option value="">— Unassigned —</option>
+                                  {teamMembers.map(m => (
+                                    <option key={m.id} value={m.name}>{m.name}{m.title ? ` — ${m.title}` : ''}</option>
+                                  ))}
+                                </select>
+                              ) : (
+                                <input
+                                  type="text"
+                                  defaultValue={row.assignedOwner ?? ''}
+                                  onBlur={e => {
+                                    const val = e.target.value.trim() || null
+                                    if (val !== row.assignedOwner) save(row.functionId, { assignedOwner: val })
+                                  }}
+                                  placeholder="Add owner…"
+                                  className="w-full bg-[#f1f1f4] border border-[#e8e8e8] rounded px-2 py-1 text-[#4b5675] placeholder-[#78829d] text-sm outline-none focus:border-blue-500"
+                                />
+                              )
                             ) : (
                               <div className="flex items-center gap-2">
                                 <span className="text-[#78829d]">{row.assignedOwner ?? 'Unassigned'}</span>

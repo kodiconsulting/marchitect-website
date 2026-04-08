@@ -8,6 +8,7 @@ import {
   BookOpen,
   Settings,
   UserSquare2,
+  Contact,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -27,6 +28,7 @@ export function buildNav(cid: string | null, isAdmin: boolean) {
   const allNavItems: NavItem[] = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, exact: true },
     { href: '/dashboard/clients', label: 'Clients', icon: UserSquare2 },
+    { href: cid ? `/dashboard/clients/${cid}/team` : '/dashboard/team', label: 'Team', icon: Contact },
     { href: cid ? `/dashboard/clients/${cid}/audit` : '/dashboard/audit', label: 'Audit', icon: BarChart2 },
     { href: cid ? `/dashboard/clients/${cid}/rocks` : '/dashboard/rocks', label: 'Rocks & Goals', icon: Target },
     { href: cid ? `/dashboard/clients/${cid}/oracle` : '/dashboard/oracle', label: 'Oracle', icon: Database },
@@ -43,7 +45,7 @@ export function buildNav(cid: string | null, isAdmin: boolean) {
     },
     {
       heading: 'TOOLS',
-      items: allNavItems.filter(i => ['Audit', 'Rocks & Goals', 'Oracle', 'Responsibility Matrix'].includes(i.label)),
+      items: allNavItems.filter(i => ['Team', 'Audit', 'Rocks & Goals', 'Oracle', 'Responsibility Matrix'].includes(i.label)),
     },
     {
       heading: 'RESOURCES',

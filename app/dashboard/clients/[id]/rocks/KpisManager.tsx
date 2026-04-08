@@ -14,9 +14,12 @@ interface Kpi {
   updateFrequency: string | null
 }
 
+interface TeamMember { id: string; name: string; title: string | null }
+
 interface Props {
   kpis: Kpi[]
   workspaceId: string
+  teamMembers: TeamMember[]
 }
 
 function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
@@ -35,7 +38,7 @@ function Modal({ title, onClose, children }: { title: string; onClose: () => voi
 
 const FREQUENCY_OPTIONS = ['Daily', 'Weekly', 'Monthly', 'Quarterly', 'Annually']
 
-export default function KpisManager({ kpis: initial, workspaceId }: Props) {
+export default function KpisManager({ kpis: initial, workspaceId, teamMembers }: Props) {
   const router = useRouter()
   const [kpis, setKpis] = useState(initial)
   const [showAdd, setShowAdd] = useState(false)

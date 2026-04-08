@@ -13,11 +13,14 @@ interface Rock {
   targetDate: string | null
 }
 
+interface TeamMember { id: string; name: string; title: string | null }
+
 interface Props {
   rocks: Rock[]
   workspaceId: string
   quarterKey: string
   quarterLabel: string
+  teamMembers: TeamMember[]
 }
 
 function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
@@ -48,7 +51,7 @@ const STATUS_COLORS: Record<string, string> = {
   off_track: 'bg-red-500/20 text-red-400 border-red-500/30',
 }
 
-export default function RocksManager({ rocks: initial, workspaceId, quarterKey, quarterLabel }: Props) {
+export default function RocksManager({ rocks: initial, workspaceId, quarterKey, quarterLabel, teamMembers }: Props) {
   const router = useRouter()
   const [rocks, setRocks] = useState(initial)
   const [showAdd, setShowAdd] = useState(false)

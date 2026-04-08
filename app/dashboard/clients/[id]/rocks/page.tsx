@@ -1,7 +1,7 @@
 import { auth } from '@/auth'
 import { redirect, notFound } from 'next/navigation'
 import { db } from '@/lib/db'
-import { workspaces, rocks, goals, kpis } from '@/lib/db/schema'
+import { workspaces, rocks, goals, kpis, teamMembers } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
 import Link from 'next/link'
 import GoalsManager from './GoalsManager'
@@ -45,6 +45,7 @@ export default async function ClientRocksPage({
   const currentRocks = allRocks.filter(r => r.quarter === quarterKey)
   const allGoals = await db.select().from(goals).where(eq(goals.workspaceId, id))
   const allKpis = await db.select().from(kpis).where(eq(kpis.workspaceId, id))
+  const members = await db.select({ id: teamMembers.id, name: teamMembers.name, title: teamMembers.title }).from(teamMembers).where(eq(teamMembers.workspaceId, id))
 
   return (
     <div className="p-8 max-w-6xl mx-auto">
@@ -74,12 +75,13 @@ export default async function ClientRocksPage({
           workspaceId={id}
           quarterKey={quarterKey}
           quarterLabel={quarterLabel}
+          teamMembers={members}
         />
       </div>
 
       {/* KPIs */}
       <div>
-        <KpisManager kpis={allKpis} workspaceId={id} />
+        <KpisManager kpis={allKpis} workspaceId={id} teamMembers={members} />
       </div>
     </div>
   )
