@@ -141,8 +141,7 @@ export default async function PillarDrillDownPage({
         <span className="text-zinc-400">{total} items total</span>
         <span className="text-green-400 font-medium">{green} Complete</span>
         <span className="text-yellow-400 font-medium">{yellow} In Progress</span>
-        <span className="text-red-400 font-medium">{red} Not Done</span>
-        <span className="text-zinc-500">{notScored} Not scored</span>
+        <span className="text-red-400 font-medium">{red + notScored} Not Done</span>
       </div>
 
       {/* Item list */}
