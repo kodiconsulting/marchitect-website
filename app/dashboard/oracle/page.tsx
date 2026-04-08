@@ -24,20 +24,20 @@ export default async function OraclePage() {
   return (
     <div className="p-8 max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-white">Content Oracle</h1>
-        <p className="text-zinc-400 mt-1 text-sm">
+        <h1 className="text-2xl font-bold text-gray-900">Content Oracle</h1>
+        <p className="text-gray-500 mt-1 text-sm">
           Select a client to view and edit their Oracle.
         </p>
       </div>
 
       {allWorkspaces.length === 0 ? (
-        <Card className="bg-zinc-900 border-zinc-800">
+        <Card className="bg-white border-gray-200">
           <CardContent className="py-16 text-center">
-            <p className="text-zinc-500 text-sm">
+            <p className="text-gray-400 text-sm">
               No clients yet.{' '}
               <Link
                 href="/dashboard/clients/new"
-                className="text-blue-400 hover:text-blue-300 transition-colors"
+                className="text-violet-600 hover:text-blue-300 transition-colors"
               >
                 Add your first client.
               </Link>
@@ -47,17 +47,17 @@ export default async function OraclePage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {allWorkspaces.map((ws) => (
-            <Card key={ws.id} className="bg-zinc-900 border-zinc-800 hover:border-zinc-600 transition-colors">
+            <Card key={ws.id} className="bg-white border-gray-200 hover:border-zinc-600 transition-colors">
               <CardHeader className="pb-3">
                 <div className="flex items-start gap-3">
-                  <div className="size-10 rounded-lg bg-zinc-800 flex items-center justify-center shrink-0">
-                    <Database className="size-5 text-blue-400" />
+                  <div className="size-10 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
+                    <Database className="size-5 text-violet-600" />
                   </div>
                   <div>
-                    <CardTitle className="text-white text-base font-semibold">
+                    <CardTitle className="text-gray-900 text-base font-semibold">
                       {ws.clientName}
                     </CardTitle>
-                    <p className="text-xs text-zinc-500 mt-0.5">
+                    <p className="text-xs text-gray-400 mt-0.5">
                       Phase {ws.currentPhase ?? 1}
                     </p>
                   </div>
@@ -66,7 +66,7 @@ export default async function OraclePage() {
               <CardContent>
                 <Link
                   href={`/dashboard/clients/${ws.id}/oracle`}
-                  className="inline-flex h-8 items-center justify-center rounded-lg bg-blue-600 px-3 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                  className="inline-flex h-8 items-center justify-center rounded-lg bg-violet-600 px-3 text-sm font-medium text-white transition-colors hover:bg-violet-700"
                 >
                   View Oracle →
                 </Link>

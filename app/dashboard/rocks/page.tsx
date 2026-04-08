@@ -14,8 +14,8 @@ export default function RocksPage() {
     <div className="p-8 max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-white">Rocks & Goals</h1>
-          <p className="text-zinc-400 mt-1 text-sm">
+          <h1 className="text-2xl font-bold text-gray-900">Rocks & Goals</h1>
+          <p className="text-gray-500 mt-1 text-sm">
             Quarterly priorities and key performance indicators.
           </p>
         </div>
@@ -24,19 +24,19 @@ export default function RocksPage() {
       {/* Rocks section */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider">
+          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
             Rocks — {quarter}
           </h2>
           <Button
             disabled
-            className="bg-blue-600 hover:bg-blue-700 text-white border-transparent opacity-60 cursor-not-allowed"
+            className="bg-violet-600 hover:bg-violet-700 text-white border-transparent opacity-60 cursor-not-allowed"
           >
             Add Rock
           </Button>
         </div>
-        <Card className="bg-zinc-900 border-zinc-800">
+        <Card className="bg-white border-gray-200">
           <CardContent className="py-12 text-center">
-            <p className="text-zinc-500 text-sm">
+            <p className="text-gray-400 text-sm">
               No rocks defined yet for this quarter.
             </p>
           </CardContent>
@@ -46,20 +46,20 @@ export default function RocksPage() {
       {/* Goals & KPIs section */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider">
+          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
             Goals & KPIs
           </h2>
           <Button
             disabled
             variant="outline"
-            className="border-zinc-700 text-zinc-300 opacity-60 cursor-not-allowed"
+            className="border-gray-200 text-gray-600 opacity-60 cursor-not-allowed"
           >
             Add KPI
           </Button>
         </div>
-        <Card className="bg-zinc-900 border-zinc-800">
+        <Card className="bg-white border-gray-200">
           <CardContent className="py-12 text-center">
-            <p className="text-zinc-500 text-sm">
+            <p className="text-gray-400 text-sm">
               No goals or KPIs defined yet.
             </p>
           </CardContent>

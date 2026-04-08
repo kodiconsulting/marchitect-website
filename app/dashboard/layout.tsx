@@ -45,36 +45,38 @@ export default async function DashboardLayout({
     { href: cid ? `/dashboard/clients/${cid}/playbooks` : '/dashboard/playbooks', label: 'Playbooks', icon: BookOpen },
   ]
 
+  const initials = session.user.name
+    ? session.user.name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase()
+    : '?'
+
   return (
-    <div className="flex h-screen overflow-hidden bg-zinc-950">
+    <div className="flex h-screen overflow-hidden bg-violet-50">
       {/* Sidebar */}
-      <aside className="w-64 bg-zinc-900 text-white flex flex-col shrink-0 border-r border-zinc-800">
+      <aside className="w-60 bg-white flex flex-col shrink-0 border-r border-gray-100 shadow-sm">
         {/* Logo + Client Switcher */}
-        <div className="px-4 py-4 border-b border-zinc-800">
-          <div className="text-xl font-bold text-white tracking-tight mb-3">
-            Marchitect
+        <div className="px-4 pt-5 pb-4 border-b border-gray-100">
+          <div className="flex items-center gap-2.5 mb-4">
+            <div className="size-8 rounded-xl bg-violet-600 flex items-center justify-center text-white font-bold text-sm shrink-0">
+              M
+            </div>
+            <span className="text-gray-900 font-semibold text-sm tracking-tight">Marchitect</span>
           </div>
           <ClientSwitcher
             workspaces={allWorkspaces}
             selectedClientId={selectedClientId}
             selectedClientName={selectedClientName}
           />
-          {selectedClientName && (
-            <p className="text-xs text-zinc-500 mt-1.5 px-1 truncate">
-              Viewing: {selectedClientName}
-            </p>
-          )}
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 px-2 py-3 space-y-0.5 overflow-y-auto">
+        <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">
           {navItems.map(({ href, label, icon: Icon }) => (
             <Link
               key={href}
               href={href}
-              className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors"
+              className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-violet-50 hover:text-violet-700 transition-colors"
             >
-              <Icon className="size-4 shrink-0" />
+              <Icon className="size-4 shrink-0 text-gray-400" />
               {label}
             </Link>
           ))}
@@ -82,25 +84,25 @@ export default async function DashboardLayout({
           {isAdmin && (
             <Link
               href="/dashboard/settings"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors"
+              className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-violet-50 hover:text-violet-700 transition-colors"
             >
-              <Settings className="size-4 shrink-0" />
+              <Settings className="size-4 shrink-0 text-gray-400" />
               Settings
             </Link>
           )}
         </nav>
 
         {/* User footer */}
-        <div className="px-3 py-3 border-t border-zinc-800">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="size-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-semibold shrink-0">
-              {session.user.name?.charAt(0).toUpperCase() ?? '?'}
+        <div className="px-3 py-3 border-t border-gray-100">
+          <div className="flex items-center gap-2.5 mb-1.5">
+            <div className="size-8 rounded-full bg-violet-600 flex items-center justify-center text-white text-xs font-semibold shrink-0">
+              {initials}
             </div>
             <div className="min-w-0">
-              <p className="text-sm font-medium text-white truncate">
+              <p className="text-sm font-medium text-gray-800 truncate">
                 {session.user.name}
               </p>
-              <p className="text-xs text-zinc-400 capitalize">{session.user.role}</p>
+              <p className="text-xs text-gray-400 capitalize">{session.user.role}</p>
             </div>
           </div>
           <form
@@ -111,7 +113,7 @@ export default async function DashboardLayout({
           >
             <button
               type="submit"
-              className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+              className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
             >
               <LogOut className="size-4" />
               Sign out
@@ -121,7 +123,7 @@ export default async function DashboardLayout({
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 overflow-auto bg-zinc-950 text-white">
+      <main className="flex-1 overflow-auto bg-violet-50 text-gray-900">
         {children}
       </main>
     </div>

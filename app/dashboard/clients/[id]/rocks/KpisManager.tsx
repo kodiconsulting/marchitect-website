@@ -22,10 +22,10 @@ interface Props {
 function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={onClose}>
-      <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-6 w-full max-w-md mx-4 shadow-xl" onClick={e => e.stopPropagation()}>
+      <div className="bg-white border border-gray-200 rounded-xl p-6 w-full max-w-md mx-4 shadow-xl" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-white font-semibold text-base">{title}</h2>
-          <button onClick={onClose} className="text-zinc-500 hover:text-white transition-colors text-xl leading-none">&times;</button>
+          <h2 className="text-gray-900 font-semibold text-base">{title}</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-900 transition-colors text-xl leading-none">&times;</button>
         </div>
         {children}
       </div>
@@ -122,44 +122,44 @@ export default function KpisManager({ kpis: initial, workspaceId }: Props) {
   return (
     <>
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider">KPIs</h2>
+        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">KPIs</h2>
         <button
           onClick={openAdd}
-          className="text-xs bg-zinc-700 hover:bg-zinc-600 text-white font-medium px-3 py-1.5 rounded-lg transition-colors"
+          className="text-xs bg-gray-200 hover:bg-zinc-600 text-gray-900 font-medium px-3 py-1.5 rounded-lg transition-colors"
         >
           Add KPI
         </button>
       </div>
 
       {kpis.length === 0 ? (
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl py-12 text-center">
-          <p className="text-zinc-500 text-sm">No KPIs defined yet.</p>
+        <div className="bg-white border border-gray-200 rounded-xl py-12 text-center">
+          <p className="text-gray-400 text-sm">No KPIs defined yet.</p>
         </div>
       ) : (
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
+        <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-zinc-800">
-                  <th className="text-left px-4 py-2.5 text-xs font-medium text-zinc-500 uppercase tracking-wider">Name</th>
-                  <th className="text-left px-4 py-2.5 text-xs font-medium text-zinc-500 uppercase tracking-wider">Owner</th>
-                  <th className="text-left px-4 py-2.5 text-xs font-medium text-zinc-500 uppercase tracking-wider">Current</th>
-                  <th className="text-left px-4 py-2.5 text-xs font-medium text-zinc-500 uppercase tracking-wider">Target</th>
-                  <th className="text-left px-4 py-2.5 text-xs font-medium text-zinc-500 uppercase tracking-wider">Frequency</th>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left px-4 py-2.5 text-xs font-medium text-gray-400 uppercase tracking-wider">Name</th>
+                  <th className="text-left px-4 py-2.5 text-xs font-medium text-gray-400 uppercase tracking-wider">Owner</th>
+                  <th className="text-left px-4 py-2.5 text-xs font-medium text-gray-400 uppercase tracking-wider">Current</th>
+                  <th className="text-left px-4 py-2.5 text-xs font-medium text-gray-400 uppercase tracking-wider">Target</th>
+                  <th className="text-left px-4 py-2.5 text-xs font-medium text-gray-400 uppercase tracking-wider">Frequency</th>
                   <th className="px-4 py-2.5"></th>
                 </tr>
               </thead>
               <tbody>
                 {kpis.map(kpi => (
-                  <tr key={kpi.id} className="border-t border-zinc-800 hover:bg-zinc-800/40 transition-colors">
-                    <td className="px-4 py-3 text-zinc-200 font-medium">{kpi.name}</td>
-                    <td className="px-4 py-3 text-zinc-400">{kpi.owner ?? '—'}</td>
-                    <td className="px-4 py-3 text-zinc-300">{kpi.currentValue != null ? `${kpi.currentValue}${kpi.unit ? ` ${kpi.unit}` : ''}` : '—'}</td>
-                    <td className="px-4 py-3 text-zinc-400">{kpi.targetValue != null ? `${kpi.targetValue}${kpi.unit ? ` ${kpi.unit}` : ''}` : '—'}</td>
-                    <td className="px-4 py-3 text-zinc-400">{kpi.updateFrequency ?? '—'}</td>
+                  <tr key={kpi.id} className="border-t border-gray-200 hover:bg-gray-100/40 transition-colors">
+                    <td className="px-4 py-3 text-gray-700 font-medium">{kpi.name}</td>
+                    <td className="px-4 py-3 text-gray-500">{kpi.owner ?? '—'}</td>
+                    <td className="px-4 py-3 text-gray-600">{kpi.currentValue != null ? `${kpi.currentValue}${kpi.unit ? ` ${kpi.unit}` : ''}` : '—'}</td>
+                    <td className="px-4 py-3 text-gray-500">{kpi.targetValue != null ? `${kpi.targetValue}${kpi.unit ? ` ${kpi.unit}` : ''}` : '—'}</td>
+                    <td className="px-4 py-3 text-gray-500">{kpi.updateFrequency ?? '—'}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2 justify-end">
-                        <button onClick={() => openEdit(kpi)} className="text-xs text-zinc-500 hover:text-zinc-200 transition-colors">Edit</button>
+                        <button onClick={() => openEdit(kpi)} className="text-xs text-gray-400 hover:text-gray-700 transition-colors">Edit</button>
                         <button onClick={() => setDeleting(kpi)} className="text-xs text-red-500 hover:text-red-400 transition-colors">Delete</button>
                       </div>
                     </td>
@@ -175,72 +175,72 @@ export default function KpisManager({ kpis: initial, workspaceId }: Props) {
         <Modal title={editing ? 'Edit KPI' : 'Add KPI'} onClose={() => { setShowAdd(false); setEditing(null) }}>
           <div className="space-y-3">
             <div>
-              <label className="block text-xs text-zinc-400 mb-1">Name *</label>
+              <label className="block text-xs text-gray-500 mb-1">Name *</label>
               <input
                 value={form.name}
                 onChange={e => setForm({ ...form, name: e.target.value })}
-                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white placeholder-zinc-500 outline-none focus:border-zinc-500"
+                className="w-full bg-gray-100 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 placeholder-zinc-500 outline-none focus:border-zinc-500"
                 placeholder="KPI name"
               />
             </div>
             <div>
-              <label className="block text-xs text-zinc-400 mb-1">Definition</label>
+              <label className="block text-xs text-gray-500 mb-1">Definition</label>
               <textarea
                 value={form.definition}
                 onChange={e => setForm({ ...form, definition: e.target.value })}
-                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white placeholder-zinc-500 outline-none focus:border-zinc-500 resize-none"
+                className="w-full bg-gray-100 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 placeholder-zinc-500 outline-none focus:border-zinc-500 resize-none"
                 rows={2}
                 placeholder="How is this measured?"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs text-zinc-400 mb-1">Owner</label>
+                <label className="block text-xs text-gray-500 mb-1">Owner</label>
                 <input
                   value={form.owner}
                   onChange={e => setForm({ ...form, owner: e.target.value })}
-                  className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white placeholder-zinc-500 outline-none focus:border-zinc-500"
+                  className="w-full bg-gray-100 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 placeholder-zinc-500 outline-none focus:border-zinc-500"
                   placeholder="Person"
                 />
               </div>
               <div>
-                <label className="block text-xs text-zinc-400 mb-1">Unit</label>
+                <label className="block text-xs text-gray-500 mb-1">Unit</label>
                 <input
                   value={form.unit}
                   onChange={e => setForm({ ...form, unit: e.target.value })}
-                  className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white placeholder-zinc-500 outline-none focus:border-zinc-500"
+                  className="w-full bg-gray-100 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 placeholder-zinc-500 outline-none focus:border-zinc-500"
                   placeholder="%, $, leads…"
                 />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs text-zinc-400 mb-1">Current Value</label>
+                <label className="block text-xs text-gray-500 mb-1">Current Value</label>
                 <input
                   type="number"
                   value={form.currentValue}
                   onChange={e => setForm({ ...form, currentValue: e.target.value })}
-                  className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white placeholder-zinc-500 outline-none focus:border-zinc-500"
+                  className="w-full bg-gray-100 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 placeholder-zinc-500 outline-none focus:border-zinc-500"
                   placeholder="0"
                 />
               </div>
               <div>
-                <label className="block text-xs text-zinc-400 mb-1">Target Value</label>
+                <label className="block text-xs text-gray-500 mb-1">Target Value</label>
                 <input
                   type="number"
                   value={form.targetValue}
                   onChange={e => setForm({ ...form, targetValue: e.target.value })}
-                  className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white placeholder-zinc-500 outline-none focus:border-zinc-500"
+                  className="w-full bg-gray-100 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 placeholder-zinc-500 outline-none focus:border-zinc-500"
                   placeholder="0"
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs text-zinc-400 mb-1">Update Frequency</label>
+              <label className="block text-xs text-gray-500 mb-1">Update Frequency</label>
               <select
                 value={form.updateFrequency}
                 onChange={e => setForm({ ...form, updateFrequency: e.target.value })}
-                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-zinc-500"
+                className="w-full bg-gray-100 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 outline-none focus:border-zinc-500"
               >
                 {FREQUENCY_OPTIONS.map(f => <option key={f} value={f}>{f}</option>)}
               </select>
@@ -248,14 +248,14 @@ export default function KpisManager({ kpis: initial, workspaceId }: Props) {
             <div className="flex justify-end gap-2 pt-1">
               <button
                 onClick={() => { setShowAdd(false); setEditing(null) }}
-                className="text-sm text-zinc-400 hover:text-white transition-colors px-3 py-1.5"
+                className="text-sm text-gray-500 hover:text-gray-900 transition-colors px-3 py-1.5"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSave}
                 disabled={saving || !form.name.trim()}
-                className="text-sm bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium px-4 py-1.5 rounded-lg transition-colors"
+                className="text-sm bg-violet-600 hover:bg-violet-700 disabled:opacity-50 text-white font-medium px-4 py-1.5 rounded-lg transition-colors"
               >
                 {saving ? 'Saving…' : 'Save'}
               </button>
@@ -266,10 +266,10 @@ export default function KpisManager({ kpis: initial, workspaceId }: Props) {
 
       {deleting && (
         <Modal title="Delete KPI" onClose={() => setDeleting(null)}>
-          <p className="text-zinc-300 text-sm mb-4">Are you sure you want to delete this KPI? This cannot be undone.</p>
-          <p className="text-zinc-400 text-sm italic mb-5">&ldquo;{deleting.name}&rdquo;</p>
+          <p className="text-gray-600 text-sm mb-4">Are you sure you want to delete this KPI? This cannot be undone.</p>
+          <p className="text-gray-500 text-sm italic mb-5">&ldquo;{deleting.name}&rdquo;</p>
           <div className="flex justify-end gap-2">
-            <button onClick={() => setDeleting(null)} className="text-sm text-zinc-400 hover:text-white transition-colors px-3 py-1.5">Cancel</button>
+            <button onClick={() => setDeleting(null)} className="text-sm text-gray-500 hover:text-gray-900 transition-colors px-3 py-1.5">Cancel</button>
             <button onClick={handleDelete} disabled={saving} className="text-sm bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white font-medium px-4 py-1.5 rounded-lg transition-colors">
               {saving ? 'Deleting…' : 'Delete'}
             </button>

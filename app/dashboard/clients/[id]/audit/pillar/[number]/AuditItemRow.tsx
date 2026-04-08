@@ -27,7 +27,7 @@ const TIER_STYLES: Record<number, string> = {
   1: 'bg-red-500/20 text-red-300',
   2: 'bg-orange-500/20 text-orange-300',
   3: 'bg-blue-500/20 text-blue-300',
-  4: 'bg-zinc-600 text-zinc-300',
+  4: 'bg-zinc-600 text-gray-600',
 }
 
 const SCORE_LABELS: Record<number, string> = {
@@ -70,22 +70,22 @@ export default function AuditItemRow({ item, score, workspaceId }: Props) {
   }
 
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 mb-2 flex items-center gap-3">
+    <div className="bg-white border border-gray-200 rounded-lg px-4 py-3 mb-2 flex items-center gap-3">
       {/* Item number */}
-      <span className="font-mono text-sm text-zinc-400 flex-shrink-0 w-10">
+      <span className="font-mono text-sm text-gray-500 flex-shrink-0 w-10">
         {item.itemNumber}
       </span>
 
       {/* Description */}
-      <p className="text-white text-sm flex-1">{item.description}</p>
+      <p className="text-gray-900 text-sm flex-1">{item.description}</p>
 
       {/* Tier + toggle tags */}
       <div className="hidden sm:flex items-center gap-1.5 flex-shrink-0">
-        <span className={`inline-flex items-center text-xs font-medium px-2 py-0.5 rounded-md ${TIER_STYLES[item.tier] ?? 'bg-zinc-700 text-zinc-400'}`}>
+        <span className={`inline-flex items-center text-xs font-medium px-2 py-0.5 rounded-md ${TIER_STYLES[item.tier] ?? 'bg-gray-200 text-gray-500'}`}>
           T{item.tier}
         </span>
         {item.toggleTags.map((tag) => (
-          <span key={tag} className="inline-flex items-center text-xs px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-500">
+          <span key={tag} className="inline-flex items-center text-xs px-1.5 py-0.5 rounded bg-gray-100 text-gray-400">
             {tag}
           </span>
         ))}
@@ -96,7 +96,7 @@ export default function AuditItemRow({ item, score, workspaceId }: Props) {
         value={currentScore}
         onChange={handleChange}
         disabled={loading}
-        className={`flex-shrink-0 text-xs font-medium px-2 py-1.5 rounded-md border cursor-pointer transition-colors disabled:opacity-50 bg-zinc-950 outline-none ${SCORE_STYLES[currentScore]}`}
+        className={`flex-shrink-0 text-xs font-medium px-2 py-1.5 rounded-md border cursor-pointer transition-colors disabled:opacity-50 bg-violet-50 outline-none ${SCORE_STYLES[currentScore]}`}
       >
         <option value={0}>Not Done</option>
         <option value={1}>In Progress</option>

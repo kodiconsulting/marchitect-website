@@ -65,11 +65,11 @@ export default function OracleCategoryForm({
         <div key={field.id}>
           <label
             htmlFor={field.id}
-            className="block text-sm font-medium text-white mb-1"
+            className="block text-sm font-medium text-gray-900 mb-1"
           >
             {field.label}
           </label>
-          <p className="text-xs text-zinc-500 mb-2">{field.description}</p>
+          <p className="text-xs text-gray-400 mb-2">{field.description}</p>
           {field.type === 'textarea' ? (
             <textarea
               id={field.id}
@@ -79,7 +79,7 @@ export default function OracleCategoryForm({
                 setValues((prev) => ({ ...prev, [field.id]: e.target.value }))
               }
               placeholder={field.label}
-              className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px] resize-y"
+              className="w-full bg-gray-100 border border-gray-200 rounded-lg px-3 py-2 text-gray-900 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px] resize-y"
             />
           ) : (
             <Input
@@ -91,7 +91,7 @@ export default function OracleCategoryForm({
                 setValues((prev) => ({ ...prev, [field.id]: e.target.value }))
               }
               placeholder={field.label}
-              className="bg-zinc-800 border-zinc-700 text-white"
+              className="bg-gray-100 border-gray-200 text-gray-900"
             />
           )}
         </div>
@@ -108,13 +108,13 @@ export default function OracleCategoryForm({
         <button
           type="submit"
           disabled={isLoading}
-          className="inline-flex h-9 items-center justify-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex h-9 items-center justify-center rounded-lg bg-violet-600 px-4 text-sm font-medium text-white transition-colors hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? 'Saving…' : 'Save Changes'}
         </button>
         <Link
           href={oracleUrl}
-          className="inline-flex h-9 items-center justify-center rounded-lg border border-zinc-700 px-4 text-sm font-medium text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white"
+          className="inline-flex h-9 items-center justify-center rounded-lg border border-gray-200 px-4 text-sm font-medium text-gray-600 transition-colors hover:border-zinc-500 hover:text-gray-900"
         >
           Cancel
         </Link>

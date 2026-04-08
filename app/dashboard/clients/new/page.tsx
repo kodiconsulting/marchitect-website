@@ -81,19 +81,19 @@ export default function NewClientPage() {
       <div className="mb-8">
         <Link
           href="/dashboard/clients"
-          className="text-sm text-zinc-400 hover:text-white transition-colors mb-4 inline-block"
+          className="text-sm text-gray-500 hover:text-gray-900 transition-colors mb-4 inline-block"
         >
           ← Back to Clients
         </Link>
-        <h1 className="text-2xl font-bold text-white">Add Client</h1>
-        <p className="text-zinc-400 mt-1 text-sm">
+        <h1 className="text-2xl font-bold text-gray-900">Add Client</h1>
+        <p className="text-gray-500 mt-1 text-sm">
           Create a new client workspace.
         </p>
       </div>
 
-      <Card className="bg-zinc-900 border-zinc-800">
+      <Card className="bg-white border-gray-200">
         <CardHeader>
-          <CardTitle className="text-white text-base font-semibold">
+          <CardTitle className="text-gray-900 text-base font-semibold">
             Client Details
           </CardTitle>
         </CardHeader>
@@ -103,7 +103,7 @@ export default function NewClientPage() {
             <div className="space-y-1.5">
               <label
                 htmlFor="clientName"
-                className="block text-sm font-medium text-zinc-300"
+                className="block text-sm font-medium text-gray-600"
               >
                 Client Name <span className="text-red-400">*</span>
               </label>
@@ -115,7 +115,7 @@ export default function NewClientPage() {
                 value={form.clientName}
                 onChange={handleChange}
                 placeholder="Acme Corp"
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full rounded-lg border border-gray-200 bg-gray-100 px-3 py-2 text-sm text-gray-900 placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
             </div>
 
@@ -123,7 +123,7 @@ export default function NewClientPage() {
             <div className="space-y-1.5">
               <label
                 htmlFor="engagementStartDate"
-                className="block text-sm font-medium text-zinc-300"
+                className="block text-sm font-medium text-gray-600"
               >
                 Engagement Start Date
               </label>
@@ -133,16 +133,16 @@ export default function NewClientPage() {
                 type="date"
                 value={form.engagementStartDate}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 [color-scheme:dark]"
+                className="w-full rounded-lg border border-gray-200 bg-gray-100 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 [color-scheme:dark]"
               />
             </div>
 
             {/* Business Model Toggles */}
             <div className="space-y-2">
-              <p className="text-sm font-medium text-zinc-300">
+              <p className="text-sm font-medium text-gray-600">
                 Business Model
               </p>
-              <p className="text-xs text-zinc-500">
+              <p className="text-xs text-gray-400">
                 CORE is always enabled. Select additional models below.
               </p>
               <div className="space-y-2 pt-1">
@@ -152,9 +152,9 @@ export default function NewClientPage() {
                     type="checkbox"
                     checked
                     disabled
-                    className="size-4 rounded border-zinc-600 bg-zinc-700 accent-blue-600"
+                    className="size-4 rounded border-zinc-600 bg-gray-200 accent-blue-600"
                   />
-                  <span className="text-sm text-zinc-300">CORE (always on)</span>
+                  <span className="text-sm text-gray-600">CORE (always on)</span>
                 </label>
 
                 {businessModelToggles.map(({ name, label }) => (
@@ -167,9 +167,9 @@ export default function NewClientPage() {
                       name={name}
                       checked={form[name] as boolean}
                       onChange={handleChange}
-                      className="size-4 rounded border-zinc-600 bg-zinc-700 accent-blue-600"
+                      className="size-4 rounded border-zinc-600 bg-gray-200 accent-blue-600"
                     />
-                    <span className="text-sm text-zinc-300">{label}</span>
+                    <span className="text-sm text-gray-600">{label}</span>
                   </label>
                 ))}
               </div>
@@ -186,13 +186,13 @@ export default function NewClientPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="inline-flex h-9 items-center justify-center rounded-lg bg-blue-600 px-5 text-sm font-medium text-white transition-colors hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex h-9 items-center justify-center rounded-lg bg-violet-600 px-5 text-sm font-medium text-white transition-colors hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Creating…' : 'Create Client'}
               </button>
               <Link
                 href="/dashboard/clients"
-                className="inline-flex h-9 items-center justify-center rounded-lg border border-zinc-700 px-5 text-sm font-medium text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white"
+                className="inline-flex h-9 items-center justify-center rounded-lg border border-gray-200 px-5 text-sm font-medium text-gray-600 transition-colors hover:border-zinc-500 hover:text-gray-900"
               >
                 Cancel
               </Link>
