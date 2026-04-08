@@ -1,7 +1,7 @@
 import { auth } from '@/auth'
 import { redirect, notFound } from 'next/navigation'
 import { db } from '@/lib/db'
-import { workspaces, loginEntries } from '@/lib/db/schema'
+import { workspaces, loginEntries, teamMembers } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
 import Link from 'next/link'
 import LoginEntryManager from './LoginEntryManager'
@@ -29,6 +29,11 @@ export default async function ClientLoginsPage({
     .from(loginEntries)
     .where(eq(loginEntries.workspaceId, id))
 
+  const members = await db
+    .select({ id: teamMembers.id, name: teamMembers.name, title: teamMembers.title })
+    .from(teamMembers)
+    .where(eq(teamMembers.workspaceId, id))
+
   return (
     <div className="p-8 max-w-6xl mx-auto">
       <Link
@@ -45,7 +50,7 @@ export default async function ClientLoginsPage({
         </p>
       </div>
 
-      <LoginEntryManager entries={entries} workspaceId={id} />
+      <LoginEntryManager entries={entries} workspaceId={id} teamMembers={members} />
     </div>
   )
 }

@@ -69,12 +69,16 @@ const EMPTY_FORM: FormState = {
   notes: '',
 }
 
+interface TeamMember { id: string; name: string; title: string | null }
+
 export default function LoginEntryManager({
   entries: initial,
   workspaceId,
+  teamMembers = [],
 }: {
   entries: LoginEntry[]
   workspaceId: string
+  teamMembers?: TeamMember[]
 }) {
   const router = useRouter()
   const [entries, setEntries] = useState(initial)
@@ -186,7 +190,16 @@ export default function LoginEntryManager({
         </div>
         <div>
           <label className={LABEL}>Owner</label>
-          <input className={INPUT} placeholder="e.g. Jane Smith" {...field('owner')} />
+          {teamMembers.length > 0 ? (
+            <select className={INPUT} value={form.owner} onChange={e => setForm(f => ({ ...f, owner: e.target.value }))}>
+              <option value="">— Unassigned —</option>
+              {teamMembers.map(m => (
+                <option key={m.id} value={m.name}>{m.name}{m.title ? ` — ${m.title}` : ''}</option>
+              ))}
+            </select>
+          ) : (
+            <input className={INPUT} placeholder="e.g. Jane Smith" {...field('owner')} />
+          )}
         </div>
       </div>
       <div className="grid grid-cols-2 gap-3">
