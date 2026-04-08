@@ -196,12 +196,25 @@ export default function RocksManager({ rocks: initial, workspaceId, quarterKey, 
             </div>
             <div>
               <label className="block text-xs text-[#78829d] mb-1">Owner *</label>
-              <input
-                value={form.owner}
-                onChange={e => setForm({ ...form, owner: e.target.value })}
-                className="w-full bg-[#f1f1f4] border border-[#e8e8e8] rounded-lg px-3 py-2 text-sm text-[#252f4a] placeholder-[#78829d] outline-none focus:border-[#1B84FF]"
-                placeholder="Person responsible"
-              />
+              {teamMembers.length > 0 ? (
+                <select
+                  value={form.owner}
+                  onChange={e => setForm({ ...form, owner: e.target.value })}
+                  className="w-full bg-[#f1f1f4] border border-[#e8e8e8] rounded-lg px-3 py-2 text-sm text-[#252f4a] outline-none focus:border-[#1B84FF]"
+                >
+                  <option value="">— Select owner —</option>
+                  {teamMembers.map(m => (
+                    <option key={m.id} value={m.name}>{m.name}{m.title ? ` — ${m.title}` : ''}</option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  value={form.owner}
+                  onChange={e => setForm({ ...form, owner: e.target.value })}
+                  className="w-full bg-[#f1f1f4] border border-[#e8e8e8] rounded-lg px-3 py-2 text-sm text-[#252f4a] placeholder-[#78829d] outline-none focus:border-[#1B84FF]"
+                  placeholder="Person responsible"
+                />
+              )}
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
