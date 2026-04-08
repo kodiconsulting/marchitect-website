@@ -139,9 +139,9 @@ export default async function PillarDrillDownPage({
       {/* Summary row */}
       <div className="flex flex-wrap items-center gap-4 mb-6 text-sm">
         <span className="text-zinc-400">{total} items total</span>
-        <span className="text-green-400 font-medium">{green} Green</span>
-        <span className="text-yellow-400 font-medium">{yellow} Yellow</span>
-        <span className="text-red-400 font-medium">{red} Red</span>
+        <span className="text-green-400 font-medium">{green} Complete</span>
+        <span className="text-yellow-400 font-medium">{yellow} In Progress</span>
+        <span className="text-red-400 font-medium">{red} Not Done</span>
         <span className="text-zinc-500">{notScored} Not scored</span>
       </div>
 
