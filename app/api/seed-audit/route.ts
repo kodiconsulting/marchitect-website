@@ -9,7 +9,7 @@ const PILLARS_DATA = [
   },
   {
     pillarNumber: 2,
-    name: 'Goals, Budget & Success Definitions',
+    name: 'Offer Generation, Goals, Budget & Success Definitions',
     description:
       'What success looks like, how it\'s measured, and how it\'s funded.',
   },

@@ -1,18 +1,12 @@
 import { auth } from '@/auth'
 import { redirect, notFound } from 'next/navigation'
 import { db } from '@/lib/db'
-import { workspaces } from '@/lib/db/schema'
+import { workspaces, pillars } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
-import { ChevronDown, Info } from 'lucide-react'
-
-const pillars = [
-  { label: 'Pillar 1', subtitle: 'Brand Foundation' },
-  { label: 'Pillar 2', subtitle: 'Lead Generation' },
-  { label: 'Pillar 3', subtitle: 'Nurture & Retention' },
-  { label: 'Pillar 4', subtitle: 'Measurement & Optimisation' },
-]
+import { Terminal } from 'lucide-react'
+import PlaybookAccordion from './PlaybookAccordion'
 
 export default async function ClientPlaybooksPage({
   params,
@@ -30,9 +24,12 @@ export default async function ClientPlaybooksPage({
     .where(eq(workspaces.id, id))
     .limit(1)
 
-  if (!workspace) {
-    notFound()
-  }
+  if (!workspace) notFound()
+
+  const allPillars = await db
+    .select()
+    .from(pillars)
+    .orderBy(pillars.pillarNumber)
 
   return (
     <div className="p-8 max-w-5xl mx-auto">
@@ -50,36 +47,28 @@ export default async function ClientPlaybooksPage({
         </p>
       </div>
 
-      {/* Top note */}
-      <div className="flex items-start gap-3 rounded-lg border border-[#e8e8e8] bg-white px-4 py-3 mb-8">
-        <Info className="size-4 text-[#78829d] mt-0.5 shrink-0" />
+      {/* Cowork intro note */}
+      <div className="flex items-start gap-3 rounded-lg border border-[#e8e8e8] bg-[#f9f9f9] px-4 py-3 mb-8">
+        <Terminal className="size-4 text-[#78829d] mt-0.5 shrink-0" />
         <p className="text-[#78829d] text-sm">
-          The full playbook library will be populated as templates are built. Each playbook
-          is linked to the audit items it supports.
+          Each pillar has a corresponding Cowork skill that can generate workshop content.
+          Run the skill command in your Cowork sandbox to produce the deliverable for that pillar.
         </p>
       </div>
 
-      <div className="space-y-3">
-        {pillars.map(pillar => (
-          <Card key={pillar.label} className="bg-white border-[#e8e8e8]">
-            <button
-              type="button"
-              className="w-full flex items-center justify-between px-5 py-4 text-left"
-            >
-              <div>
-                <span className="text-sm font-semibold text-[#252f4a]">{pillar.label}</span>
-                <span className="ml-2 text-sm text-[#78829d]">{pillar.subtitle}</span>
-              </div>
-              <ChevronDown className="size-4 text-[#78829d] shrink-0" />
-            </button>
-            <CardContent className="px-5 pb-5 pt-0 border-t border-[#e8e8e8]">
-              <p className="text-[#78829d] text-sm py-4 text-center">
-                No playbooks added yet for this pillar.
-              </p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      {allPillars.length === 0 ? (
+        <Card className="bg-white border-[#e8e8e8]">
+          <CardContent className="py-16 text-center">
+            <p className="text-[#78829d] text-sm">
+              No pillars found.{' '}
+              <Link href="/seed" className="text-[#1B84FF] underline">Seed the audit library</Link>{' '}
+              first.
+            </p>
+          </CardContent>
+        </Card>
+      ) : (
+        <PlaybookAccordion pillars={allPillars} />
+      )}
     </div>
   )
 }
