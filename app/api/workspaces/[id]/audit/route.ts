@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server'
 import { eq, and, inArray } from 'drizzle-orm'
 import { db } from '@/lib/db'
 import { workspaces, auditItems, auditScores, pillars } from '@/lib/db/schema'
-import { verifyRequest, requireWorkspaceAccess } from '@/lib/auth'
+import { auth } from '@/auth'
 
 const TIER_WEIGHTS: Record<number, number> = { 1: 3, 2: 2, 3: 1, 4: 0.5 }
 
@@ -21,11 +21,10 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const auth = await verifyRequest(request)
-    if (!auth) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+    const session = await auth()
+    if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
     const { id } = await params
-    await requireWorkspaceAccess(auth.userId, id)
 
     const [workspace] = await db
       .select()

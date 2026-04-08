@@ -17,32 +17,34 @@ import {
   Users,
 } from 'lucide-react'
 
-const quickLinks = [
-  {
-    label: 'Audit Dashboard',
-    href: '/dashboard/audit',
-    icon: BarChart2,
-    description: 'Review and score audit items',
-  },
-  {
-    label: 'Rocks & Goals',
-    href: '/dashboard/rocks',
-    icon: Target,
-    description: 'Track quarterly rocks and goals',
-  },
-  {
-    label: 'Content Oracle',
-    href: '/dashboard/oracle',
-    icon: Database,
-    description: 'Manage content intelligence data',
-  },
-  {
-    label: 'Responsibility Matrix',
-    href: '/dashboard/responsibility',
-    icon: Users,
-    description: 'Assign marketing functions',
-  },
-]
+function getQuickLinks(id: string) {
+  return [
+    {
+      label: 'Audit Dashboard',
+      href: `/dashboard/clients/${id}/audit`,
+      icon: BarChart2,
+      description: 'Review and score audit items',
+    },
+    {
+      label: 'Rocks & Goals',
+      href: `/dashboard/clients/${id}/rocks`,
+      icon: Target,
+      description: 'Track quarterly rocks and goals',
+    },
+    {
+      label: 'Content Oracle',
+      href: `/dashboard/clients/${id}/oracle`,
+      icon: Database,
+      description: 'Manage content intelligence data',
+    },
+    {
+      label: 'Responsibility Matrix',
+      href: `/dashboard/clients/${id}/matrix`,
+      icon: Users,
+      description: 'Assign marketing functions',
+    },
+  ]
+}
 
 export default async function ClientDetailPage({
   params,
@@ -154,7 +156,7 @@ export default async function ClientDetailPage({
           Quick Links
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {quickLinks.map(({ label, href, icon: Icon, description }) => (
+          {getQuickLinks(id).map(({ label, href, icon: Icon, description }) => (
             <Link key={label} href={href}>
               <Card className="bg-white border-[#e8e8e8] hover:border-[#1B84FF] transition-colors cursor-pointer h-full">
                 <CardContent className="flex items-start gap-4 py-5">

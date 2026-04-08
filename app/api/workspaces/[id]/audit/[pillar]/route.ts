@@ -2,18 +2,17 @@ import { NextRequest } from 'next/server'
 import { eq, and } from 'drizzle-orm'
 import { db } from '@/lib/db'
 import { auditItems, auditScores, pillars } from '@/lib/db/schema'
-import { verifyRequest, requireWorkspaceAccess } from '@/lib/auth'
+import { auth } from '@/auth'
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string; pillar: string }> }
 ) {
   try {
-    const auth = await verifyRequest(request)
-    if (!auth) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+    const session = await auth()
+    if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
     const { id, pillar } = await params
-    await requireWorkspaceAccess(auth.userId, id)
 
     const pillarNumber = parseInt(pillar, 10)
     if (isNaN(pillarNumber)) {
