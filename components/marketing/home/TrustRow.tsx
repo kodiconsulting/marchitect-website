@@ -9,6 +9,7 @@ const INDUSTRIES = [
 export default function TrustRow() {
   return (
     <section
+      aria-label="Trusted industries"
       style={{
         backgroundColor: 'var(--m-bg)',
         borderTop: '1px solid var(--m-border)',

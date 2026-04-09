@@ -3,9 +3,9 @@ import TrustRow from '@/components/marketing/home/TrustRow'
 
 export default function HomePage() {
   return (
-    <main>
+    <>
       <Hero />
       <TrustRow />
-    </main>
+    </>
   )
 }
