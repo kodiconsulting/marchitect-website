@@ -7,6 +7,8 @@ import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import AuditItemRow from './AuditItemRow'
 
+export const dynamic = 'force-dynamic'
+
 export default async function PillarDrillDownPage({
   params,
 }: {
@@ -76,13 +78,14 @@ export default async function PillarDrillDownPage({
 
   // Fetch scores for this workspace for these items
   const itemIds = items.map((i) => i.id)
-  let scoreRows: { auditItemId: string; score: number; scoredDate: Date }[] = []
+  let scoreRows: { auditItemId: string; score: number; scoredDate: Date; notes: string | null }[] = []
   if (itemIds.length > 0) {
     scoreRows = await db
       .select({
         auditItemId: auditScores.auditItemId,
         score: auditScores.score,
         scoredDate: auditScores.scoredDate,
+        notes: auditScores.notes,
       })
       .from(auditScores)
       .where(
@@ -93,8 +96,8 @@ export default async function PillarDrillDownPage({
       )
   }
 
-  const scoreMap = new Map<string, { score: number; scoredDate: Date }>(
-    scoreRows.map((s) => [s.auditItemId, { score: s.score, scoredDate: s.scoredDate }])
+  const scoreMap = new Map<string, { score: number; scoredDate: Date; notes: string | null }>(
+    scoreRows.map((s) => [s.auditItemId, { score: s.score, scoredDate: s.scoredDate, notes: s.notes }])
   )
 
   // Summary counts
@@ -165,7 +168,7 @@ export default async function PillarDrillDownPage({
                   tier: item.tier,
                   toggleTags: item.toggleTags ?? [],
                 }}
-                score={s ? { score: s.score, scoredDate: s.scoredDate } : null}
+                score={s ? { score: s.score, scoredDate: s.scoredDate, notes: s.notes } : null}
                 workspaceId={id}
               />
             )
