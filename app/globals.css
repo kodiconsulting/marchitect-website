@@ -46,6 +46,15 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  /* Marchitect marketing design tokens */
+  --color-m-bg: var(--m-bg);
+  --color-m-bg-card: var(--m-bg-card);
+  --color-m-bg-card-hover: var(--m-bg-card-hover);
+  --color-m-accent: var(--m-accent);
+  --color-m-text: var(--m-text);
+  --color-m-text-secondary: var(--m-text-secondary);
+  --color-m-text-muted: var(--m-text-muted);
+  --color-m-border: var(--m-border);
 }
 
 :root {
@@ -81,6 +90,15 @@
   --sidebar-accent-foreground: oklch(0.39 0.06 260);
   --sidebar-border: oklch(0.92 0 0);
   --sidebar-ring: oklch(0.60 0.22 260);
+  /* Marchitect marketing design tokens */
+  --m-bg: #0B0F1A;
+  --m-bg-card: #141B2D;
+  --m-bg-card-hover: #1A2340;
+  --m-accent: #6B5CE7;
+  --m-text: #FFFFFF;
+  --m-text-secondary: #8892A4;
+  --m-text-muted: #5A6478;
+  --m-border: rgba(255, 255, 255, 0.06);
 }
 
 .dark {
