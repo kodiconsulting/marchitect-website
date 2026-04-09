@@ -1,7 +1,11 @@
+import Hero from '@/components/marketing/home/Hero'
+import TrustRow from '@/components/marketing/home/TrustRow'
+
 export default function HomePage() {
   return (
-    <main style={{ backgroundColor: 'var(--m-bg)', minHeight: '100vh' }}>
-      <p style={{ color: 'var(--m-text)', padding: '2rem' }}>Home — coming soon</p>
+    <main>
+      <Hero />
+      <TrustRow />
     </main>
   )
 }
