@@ -1,0 +1,131 @@
+{
+  "planPath": "docs/superpowers/plans/2026-04-09-marchitect-website-frontend.md",
+  "tasks": [
+    {
+      "id": 1,
+      "subject": "Task 1: Route Group Scaffold + Design Tokens",
+      "status": "pending",
+      "description": "**Goal:** Delete app/page.tsx, create (marketing) and (surveys) route group stubs, and add --m-* design tokens to globals.css.\n\n**Files:**\n- Delete: `app/page.tsx`\n- Create: `app/(marketing)/layout.tsx`\n- Create: `app/(marketing)/page.tsx`\n- Create: `app/(marketing)/framework/page.tsx`\n- Create: `app/(marketing)/results/page.tsx`\n- Create: `app/(marketing)/services/page.tsx`\n- Create: `app/(marketing)/about/page.tsx`\n- Create: `app/(marketing)/contact/page.tsx`\n- Create: `app/(surveys)/layout.tsx`\n- Create: `app/(surveys)/assessment/page.tsx`\n- Modify: `app/globals.css`\n\n**Acceptance Criteria:**\n- [ ] app/page.tsx deleted\n- [ ] All route group directories and stub files created\n- [ ] --m-* tokens in :root and @theme inline in globals.css\n- [ ] npx tsc --noEmit && npm run build exits 0\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"app/globals.css\", \"app/(marketing)/layout.tsx\", \"app/(marketing)/page.tsx\", \"app/(surveys)/layout.tsx\", \"app/(surveys)/assessment/page.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"app/page.tsx deleted\", \"All route group directories and stub files created\", \"--m-* tokens in :root and @theme inline\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 2,
+      "subject": "Task 2: Nav + Footer Components",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Build Nav.tsx (client component, scroll-aware, mobile hamburger) and Footer.tsx (server component), then update the marketing layout to use them.\n\n**Files:**\n- Create: `components/marketing/Nav.tsx`\n- Create: `components/marketing/Footer.tsx`\n- Modify: `app/(marketing)/layout.tsx`\n\n**Acceptance Criteria:**\n- [ ] Nav transparent at top, solid --m-bg-card after 60px scroll\n- [ ] Mobile hamburger opens fullscreen overlay\n- [ ] Active link highlighted via usePathname\n- [ ] Footer renders logo/tagline/links/copyright\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/Nav.tsx\", \"components/marketing/Footer.tsx\", \"app/(marketing)/layout.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"Nav scroll behavior correct\", \"Mobile hamburger works\", \"Active link highlighted\", \"Footer renders correctly\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 3,
+      "subject": "Task 3: Home — Hero Section",
+      "status": "pending",
+      "blockedBy": [2],
+      "description": "**Goal:** Build the Hero component and wire it into the Home page.\n\n**Files:**\n- Create: `components/marketing/home/Hero.tsx`\n- Modify: `app/(marketing)/page.tsx`\n\n**Acceptance Criteria:**\n- [ ] Full-viewport centered layout\n- [ ] Purple radial glow behind content\n- [ ] Eyebrow, H1, subhead, dual CTAs present\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/home/Hero.tsx\", \"app/(marketing)/page.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"Full-viewport centered layout\", \"Purple radial glow\", \"Dual CTAs link to /assessment and /contact\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 4,
+      "subject": "Task 4: Home — TrustRow Section",
+      "status": "pending",
+      "blockedBy": [3],
+      "description": "**Goal:** Build the TrustRow component showing industry labels.\n\n**Files:**\n- Create: `components/marketing/home/TrustRow.tsx`\n- Modify: `app/(marketing)/page.tsx`\n\n**Acceptance Criteria:**\n- [ ] Dark background with top/bottom borders\n- [ ] 5 industry pill labels visible\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/home/TrustRow.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"Dark background with borders\", \"5 industry pills visible\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 5,
+      "subject": "Task 5: Home — ProblemBlock Section",
+      "status": "pending",
+      "blockedBy": [4],
+      "description": "**Goal:** Build the ProblemBlock component — two-column with H2/body left, 3 symptom cards right. White background.\n\n**Files:**\n- Create: `components/marketing/home/ProblemBlock.tsx`\n- Modify: `app/(marketing)/page.tsx`\n\n**Acceptance Criteria:**\n- [ ] White background\n- [ ] Two-column layout (stacks on mobile)\n- [ ] 3 symptom cards rendered\n- [ ] Section label 01\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/home/ProblemBlock.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"White background\", \"Two-column responsive layout\", \"3 symptom cards\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 6,
+      "subject": "Task 6: Home — SolutionBlock Section",
+      "status": "pending",
+      "blockedBy": [5],
+      "description": "**Goal:** Build the SolutionBlock component — centered, dark background, single CTA.\n\n**Files:**\n- Create: `components/marketing/home/SolutionBlock.tsx`\n- Modify: `app/(marketing)/page.tsx`\n\n**Acceptance Criteria:**\n- [ ] Dark background\n- [ ] Centered max-760px content\n- [ ] Section label 02\n- [ ] CTA links to /framework\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/home/SolutionBlock.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"Dark background\", \"Centered max-760px\", \"Section label 02\", \"CTA to /framework\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 7,
+      "subject": "Task 7: Home — KpiCards Section",
+      "status": "pending",
+      "blockedBy": [6],
+      "description": "**Goal:** Build the KpiCards component — 3-column stat grid. White/light background.\n\n**Files:**\n- Create: `components/marketing/home/KpiCards.tsx`\n- Modify: `app/(marketing)/page.tsx`\n\n**Acceptance Criteria:**\n- [ ] 3 KPI cards with big numbers\n- [ ] Light background\n- [ ] Section label 03\n- [ ] Link to /results\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/home/KpiCards.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"3 KPI cards with big purple numbers\", \"Light background\", \"Section label 03\", \"Link to /results\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 8,
+      "subject": "Task 8: Home — FrameworkTeaser Section",
+      "status": "pending",
+      "blockedBy": [7],
+      "description": "**Goal:** Build the FrameworkTeaser component — 5 pillar tiles, dark background.\n\n**Files:**\n- Create: `components/marketing/home/FrameworkTeaser.tsx`\n- Modify: `app/(marketing)/page.tsx`\n\n**Acceptance Criteria:**\n- [ ] 5 pillar tiles (A-E) visible\n- [ ] Dark background\n- [ ] Section label 04\n- [ ] Responsive grid (5/2/1 col)\n- [ ] Dual CTAs\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/home/FrameworkTeaser.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"5 tiles visible\", \"Dark background\", \"Responsive grid\", \"Dual CTAs\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 9,
+      "subject": "Task 9: Home — Testimonials, FaqStrip, ClosingCta + Full Page Assembly",
+      "status": "pending",
+      "blockedBy": [8],
+      "description": "**Goal:** Build Testimonials, FaqStrip, and ClosingCta components, then assemble all 9 home sections in order.\n\n**Files:**\n- Create: `components/marketing/home/Testimonials.tsx`\n- Create: `components/marketing/home/FaqStrip.tsx`\n- Create: `components/marketing/shared/ClosingCta.tsx`\n- Modify: `app/(marketing)/page.tsx`\n\n**Acceptance Criteria:**\n- [ ] Testimonials: 3-column card grid\n- [ ] FaqStrip: shadcn Accordion with 5 questions\n- [ ] ClosingCta: dark, dual CTAs\n- [ ] Home page renders all 9 sections in order\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/home/Testimonials.tsx\", \"components/marketing/home/FaqStrip.tsx\", \"components/marketing/shared/ClosingCta.tsx\", \"app/(marketing)/page.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"3 testimonial cards\", \"5 FAQ items with shadcn Accordion\", \"ClosingCta with dual CTAs\", \"All 9 sections assembled\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 10,
+      "subject": "Task 10: Framework Page",
+      "status": "pending",
+      "blockedBy": [9],
+      "description": "**Goal:** Build the complete /framework page.\n\n**Files:**\n- Create: `components/marketing/framework/FrameworkHero.tsx`\n- Create: `components/marketing/framework/FrameworkOverview.tsx`\n- Create: `components/marketing/framework/ProofPanel.tsx`\n- Create: `components/marketing/framework/PositioningBlock.tsx`\n- Create: `components/marketing/framework/ExecutionBoundary.tsx`\n- Modify: `app/(marketing)/framework/page.tsx`\n\n**Acceptance Criteria:**\n- [ ] Split hero with pill tags and dual CTAs\n- [ ] 5 pillar cards with deliverables lists\n- [ ] Dark proof panel with 3 stats\n- [ ] Execution boundary do/don't split\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/framework/FrameworkHero.tsx\", \"components/marketing/framework/FrameworkOverview.tsx\", \"components/marketing/framework/ProofPanel.tsx\", \"components/marketing/framework/PositioningBlock.tsx\", \"components/marketing/framework/ExecutionBoundary.tsx\", \"app/(marketing)/framework/page.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"Split hero with pill tags\", \"5 pillar cards with deliverables\", \"Dark proof panel\", \"Do/don't split\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 11,
+      "subject": "Task 11: Results Page",
+      "status": "pending",
+      "blockedBy": [9],
+      "description": "**Goal:** Build the complete /results page with KPI banner and 3 case studies.\n\n**Files:**\n- Create: `components/marketing/results/ResultsHero.tsx`\n- Create: `components/marketing/results/KpiBanner.tsx`\n- Create: `components/marketing/results/CaseStudy.tsx`\n- Modify: `app/(marketing)/results/page.tsx`\n\n**Acceptance Criteria:**\n- [ ] Dark KPI banner with 3 stats\n- [ ] 3 case study blocks (Hardwood Bargains, BMI of Texas, CBD Brand)\n- [ ] Alternating light/gray backgrounds\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/results/ResultsHero.tsx\", \"components/marketing/results/KpiBanner.tsx\", \"components/marketing/results/CaseStudy.tsx\", \"app/(marketing)/results/page.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"Dark KPI banner\", \"3 case studies with stats\", \"Alternating backgrounds\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 12,
+      "subject": "Task 12: Services Page",
+      "status": "pending",
+      "blockedBy": [9],
+      "description": "**Goal:** Build the complete /services page with 10 service blocks.\n\n**Files:**\n- Create: `components/marketing/services/ServicesHero.tsx`\n- Create: `components/marketing/services/CategoryStrip.tsx`\n- Create: `components/marketing/services/ExecutionFraming.tsx`\n- Create: `components/marketing/services/ServiceBlock.tsx`\n- Modify: `app/(marketing)/services/page.tsx`\n\n**Acceptance Criteria:**\n- [ ] Category strip with 5 decorative pills\n- [ ] Two-column execution framing\n- [ ] 10 numbered service blocks with alternating backgrounds\n- [ ] Tag pills on each service\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/services/ServicesHero.tsx\", \"components/marketing/services/CategoryStrip.tsx\", \"components/marketing/services/ExecutionFraming.tsx\", \"components/marketing/services/ServiceBlock.tsx\", \"app/(marketing)/services/page.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"Category strip\", \"Execution framing two-column\", \"10 service blocks\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 13,
+      "subject": "Task 13: About Page",
+      "status": "pending",
+      "blockedBy": [9],
+      "description": "**Goal:** Build the complete /about page including the alternating timeline approach steps.\n\n**Files:**\n- Create: `components/marketing/about/AboutHero.tsx`\n- Create: `components/marketing/about/AboutIntro.tsx`\n- Create: `components/marketing/about/OriginStory.tsx`\n- Create: `components/marketing/about/Credentials.tsx`\n- Create: `components/marketing/about/ApproachSteps.tsx`\n- Create: `components/marketing/about/Principles.tsx`\n- Modify: `app/(marketing)/about/page.tsx`\n\n**Acceptance Criteria:**\n- [ ] Timeline (Diagnose/Install/Enable) with alternating left/right cards on desktop\n- [ ] 4-tile credentials grid\n- [ ] 5 numbered principles\n- [ ] Collapses to single column on mobile\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/about/AboutHero.tsx\", \"components/marketing/about/AboutIntro.tsx\", \"components/marketing/about/OriginStory.tsx\", \"components/marketing/about/Credentials.tsx\", \"components/marketing/about/ApproachSteps.tsx\", \"components/marketing/about/Principles.tsx\", \"app/(marketing)/about/page.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"Alternating timeline steps\", \"4-tile credentials grid\", \"5 principles\", \"Mobile responsive\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 14,
+      "subject": "Task 14: Contact Page (UI)",
+      "status": "pending",
+      "blockedBy": [9],
+      "description": "**Goal:** Build the /contact page with GHL calendar iframe and contact form (UI only, API in Task 18).\n\n**Files:**\n- Create: `components/marketing/contact/ContactHero.tsx`\n- Create: `components/marketing/contact/ContactSplit.tsx`\n- Create: `components/marketing/contact/ContactForm.tsx`\n- Create: `components/marketing/contact/ContactInfo.tsx`\n- Modify: `app/(marketing)/contact/page.tsx`\n\n**Acceptance Criteria:**\n- [ ] Two-column split: calendar left, form right\n- [ ] GHL iframe renders (placeholder URL)\n- [ ] Form has name/email/company/message fields\n- [ ] Form is a 'use client' component\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/contact/ContactHero.tsx\", \"components/marketing/contact/ContactSplit.tsx\", \"components/marketing/contact/ContactForm.tsx\", \"components/marketing/contact/ContactInfo.tsx\", \"app/(marketing)/contact/page.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"Two-column split layout\", \"GHL iframe present\", \"Form fields correct\", \"ContactForm is use client\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 15,
+      "subject": "Task 15: DB Schema — assessment_submissions + contact_inquiries",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Add assessment_submissions and contact_inquiries tables to Drizzle schema and generate + push migration.\n\n**Files:**\n- Modify: `lib/db/schema.ts`\n\n**Acceptance Criteria:**\n- [ ] assessmentSubmissions table added (id, createdAt, sessionId, responses jsonb, resultsShownAt, callBooked)\n- [ ] contactInquiries table added (id, createdAt, name, email, company, message)\n- [ ] Migration generated and pushed\n- [ ] npx tsc --noEmit exits 0\n\n**Verify:** `npx tsc --noEmit` → exits 0\n\n```json:metadata\n{\"files\": [\"lib/db/schema.ts\", \"lib/db/migrations/\"], \"verifyCommand\": \"npx tsc --noEmit\", \"acceptanceCriteria\": [\"assessmentSubmissions table defined\", \"contactInquiries table defined\", \"Migration generated\", \"TypeScript compiles\"]}\n```"
+    },
+    {
+      "id": 16,
+      "subject": "Task 16: Assessment Page (/assessment)",
+      "status": "pending",
+      "blockedBy": [15],
+      "description": "**Goal:** Build the 7-step assessment as a client component with intro, questions, and results screen with GHL calendar.\n\n**Files:**\n- Create: `components/marketing/assessment/AssessmentShell.tsx`\n- Modify: `app/(surveys)/assessment/page.tsx`\n- Modify: `app/(surveys)/layout.tsx`\n\n**Acceptance Criteria:**\n- [ ] Intro screen → 7 question screens → results screen\n- [ ] Progress bar shows Question N of 7\n- [ ] Back button on each question screen\n- [ ] Click an option auto-advances\n- [ ] On completion: POST /api/assessment/submit\n- [ ] Results screen shows GHL calendar iframe\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/assessment/AssessmentShell.tsx\", \"app/(surveys)/assessment/page.tsx\", \"app/(surveys)/layout.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"Intro/question/results flow works\", \"Progress bar\", \"Back button\", \"Click-to-advance\", \"API call on completion\", \"GHL iframe on results\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 17,
+      "subject": "Task 17: Assessment API Route",
+      "status": "pending",
+      "blockedBy": [15],
+      "description": "**Goal:** Create POST /api/assessment/submit — saves assessment submission to DB.\n\n**Files:**\n- Create: `app/api/assessment/submit/route.ts`\n\n**Acceptance Criteria:**\n- [ ] POST validates sessionId and responses with Zod\n- [ ] Inserts into assessment_submissions table\n- [ ] Returns { submissionId }\n- [ ] Returns 400 on invalid input\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"app/api/assessment/submit/route.ts\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"POST route with Zod validation\", \"DB insert\", \"Returns submissionId\", \"Build passes\"]}\n```"
+    },
+    {
+      "id": 18,
+      "subject": "Task 18: Contact API Route",
+      "status": "pending",
+      "blockedBy": [15],
+      "description": "**Goal:** Create POST /api/contact — saves contact inquiry to DB.\n\n**Files:**\n- Create: `app/api/contact/route.ts`\n\n**Acceptance Criteria:**\n- [ ] POST validates name/email/company/message with Zod\n- [ ] Inserts into contact_inquiries table\n- [ ] Returns { success, id }\n- [ ] Returns 400 on invalid input\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"app/api/contact/route.ts\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"POST route with Zod validation\", \"DB insert\", \"Returns success and id\", \"Build passes\"]}\n```"
+    }
+  ],
+  "lastUpdated": "2026-04-09T00:00:00.000Z"
+}
