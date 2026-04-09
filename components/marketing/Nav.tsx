@@ -36,6 +36,7 @@ export default function Nav() {
   return (
     <>
       <nav
+        aria-label="Main navigation"
         style={{
           position: 'fixed',
           top: 0,
@@ -72,7 +73,6 @@ export default function Nav() {
         {/* Desktop center links */}
         <div
           style={{
-            display: 'flex',
             alignItems: 'center',
             gap: '2rem',
             position: 'absolute',
@@ -132,6 +132,7 @@ export default function Nav() {
         <button
           className="flex md:hidden"
           onClick={() => setMenuOpen((prev) => !prev)}
+          aria-expanded={menuOpen}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           style={{
             background: 'none',
@@ -139,7 +140,6 @@ export default function Nav() {
             cursor: 'pointer',
             padding: '0.5rem',
             color: 'var(--m-text)',
-            display: 'flex',
             flexDirection: 'column',
             gap: '5px',
             alignItems: 'center',
@@ -228,7 +228,7 @@ export default function Nav() {
               marginTop: '1rem',
             }}
           >
-            Take Assessment →
+            Take Assessment <span aria-hidden="true">→</span>
           </Link>
         </div>
       )}

@@ -81,6 +81,7 @@ export default function Footer() {
 
         {/* Center: Nav links */}
         <nav
+          aria-label="Footer navigation"
           style={{
             display: 'flex',
             flexDirection: 'column',
