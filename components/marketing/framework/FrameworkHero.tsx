@@ -1,56 +1,32 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
-const pillTags = [
-  'Positioning',
-  'Demand Generation',
-  'Conversion',
-  'Revenue Infrastructure',
-  'Marketing Operations',
-];
+const pillTags = ['Playbook', 'Reporting', 'Offer Strategy', 'ICP Definition', 'Roadmap', 'Attribution']
 
 export default function FrameworkHero() {
   return (
     <section className="relative overflow-hidden py-24" style={{ backgroundColor: 'var(--m-bg)' }}>
-      {/* Purple radial glow */}
       <div
         className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[900px] -translate-x-1/2 opacity-20"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, var(--m-accent) 0%, transparent 70%)',
-        }}
+        style={{ background: 'radial-gradient(ellipse at center, var(--m-accent) 0%, transparent 70%)' }}
         aria-hidden="true"
       />
-
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-5">
-          {/* Left — 60% */}
           <div className="lg:col-span-3">
-            <p
-              className="mb-4 text-xs font-medium uppercase tracking-widest"
-              style={{ color: 'var(--m-accent)' }}
-            >
-              The Marchitect Framework
+            <p className="mb-4 text-xs font-medium uppercase tracking-widest" style={{ color: 'var(--m-accent)' }}>
+              The Framework
             </p>
-            <h1
-              className="text-5xl font-extrabold leading-tight tracking-tight md:text-6xl"
-              style={{ color: 'var(--m-text)' }}
-            >
-              The Five Pillars of Marketing Architecture
+            <h1 className="text-5xl font-extrabold leading-tight tracking-tight md:text-6xl" style={{ color: 'var(--m-text)' }}>
+              A marketing operating framework for better decisions and scalable results.
             </h1>
           </div>
-
-          {/* Right — 40% */}
           <div className="lg:col-span-2">
-            <p
-              className="mb-8 text-lg leading-relaxed"
-              style={{ color: 'var(--m-text-secondary)' }}
-            >
-              Most marketing fails not because of effort or budget — but because
-              the underlying architecture is broken. Marchitect diagnoses the
-              breaks and installs the systems that make marketing work.
+            <p className="mb-4 text-lg leading-relaxed" style={{ color: 'var(--m-text-secondary)' }}>
+              Most companies delegate strategy to whoever is executing. The result is that foundational questions — who the customer is, what makes cold traffic convert, what budget allocation actually makes sense — never get answered.
             </p>
-
-            {/* Pill tags */}
+            <p className="mb-8 text-lg leading-relaxed" style={{ color: 'var(--m-text-secondary)' }}>
+              The Marchitect Marketing Operating Framework installs the decision layer. It&apos;s a codified, repeatable methodology delivered through templates, checklists, workflows, and operating cadences — built to run in-house after we leave.
+            </p>
             <div className="mb-8 flex flex-wrap gap-2">
               {pillTags.map((tag) => (
                 <span
@@ -66,8 +42,6 @@ export default function FrameworkHero() {
                 </span>
               ))}
             </div>
-
-            {/* CTAs */}
             <div className="flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/assessment"
@@ -79,10 +53,7 @@ export default function FrameworkHero() {
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center rounded-xl border px-6 py-3 text-sm font-semibold transition-opacity hover:opacity-70"
-                style={{
-                  borderColor: 'var(--m-border)',
-                  color: 'var(--m-text-secondary)',
-                }}
+                style={{ borderColor: 'var(--m-border)', color: 'var(--m-text-secondary)' }}
               >
                 Book a Call
               </Link>
@@ -91,5 +62,5 @@ export default function FrameworkHero() {
         </div>
       </div>
     </section>
-  );
+  )
 }
