@@ -77,7 +77,7 @@ export default function ServiceBlocks() {
       {services.map((service, index) => {
         const bgClass = index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
         return (
-          <section key={service.number} aria-label={service.title} className={`${bgClass} py-16`}>
+          <div key={service.number} className={`${bgClass} py-16`}>
             <div className="mx-auto max-w-4xl px-6">
               <div className="flex items-start gap-6">
                 <div
@@ -87,7 +87,7 @@ export default function ServiceBlocks() {
                   {service.number}
                 </div>
                 <div className="flex-1">
-                  <h2 className="mb-3 text-2xl font-bold text-gray-900">{service.title}</h2>
+                  <h3 className="mb-3 text-2xl font-bold text-gray-900">{service.title}</h3>
                   <p className="mb-6 text-base leading-relaxed text-gray-600">{service.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {service.tags.map((tag) => (
@@ -103,7 +103,7 @@ export default function ServiceBlocks() {
                 </div>
               </div>
             </div>
-          </section>
+          </div>
         )
       })}
     </div>

@@ -2,7 +2,7 @@ const categories = ['Design', 'Development', 'Campaigns', 'SEO', 'Copywriting', 
 
 export default function CategoryStrip() {
   return (
-    <section aria-label="Service categories" className="bg-gray-50 py-8">
+    <div className="bg-gray-50 py-8">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-wrap gap-2">
           {categories.map((cat) => (
@@ -16,6 +16,6 @@ export default function CategoryStrip() {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   )
 }
