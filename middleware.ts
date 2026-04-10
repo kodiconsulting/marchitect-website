@@ -5,7 +5,15 @@ export default auth((req) => {
   const isLoggedIn = !!req.auth
   const isAuthRoute = req.nextUrl.pathname.startsWith('/api/auth')
   const isLoginPage = req.nextUrl.pathname === '/login'
-  const isPublicPage = req.nextUrl.pathname === '/'
+  const { pathname } = req.nextUrl
+  const isPublicPage =
+    pathname === '/' ||
+    pathname.startsWith('/framework') ||
+    pathname.startsWith('/results') ||
+    pathname.startsWith('/services') ||
+    pathname.startsWith('/about') ||
+    pathname.startsWith('/assessment') ||
+    pathname.startsWith('/contact')
   const isSeedRoute = req.nextUrl.pathname === '/api/seed' || req.nextUrl.pathname === '/seed'
 
   const hasApiKey = !!req.headers.get('x-api-key')

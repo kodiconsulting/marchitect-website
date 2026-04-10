@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import Link from 'next/link'
 
 type Screen = 'intro' | 'question' | 'results'
 
@@ -72,6 +73,13 @@ export default function AssessmentShell() {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [responses, setResponses] = useState<Record<number, string>>({})
   const [sessionId] = useState<string>(() => crypto.randomUUID())
+  const questionHeadingRef = useRef<HTMLHeadingElement>(null)
+
+  useEffect(() => {
+    if (screen === 'question') {
+      questionHeadingRef.current?.focus()
+    }
+  }, [screen, currentQuestion])
 
   function handleStart() {
     setScreen('question')
@@ -102,46 +110,50 @@ export default function AssessmentShell() {
     }
   }
 
-  const progressPct = ((currentQuestion + 1) / questions.length) * 100
+  const progressPct = (currentQuestion / questions.length) * 100
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="flex min-h-screen flex-col bg-white">
       {/* Header */}
-      <header className="border-b border-gray-100 bg-white px-6 py-4 flex-shrink-0">
+      <header className="flex-shrink-0 border-b border-gray-100 bg-white px-6 py-4">
         <div className="mx-auto flex max-w-3xl items-center justify-between">
-          <a
+          <Link
             href="/"
             className="text-lg font-bold text-gray-900"
             style={{ letterSpacing: '-0.01em' }}
           >
             Marchitect
-          </a>
-          {screen === 'question' && (
-            <span className="text-sm font-medium text-gray-500">
-              Question {currentQuestion + 1} of {questions.length}
-            </span>
-          )}
-          <a href="/" className="text-sm text-gray-500 hover:text-gray-700">
+          </Link>
+          {/* Always render center slot to prevent layout shift */}
+          <span className="text-sm font-medium text-gray-500">
+            {screen === 'question'
+              ? `Question ${currentQuestion + 1} of ${questions.length}`
+              : ''}
+          </span>
+          <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">
             &larr; Exit
-          </a>
+          </Link>
         </div>
       </header>
 
       {/* Body */}
-      <div className="flex-1 flex items-center justify-center px-6 py-12">
+      <div className="flex flex-1 items-center justify-center px-6 py-12">
         {screen === 'intro' && (
-          <div className="max-w-xl w-full text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-5" style={{ letterSpacing: '-0.02em' }}>
+          <div className="w-full max-w-xl text-center">
+            <h2
+              className="mb-5 text-3xl font-bold text-gray-900"
+              style={{ letterSpacing: '-0.02em' }}
+            >
               Let&rsquo;s find out what&rsquo;s breaking your marketing ROI.
             </h2>
-            <p className="text-gray-600 text-lg leading-relaxed mb-8">
+            <p className="mb-8 text-lg leading-relaxed text-gray-600">
               This takes about 5 minutes. Based on your answers, we&rsquo;ll tell you where the
               biggest gaps typically are for a business like yours &mdash; and what to fix first. At
               the end, you&rsquo;ll have the option to book a free 30-minute call with Michael.
             </p>
             <button
               onClick={handleStart}
-              className="inline-flex items-center gap-2 px-7 py-3.5 text-white font-semibold rounded-xl text-base transition-opacity hover:opacity-90"
+              className="inline-flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90"
               style={{ backgroundColor: 'var(--m-accent)' }}
             >
               Start Assessment &rarr;
@@ -150,32 +162,34 @@ export default function AssessmentShell() {
         )}
 
         {screen === 'question' && (
-          <div className="max-w-xl w-full">
+          <div className="w-full max-w-xl">
             {/* Progress bar */}
             <div className="mb-8">
-              <div className="h-1.5 w-full rounded-full bg-gray-100 overflow-hidden">
+              <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
                 <div
                   className="h-full rounded-full transition-all duration-300"
-                  style={{
-                    width: `${progressPct}%`,
-                    backgroundColor: 'var(--m-accent)',
-                  }}
+                  style={{ width: `${progressPct}%`, backgroundColor: 'var(--m-accent)' }}
                 />
               </div>
             </div>
 
             {/* Question */}
-            <h2 className="text-2xl font-bold text-gray-900 mb-6" style={{ letterSpacing: '-0.02em' }}>
+            <h2
+              ref={questionHeadingRef}
+              tabIndex={-1}
+              className="mb-6 text-2xl font-bold text-gray-900 outline-none"
+              style={{ letterSpacing: '-0.02em' }}
+            >
               {questions[currentQuestion].text}
             </h2>
 
             {/* Options */}
-            <div className="flex flex-col gap-3 mb-8">
+            <div className="mb-8 flex flex-col gap-3">
               {questions[currentQuestion].options.map((option) => (
                 <button
                   key={option}
                   onClick={() => handleOptionClick(option)}
-                  className="w-full text-left px-5 py-4 rounded-xl border border-gray-200 text-gray-800 font-medium text-base transition-all hover:border-[var(--m-accent)] hover:bg-[color-mix(in_srgb,var(--m-accent)_5%,transparent)] focus:outline-none focus:ring-2 focus:ring-[var(--m-accent)] focus:ring-offset-2"
+                  className="w-full rounded-xl border border-gray-200 px-5 py-4 text-left text-base font-medium text-gray-800 transition-all hover:border-[var(--m-accent)] hover:bg-[color-mix(in_srgb,var(--m-accent)_5%,transparent)] focus:outline-none focus:ring-2 focus:ring-[var(--m-accent)] focus:ring-offset-2"
                 >
                   {option}
                 </button>
@@ -185,7 +199,7 @@ export default function AssessmentShell() {
             {/* Back */}
             <button
               onClick={handleBack}
-              className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-sm text-gray-400 transition-colors hover:text-gray-600"
             >
               &larr; Back
             </button>
@@ -193,11 +207,14 @@ export default function AssessmentShell() {
         )}
 
         {screen === 'results' && (
-          <div className="max-w-lg w-full text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-5" style={{ letterSpacing: '-0.02em' }}>
+          <div className="w-full max-w-lg text-center">
+            <h2
+              className="mb-5 text-3xl font-bold text-gray-900"
+              style={{ letterSpacing: '-0.02em' }}
+            >
               Here&rsquo;s what we found.
             </h2>
-            <p className="text-gray-600 text-base leading-relaxed mb-8">
+            <p className="mb-8 text-base leading-relaxed text-gray-600">
               Based on your answers, Marchitect is built for companies in exactly your situation.
               The most common root cause of unpredictable marketing ROI isn&rsquo;t the channels,
               the vendors, or the budget &mdash; it&rsquo;s the absence of a governing framework. No
@@ -208,16 +225,16 @@ export default function AssessmentShell() {
               You&rsquo;ll know by the end of the call whether Marchitect is the right fit.
             </p>
 
-            <a
+            <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-7 py-3.5 text-white font-semibold rounded-xl text-base transition-opacity hover:opacity-90 mb-6"
+              className="mb-6 inline-flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90"
               style={{ backgroundColor: 'var(--m-accent)' }}
             >
               Book Your Free 30-Minute Call
-            </a>
+            </Link>
 
-            <p className="text-sm text-gray-500 mb-10">
-              Prefer to email instead?{' '}
+            <p className="mb-10 text-sm text-gray-500">
+              Prefer to email instead? Reach us at{' '}
               <a
                 href="mailto:hello@marchitect.com"
                 className="text-gray-700 underline hover:text-gray-900"
@@ -227,7 +244,7 @@ export default function AssessmentShell() {
             </p>
 
             {/* Calendly placeholder */}
-            <div className="border-2 border-dashed border-gray-200 rounded-xl p-10 text-gray-400 text-sm">
+            <div className="rounded-xl border-2 border-dashed border-gray-200 p-10 text-sm text-gray-400">
               Calendly calendar &mdash; URL will be embedded before launch
             </div>
           </div>
