@@ -480,3 +480,21 @@ export const clientProjects = pgTable('client_projects', {
   notes: text('notes'),
   createdAt: timestamp('created_at').notNull().default(sql`now()`),
 })
+
+export const assessmentSubmissions = pgTable('assessment_submissions', {
+  id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
+  createdAt: timestamp('created_at').notNull().default(sql`now()`),
+  sessionId: text('session_id').notNull(),
+  responses: jsonb('responses').notNull(),    // full answers object
+  resultsShownAt: timestamp('results_shown_at'),
+  callBooked: boolean('call_booked').notNull().default(false),
+})
+
+export const contactInquiries = pgTable('contact_inquiries', {
+  id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
+  createdAt: timestamp('created_at').notNull().default(sql`now()`),
+  name: text('name').notNull(),
+  email: text('email').notNull(),
+  company: text('company'),
+  message: text('message').notNull(),
+})
