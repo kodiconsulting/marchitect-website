@@ -108,21 +108,21 @@
     {
       "id": 16,
       "subject": "Task 16: Assessment Page (/assessment)",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [15],
       "description": "**Goal:** Build the 7-step assessment as a client component with intro, questions, and results screen with GHL calendar.\n\n**Files:**\n- Create: `components/marketing/assessment/AssessmentShell.tsx`\n- Modify: `app/(surveys)/assessment/page.tsx`\n- Modify: `app/(surveys)/layout.tsx`\n\n**Acceptance Criteria:**\n- [ ] Intro screen → 7 question screens → results screen\n- [ ] Progress bar shows Question N of 7\n- [ ] Back button on each question screen\n- [ ] Click an option auto-advances\n- [ ] On completion: POST /api/assessment/submit\n- [ ] Results screen shows GHL calendar iframe\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"components/marketing/assessment/AssessmentShell.tsx\", \"app/(surveys)/assessment/page.tsx\", \"app/(surveys)/layout.tsx\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"Intro/question/results flow works\", \"Progress bar\", \"Back button\", \"Click-to-advance\", \"API call on completion\", \"GHL iframe on results\", \"Build passes\"]}\n```"
     },
     {
       "id": 17,
       "subject": "Task 17: Assessment API Route",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [15],
       "description": "**Goal:** Create POST /api/assessment/submit — saves assessment submission to DB.\n\n**Files:**\n- Create: `app/api/assessment/submit/route.ts`\n\n**Acceptance Criteria:**\n- [ ] POST validates sessionId and responses with Zod\n- [ ] Inserts into assessment_submissions table\n- [ ] Returns { submissionId }\n- [ ] Returns 400 on invalid input\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"app/api/assessment/submit/route.ts\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"POST route with Zod validation\", \"DB insert\", \"Returns submissionId\", \"Build passes\"]}\n```"
     },
     {
       "id": 18,
       "subject": "Task 18: Contact API Route",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [15],
       "description": "**Goal:** Create POST /api/contact — saves contact inquiry to DB.\n\n**Files:**\n- Create: `app/api/contact/route.ts`\n\n**Acceptance Criteria:**\n- [ ] POST validates name/email/company/message with Zod\n- [ ] Inserts into contact_inquiries table\n- [ ] Returns { success, id }\n- [ ] Returns 400 on invalid input\n- [ ] Build passes\n\n**Verify:** `npx tsc --noEmit && npm run build` → exits 0\n\n```json:metadata\n{\"files\": [\"app/api/contact/route.ts\"], \"verifyCommand\": \"npx tsc --noEmit && npm run build\", \"acceptanceCriteria\": [\"POST route with Zod validation\", \"DB insert\", \"Returns success and id\", \"Build passes\"]}\n```"
     }
