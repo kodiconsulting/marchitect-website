@@ -1,4 +1,6 @@
-const principles = [
+type Principle = { number: number; text: string; bold: string | null }
+
+const principles: Principle[] = [
   { number: 1, text: 'Marketing should be governed, not improvised.', bold: 'governed' },
   { number: 2, text: 'Strategy cannot be outsourced to whoever is executing.', bold: null },
   { number: 3, text: 'The best teams run on definitions, not opinions.', bold: 'definitions' },
@@ -30,16 +32,14 @@ export default function Principles() {
               <span className="text-lg leading-relaxed text-gray-700">
                 {p.bold ? (
                   <>
-                    {p.text.split(p.bold).map((part, i, arr) =>
-                      i < arr.length - 1 ? (
-                        <span key={i}>
-                          {part}
+                    {p.text.split(p.bold).slice(0, 2).map((part, i, arr) => (
+                      <span key={`chunk-${i}`}>
+                        {part}
+                        {i < arr.length - 1 && (
                           <strong className="font-semibold text-gray-900">{p.bold}</strong>
-                        </span>
-                      ) : (
-                        <span key={i}>{part}</span>
-                      )
-                    )}
+                        )}
+                      </span>
+                    ))}
                   </>
                 ) : (
                   p.text
