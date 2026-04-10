@@ -1,6 +1,6 @@
 export default function PositioningBlock() {
   return (
-    <section className="bg-white py-24">
+    <section aria-label="Where we sit in your organization" className="bg-white py-24">
       <div className="mx-auto max-w-[760px] px-6 text-center">
         <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-gray-400">03</p>
         <h2 className="mb-6 text-3xl font-bold text-gray-900 md:text-4xl">

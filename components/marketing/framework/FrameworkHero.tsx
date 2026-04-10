@@ -42,7 +42,7 @@ export default function FrameworkHero() {
                 </span>
               ))}
             </div>
-            <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="flex flex-col items-center gap-4 sm:flex-row">
               <Link
                 href="/assessment"
                 className="inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
