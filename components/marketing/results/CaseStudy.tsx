@@ -29,9 +29,10 @@ export default function CaseStudy({
   background = 'white',
 }: CaseStudyProps) {
   const bgClass = background === 'gray' ? 'bg-gray-50' : 'bg-white'
+  const statCardBgClass = background === 'gray' ? 'bg-white' : 'bg-gray-50'
 
   return (
-    <section className={`${bgClass} py-24`}>
+    <section aria-label={eyebrow} className={`${bgClass} py-24`}>
       <div className="mx-auto max-w-4xl px-6">
         <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-400">
           {eyebrow}
@@ -64,7 +65,7 @@ export default function CaseStudy({
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="rounded-xl border border-gray-100 bg-white p-5 text-center shadow-sm"
+              className={`rounded-xl border border-gray-100 ${statCardBgClass} p-5 text-center shadow-sm`}
             >
               <p
                 className="mb-1 text-2xl font-extrabold leading-none"

@@ -7,6 +7,7 @@ const stats = [
 export default function KpiBanner() {
   return (
     <section
+      aria-label="Key performance highlights"
       className="border-y py-16"
       style={{
         backgroundColor: 'var(--m-bg-card)',

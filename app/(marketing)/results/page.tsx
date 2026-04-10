@@ -1,9 +1,10 @@
+import type { Metadata } from 'next'
 import ResultsHero from '@/components/marketing/results/ResultsHero'
 import KpiBanner from '@/components/marketing/results/KpiBanner'
 import CaseStudy from '@/components/marketing/results/CaseStudy'
 import ClosingCta from '@/components/marketing/shared/ClosingCta'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Results | Marchitect',
   description:
     'Real revenue outcomes from Marchitect engagements — Hardwood Bargains, BMI of Texas, and a CBD sleep brand built from scratch.',
@@ -40,7 +41,7 @@ export default function ResultsPage() {
         solution="A full funnel audit revealed the disconnect: the creative and landing page spoke to people who were already sold, not people who were still deciding. The positioning hadn't addressed the real objections — cost, commitment, whether the program would actually work for them. Marchitect rebuilt the offer architecture for the top of funnel: a lower-commitment first step that let prospects self-qualify, messaging that addressed the primary objections directly, and a landing page that guided rather than pushed. Attribution was instrumented so every version of the page could be measured correctly."
         outcome="Conversion rate went from 0.4% to 7.4% — an 18x improvement — without increasing ad spend. The same traffic that was previously leaving the page was now converting. Cost per acquisition dropped accordingly."
         stats={[
-          { value: '0.4% → 7.4%', label: 'Conversion rate' },
+          { value: '0.4% → 7.4%', label: 'CVR' },
           { value: '18x', label: 'CVR improvement' },
           { value: 'Same budget', label: 'No increase in ad spend' },
         ]}
