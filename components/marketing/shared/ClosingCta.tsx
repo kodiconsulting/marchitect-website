@@ -34,7 +34,7 @@ export default function ClosingCta({
           </Link>
           <Link
             href="/contact"
-            className="text-sm font-semibold transition-opacity hover:opacity-70"
+            className="px-1 py-2 text-sm font-semibold transition-opacity hover:opacity-70"
             style={{ color: 'var(--m-text-secondary)' }}
           >
             Book a Call

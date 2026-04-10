@@ -26,9 +26,9 @@ export default function Testimonials() {
         <h2 className="mb-12 text-center text-3xl font-bold text-gray-900 md:text-4xl">
           What Clients Say
         </h2>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <ul className="grid list-none grid-cols-1 gap-8 p-0 md:grid-cols-3">
           {testimonials.map((t) => (
-            <div
+            <li
               key={t.name}
               className="flex flex-col rounded-2xl border border-gray-100 bg-gray-50 p-8"
             >
@@ -46,9 +46,9 @@ export default function Testimonials() {
                 <p className="text-sm font-semibold text-gray-900">{t.name}</p>
                 <p className="text-sm text-gray-500">{t.title}</p>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   )

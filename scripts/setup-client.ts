@@ -46,9 +46,10 @@ import { sql } from 'drizzle-orm'
   const keyHash = createHash('sha256').update(rawKey).digest('hex')
   await db.insert(workspaceApiKeys).values({ workspaceId, keyHash })
 
-  console.log('\n=== .portal.json ===')
+  console.log('\n=== portal.json ===')
   console.log(JSON.stringify({ workspaceId, apiKey: rawKey, baseUrl: 'http://localhost:3000' }, null, 2))
-  console.log('\n(Save the apiKey — it cannot be recovered.)')
+  console.log('\nSave this as portal.json in the client folder (e.g. ~/Projects/Sandbox/Clients/<ClientName>/portal.json)')
+  console.log('(Save the apiKey — it cannot be recovered.)')
 
   await client.end()
 })().catch(e => { console.error('Error:', e.message); process.exit(1) })

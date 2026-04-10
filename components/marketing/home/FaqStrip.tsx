@@ -38,11 +38,11 @@ export default function FaqStrip() {
         <Accordion className="space-y-2">
           {faqs.map((faq, i) => (
             <AccordionItem
-              key={i}
+              key={faq.q}
               value={`faq-${i}`}
               className="rounded-xl border border-gray-200 bg-white px-6"
             >
-              <AccordionTrigger className="py-5 text-left text-sm font-semibold text-gray-900 hover:no-underline">
+              <AccordionTrigger className="py-5 text-left text-sm font-semibold text-gray-900">
                 {faq.q}
               </AccordionTrigger>
               <AccordionContent className="pb-5 text-sm leading-relaxed text-gray-600">
