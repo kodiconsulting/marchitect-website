@@ -68,7 +68,7 @@ export default function Hero() {
           style={{
             color: 'var(--m-text)',
             fontWeight: 800,
-            fontSize: 'clamp(48px, 6vw, 72px)',
+            fontSize: 'clamp(32px, 4vw, 48px)',
             lineHeight: 1.08,
             letterSpacing: '-0.03em',
             marginBottom: '1.5rem',
