@@ -3,28 +3,28 @@ import Link from 'next/link'
 const pillars = [
   {
     letter: 'A',
-    title: 'Positioning & Messaging',
-    description: "Define who you're for, what you stand for, and why it matters",
+    title: 'Department Readiness',
+    description: 'Roles, ownership, access, tracking, and the playbook so marketing can ship and be measured without chaos.',
   },
   {
     letter: 'B',
-    title: 'Demand Generation',
-    description: 'Build the systems that fill your pipeline with qualified opportunities',
+    title: 'Success Definitions',
+    description: 'Revenue-defined objectives, funnel events, and KPI ownership so leadership has clarity and accountability.',
   },
   {
     letter: 'C',
-    title: 'Conversion Architecture',
-    description: 'Design the paths that turn attention into action',
+    title: 'Market Strategy Foundation',
+    description: 'Customer truth, ICP clarity, differentiated positioning, and compelling offers mapped to the funnel.',
   },
   {
     letter: 'D',
-    title: 'Revenue Infrastructure',
-    description: 'Connect marketing to sales in a closed-loop revenue system',
+    title: 'Planning & Prioritization',
+    description: 'Goals translated into a capacity-aware plan — what ships first, what waits, and what winning looks like.',
   },
   {
     letter: 'E',
-    title: 'Marketing Operations',
-    description: 'Install the tools, data, and processes that make it all run',
+    title: 'Reporting & Execution Control',
+    description: 'Attribution and dashboards leadership can trust, so decisions are data-backed and performance is measured against a consistent standard.',
   },
 ]
 
@@ -45,14 +45,13 @@ export default function FrameworkTeaser() {
           className="mb-4 max-w-2xl text-4xl font-bold leading-tight md:text-5xl"
           style={{ color: 'var(--m-text)' }}
         >
-          The Five Pillars of Marketing Architecture
+          A framework that covers the full department
         </h2>
         <p
           className="mb-16 max-w-2xl text-lg leading-relaxed"
           style={{ color: 'var(--m-text-secondary)' }}
         >
-          Every Marchitect engagement is structured around five foundational
-          pillars. Together, they form a complete marketing operating system.
+          Five foundational areas. Every engagement addresses all of them — in sequence, because order matters.
         </p>
         <div className="mb-16 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5">
           {pillars.map((pillar) => (
@@ -95,13 +94,14 @@ export default function FrameworkTeaser() {
             style={{ backgroundColor: 'var(--m-accent)' }}
           >
             Explore the Framework <span aria-hidden="true">→</span>
+
           </Link>
           <Link
             href="/assessment"
             className="text-sm font-semibold transition-opacity hover:opacity-70"
             style={{ color: 'var(--m-text-secondary)' }}
           >
-            Take Assessment
+            See Where Your Marketing Gaps Are
           </Link>
         </div>
       </div>

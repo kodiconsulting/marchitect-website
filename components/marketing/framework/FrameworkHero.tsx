@@ -17,7 +17,7 @@ export default function FrameworkHero() {
               The Framework
             </p>
             <h1 className="text-5xl font-extrabold leading-tight tracking-tight md:text-6xl" style={{ color: 'var(--m-text)' }}>
-              A marketing operating framework for better decisions and scalable results.
+              A decision-making framework for companies that are done guessing
             </h1>
           </div>
           <div className="lg:col-span-2">
@@ -48,7 +48,7 @@ export default function FrameworkHero() {
                 className="inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
                 style={{ backgroundColor: 'var(--m-accent)' }}
               >
-                Take Assessment <span aria-hidden="true">→</span>
+                See Where Your Marketing Gaps Are <span aria-hidden="true">→</span>
               </Link>
               <Link
                 href="/contact"

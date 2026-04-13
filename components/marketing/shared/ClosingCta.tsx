@@ -30,7 +30,7 @@ export default function ClosingCta({
             className="inline-flex items-center gap-2 rounded-xl px-8 py-4 text-sm font-semibold text-white transition-opacity hover:opacity-90"
             style={{ backgroundColor: 'var(--m-accent)' }}
           >
-            Take Assessment <span aria-hidden="true">→</span>
+            See Where Your Marketing Gaps Are <span aria-hidden="true">→</span>
           </Link>
           <Link
             href="/contact"

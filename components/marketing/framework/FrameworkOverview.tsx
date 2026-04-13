@@ -80,7 +80,7 @@ export default function FrameworkOverview() {
           The framework covers the full department
         </h2>
         <p className="mb-16 text-lg leading-relaxed text-gray-600">
-          Each bucket addresses a specific layer of the marketing department — from infrastructure and roles to strategy, planning, and execution governance. Together, they form a complete operating system.
+          Each bucket addresses a specific layer of the marketing department — from infrastructure and roles to strategy, planning, and execution governance. Together, they form a complete operating system. The order matters: you can&apos;t govern execution well without first defining what success looks like.
         </p>
         <div className="space-y-6">
           {buckets.map((bucket) => (

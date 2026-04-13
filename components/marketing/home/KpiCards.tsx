@@ -2,19 +2,19 @@ import Link from 'next/link'
 
 const kpis = [
   {
-    number: '3.2×',
-    label: 'Average Revenue Lift',
-    description: 'Across clients in the first 90 days of full-system engagement',
+    number: '$550 → $70',
+    label: 'CPL',
+    description: 'Fixed the offer and landing page experience so cold traffic had a reason to convert for the first time.',
   },
   {
-    number: '87%',
-    label: 'Attribution Clarity',
-    description: 'Of clients can trace every marketing dollar to a revenue outcome after Marchitect',
+    number: '0.4% → 7.4%',
+    label: 'CVR',
+    description: 'Rebuilt the messaging and CTA architecture after identifying the offer was misaligned with where prospects were in the decision process.',
   },
   {
-    number: '14 days',
-    label: 'Time to First Insight',
-    description: "From assessment to a clear picture of what's working and what isn't",
+    number: '$40K → $1M/mo',
+    label: 'Revenue',
+    description: '18-month system installation that rebuilt strategy, offer, funnel, and measurement from the ground up.',
   },
 ]
 
@@ -23,10 +23,18 @@ export default function KpiCards() {
     <section aria-label="Results" className="bg-white py-24">
       <div className="mx-auto max-w-7xl px-6">
         <p
-          className="mb-12 text-xs font-medium uppercase tracking-widest"
+          className="mb-6 text-xs font-medium uppercase tracking-widest"
           style={{ color: 'var(--m-text-muted)' }}
         >
           03
+        </p>
+        <h2
+          className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl"
+        >
+          Proof that fundamentals beat tactics
+        </h2>
+        <p className="mb-12 text-base leading-relaxed text-gray-500">
+          These results came from repairing the front end — offer, positioning, funnel logic — and installing the measurement layer so every decision had real data behind it.
         </p>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {kpis.map((kpi) => (
@@ -51,7 +59,7 @@ export default function KpiCards() {
             className="text-sm font-semibold transition-opacity hover:opacity-70"
             style={{ color: 'var(--m-accent)' }}
           >
-            See all results →
+            See All Results →
           </Link>
         </div>
       </div>

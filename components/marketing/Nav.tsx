@@ -124,7 +124,7 @@ export default function Nav() {
               gap: '0.375rem',
             }}
           >
-            Take Assessment <span aria-hidden="true">→</span>
+            See Where Your Marketing Gaps Are <span aria-hidden="true">→</span>
           </Link>
         </div>
 
@@ -228,7 +228,7 @@ export default function Nav() {
               marginTop: '1rem',
             }}
           >
-            Take Assessment <span aria-hidden="true">→</span>
+            See Where Your Marketing Gaps Are <span aria-hidden="true">→</span>
           </Link>
         </div>
       )}

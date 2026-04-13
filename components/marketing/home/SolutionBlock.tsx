@@ -36,7 +36,7 @@ export default function SolutionBlock() {
             marginBottom: '1.25rem',
           }}
         >
-          A Systematic Approach to Marketing That Actually Scales
+          The problem isn&apos;t your team or your agency. It&apos;s that nobody is governing the strategy.
         </h2>
         <p
           style={{
@@ -47,10 +47,9 @@ export default function SolutionBlock() {
             marginBottom: '2.5rem',
           }}
         >
-          Marchitect installs a proven marketing operating system across five
-          foundational pillars — from positioning and messaging through revenue
-          infrastructure. Every engagement starts with a diagnostic to identify
-          exactly what&apos;s broken and what needs to be built.
+          Marchitect installs the decision layer that should sit above execution. We define the strategy, structure the offer and funnel, set success definitions and measurement standards, and create the roadmap your team and vendors execute against.
+
+The framework is the operating system. Execution is just what runs on it.
         </p>
         <Link
           href="/framework"

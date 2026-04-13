@@ -1,7 +1,7 @@
 const SYMPTOMS = [
-  "Campaigns run, but nobody knows what's actually driving revenue",
-  'Marketing and sales operate in silos — handoffs break down',
-  "You're spending on tools and talent, but the strategy is unclear",
+  "Spend continues without benchmarks — nobody knows what good looks like",
+  'Success stays undefined, so attribution stays murky',
+  'Every new agency pitch sounds like the answer to a problem nobody has diagnosed',
 ]
 
 export default function ProblemBlock() {
@@ -47,7 +47,7 @@ export default function ProblemBlock() {
               marginBottom: '1.25rem',
             }}
           >
-            Your Marketing Is Busy. But Is It Working?
+            Your marketing has motion. Leadership has no certainty.
           </h2>
           <p
             style={{
@@ -57,10 +57,9 @@ export default function ProblemBlock() {
               lineHeight: 1.65,
             }}
           >
-            Most growth-stage brands have the energy — but not the
-            infrastructure. You&apos;re running campaigns, posting content, and
-            pushing offers. But attribution is murky, teams are misaligned, and
-            ROI is unclear.
+            When strategy gets delegated to whoever is executing — the agency, the contractor, the loudest internal voice — foundational questions never get answered. Who is the right customer? What does cold traffic need to hear to engage? What does a compelling offer actually look like? What&apos;s a realistic ROI timeline?
+
+Without answers, spend continues without benchmarks. Attribution stays murky. Success stays undefined. And every new agency pitch sounds like the answer to a problem nobody has actually diagnosed.
           </p>
         </div>
 

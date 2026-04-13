@@ -74,9 +74,9 @@ export default function Hero() {
             marginBottom: '1.5rem',
           }}
         >
-          Stop Guessing.
+          You don&apos;t need a marketer.
           <br />
-          Start Growing.
+          You need a Marchitect.
         </h1>
 
         {/* Subhead */}
@@ -90,8 +90,7 @@ export default function Hero() {
             margin: '0 auto 2.5rem',
           }}
         >
-          Marchitect diagnoses what&apos;s breaking your marketing ROI—then installs
-          the systems, talent, and infrastructure to fix it.
+          Most companies hire agencies to solve problems agencies can&apos;t solve. The real issue isn&apos;t execution — it&apos;s that nobody has defined the strategy, the offer, the funnel logic, or what success looks like. Marchitect installs the decision-making framework that governs all of it.
         </p>
 
         {/* CTAs */}
@@ -119,7 +118,7 @@ export default function Hero() {
               gap: '0.375rem',
             }}
           >
-            Take Assessment <span aria-hidden="true">→</span>
+            See Where Your Marketing Gaps Are <span aria-hidden="true">→</span>
           </Link>
           <Link
             href="/contact"

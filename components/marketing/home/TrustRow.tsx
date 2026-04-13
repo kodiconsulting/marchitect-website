@@ -1,9 +1,9 @@
 const INDUSTRIES = [
-  'E-commerce',
-  'SaaS',
-  'Professional Services',
-  'Health & Wellness',
-  'Home Services',
+  '$2M–$50M SMB',
+  'High-ticket ecommerce',
+  'Service businesses',
+  'Founder-led',
+  'Active spend, no strategy',
 ]
 
 export default function TrustRow() {
@@ -36,7 +36,7 @@ export default function TrustRow() {
             whiteSpace: 'nowrap',
           }}
         >
-          Trusted by growth-stage brands in:
+          Built for:
         </span>
         {INDUSTRIES.map((industry) => (
           <span
