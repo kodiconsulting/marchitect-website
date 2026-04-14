@@ -25,18 +25,10 @@ export default function ClosingCta({
           {body}
         </p>
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-          <Link
-            href="/assessment"
-            className="inline-flex items-center gap-2 rounded-xl px-8 py-4 text-sm font-semibold text-white transition-opacity hover:opacity-90"
-            style={{ backgroundColor: 'var(--m-accent)' }}
-          >
+          <Link href="/assessment" className="btn-primary">
             See Where Your Marketing Gaps Are <span aria-hidden="true">→</span>
           </Link>
-          <Link
-            href="/contact"
-            className="px-1 py-2 text-sm font-semibold transition-opacity hover:opacity-70"
-            style={{ color: 'var(--m-text-secondary)' }}
-          >
+          <Link href="/contact" className="btn-secondary">
             Book a Call
           </Link>
         </div>

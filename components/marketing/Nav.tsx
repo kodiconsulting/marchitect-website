@@ -18,7 +18,7 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
+    const onScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -29,10 +29,6 @@ export default function Nav() {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
-  const navBg = scrolled || menuOpen
-    ? 'var(--m-bg-card)'
-    : 'transparent'
-
   return (
     <>
       <nav
@@ -42,14 +38,15 @@ export default function Nav() {
           top: 0,
           left: 0,
           right: 0,
-          zIndex: 50,
-          backgroundColor: navBg,
+          zIndex: 100,
+          backgroundColor: scrolled || menuOpen ? 'rgba(7, 8, 15, 0.9)' : 'transparent',
+          backdropFilter: scrolled || menuOpen ? 'blur(12px)' : 'none',
+          WebkitBackdropFilter: scrolled || menuOpen ? 'blur(12px)' : 'none',
           borderBottom: scrolled || menuOpen
             ? '1px solid var(--m-border)'
             : '1px solid transparent',
-          transition: 'background-color 0.25s ease, border-color 0.25s ease',
-          padding: '0 1.5rem',
-          height: '64px',
+          transition: 'background-color 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease',
+          padding: '20px 48px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -60,8 +57,8 @@ export default function Nav() {
           href="/"
           style={{
             color: 'var(--m-text)',
-            fontWeight: 800,
-            fontSize: '1.25rem',
+            fontWeight: 900,
+            fontSize: '18px',
             textDecoration: 'none',
             letterSpacing: '-0.02em',
             flexShrink: 0,
@@ -74,7 +71,7 @@ export default function Nav() {
         <div
           style={{
             alignItems: 'center',
-            gap: '2rem',
+            gap: '36px',
             position: 'absolute',
             left: '50%',
             transform: 'translateX(-50%)',
@@ -89,10 +86,10 @@ export default function Nav() {
                 href={link.href}
                 style={{
                   color: isActive ? 'var(--m-text)' : 'var(--m-text-secondary)',
-                  fontWeight: isActive ? 600 : 400,
-                  fontSize: '0.9375rem',
+                  fontWeight: isActive ? 600 : 500,
+                  fontSize: '14px',
                   textDecoration: 'none',
-                  transition: 'color 0.15s ease',
+                  transition: 'color 0.2s ease',
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive) (e.currentTarget as HTMLAnchorElement).style.color = 'var(--m-text)'
@@ -111,20 +108,10 @@ export default function Nav() {
         <div className="hidden md:flex" style={{ flexShrink: 0 }}>
           <Link
             href="/assessment"
-            style={{
-              backgroundColor: 'var(--m-accent)',
-              color: '#FFFFFF',
-              fontWeight: 600,
-              fontSize: '0.9375rem',
-              padding: '0.5rem 1.25rem',
-              borderRadius: '0.75rem',
-              textDecoration: 'none',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.375rem',
-            }}
+            className="btn-primary"
+            style={{ padding: '10px 20px', fontSize: '14px' }}
           >
-            See Where Your Marketing Gaps Are <span aria-hidden="true">→</span>
+            Identify Your Marketing Gaps Now <span aria-hidden="true">→</span>
           </Link>
         </div>
 
@@ -186,13 +173,15 @@ export default function Nav() {
             position: 'fixed',
             inset: 0,
             zIndex: 40,
-            backgroundColor: 'var(--m-bg-card)',
+            backgroundColor: 'rgba(7, 8, 15, 0.97)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '2.5rem',
-            paddingTop: '64px',
+            paddingTop: '80px',
           }}
           className="md:hidden"
         >
@@ -217,18 +206,10 @@ export default function Nav() {
           <Link
             href="/assessment"
             onClick={() => setMenuOpen(false)}
-            style={{
-              backgroundColor: 'var(--m-accent)',
-              color: '#FFFFFF',
-              fontWeight: 600,
-              fontSize: '1rem',
-              padding: '0.75rem 2rem',
-              borderRadius: '0.75rem',
-              textDecoration: 'none',
-              marginTop: '1rem',
-            }}
+            className="btn-primary"
+            style={{ marginTop: '1rem' }}
           >
-            See Where Your Marketing Gaps Are <span aria-hidden="true">→</span>
+            Identify Your Marketing Gaps Now <span aria-hidden="true">→</span>
           </Link>
         </div>
       )}

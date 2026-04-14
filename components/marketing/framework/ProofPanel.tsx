@@ -48,11 +48,7 @@ export default function ProofPanel() {
           ))}
         </div>
         <div className="text-center">
-          <Link
-            href="/assessment"
-            className="inline-flex items-center gap-2 rounded-xl px-8 py-4 text-sm font-semibold text-white transition-opacity hover:opacity-90"
-            style={{ backgroundColor: 'var(--m-accent)' }}
-          >
+          <Link href="/assessment" className="btn-primary">
             See Where Your Marketing Gaps Are <span aria-hidden="true">→</span>
           </Link>
         </div>

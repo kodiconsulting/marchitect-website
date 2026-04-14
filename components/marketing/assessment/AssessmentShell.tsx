@@ -151,11 +151,7 @@ export default function AssessmentShell() {
               biggest gaps typically are for a business like yours &mdash; and what to fix first. At
               the end, you&rsquo;ll have the option to book a free 30-minute call with Michael.
             </p>
-            <button
-              onClick={handleStart}
-              className="inline-flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90"
-              style={{ backgroundColor: 'var(--m-accent)' }}
-            >
+            <button onClick={handleStart} className="btn-primary">
               Start Assessment &rarr;
             </button>
           </div>
@@ -227,8 +223,7 @@ export default function AssessmentShell() {
 
             <Link
               href="/contact"
-              className="mb-6 inline-flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90"
-              style={{ backgroundColor: 'var(--m-accent)' }}
+              className="btn-primary mb-6"
             >
               Book Your Free 30-Minute Call
             </Link>

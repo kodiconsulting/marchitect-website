@@ -88,19 +88,10 @@ export default function FrameworkTeaser() {
           ))}
         </div>
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-          <Link
-            href="/framework"
-            className="inline-flex items-center gap-2 rounded-xl px-8 py-4 text-sm font-semibold text-white transition-opacity hover:opacity-90"
-            style={{ backgroundColor: 'var(--m-accent)' }}
-          >
+          <Link href="/framework" className="btn-primary">
             Explore the Framework <span aria-hidden="true">→</span>
-
           </Link>
-          <Link
-            href="/assessment"
-            className="text-sm font-semibold transition-opacity hover:opacity-70"
-            style={{ color: 'var(--m-text-secondary)' }}
-          >
+          <Link href="/assessment" className="btn-secondary">
             See Where Your Marketing Gaps Are
           </Link>
         </div>

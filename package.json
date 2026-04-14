@@ -13,6 +13,7 @@
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "countup.js": "^2.10.0",
     "drizzle-orm": "^0.45.2",
     "lucide-react": "^1.7.0",
     "next": "16.2.2",

@@ -43,18 +43,10 @@ export default function FrameworkHero() {
               ))}
             </div>
             <div className="flex flex-col items-center gap-4 sm:flex-row">
-              <Link
-                href="/assessment"
-                className="inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
-                style={{ backgroundColor: 'var(--m-accent)' }}
-              >
+              <Link href="/assessment" className="btn-primary">
                 See Where Your Marketing Gaps Are <span aria-hidden="true">→</span>
               </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-xl border px-6 py-3 text-sm font-semibold transition-opacity hover:opacity-70"
-                style={{ borderColor: 'var(--m-border)', color: 'var(--m-text-secondary)' }}
-              >
+              <Link href="/contact" className="btn-secondary">
                 Book a Call
               </Link>
             </div>

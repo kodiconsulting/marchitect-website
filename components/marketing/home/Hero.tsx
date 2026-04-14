@@ -15,12 +15,6 @@ export default function Hero() {
         overflow: 'hidden',
       }}
     >
-      <style>{`
-  .m-cta-primary:hover { opacity: 0.88; }
-  .m-cta-primary:focus-visible { outline: 2px solid var(--m-accent); outline-offset: 3px; }
-  .m-cta-secondary:hover { background-color: rgba(107, 92, 231, 0.1); }
-  .m-cta-secondary:focus-visible { outline: 2px solid var(--m-accent); outline-offset: 3px; }
-`}</style>
 
       {/* Purple radial glow */}
       <div
@@ -102,41 +96,10 @@ export default function Hero() {
             justifyContent: 'center',
           }}
         >
-          <Link
-            href="/assessment"
-            className="m-cta-primary"
-            style={{
-              backgroundColor: 'var(--m-accent)',
-              color: '#FFFFFF',
-              fontWeight: 600,
-              fontSize: '1rem',
-              padding: '0.875rem 1.75rem',
-              borderRadius: '0.75rem',
-              textDecoration: 'none',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.375rem',
-            }}
-          >
+          <Link href="/assessment" className="btn-primary">
             See Where Your Marketing Gaps Are <span aria-hidden="true">→</span>
           </Link>
-          <Link
-            href="/contact"
-            className="m-cta-secondary"
-            style={{
-              backgroundColor: 'transparent',
-              color: 'var(--m-accent)',
-              fontWeight: 600,
-              fontSize: '1rem',
-              padding: '0.875rem 1.75rem',
-              borderRadius: '0.75rem',
-              textDecoration: 'none',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.375rem',
-              border: '1px solid var(--m-accent)',
-            }}
-          >
+          <Link href="/contact" className="btn-secondary">
             Book a Call <span aria-hidden="true">→</span>
           </Link>
         </div>

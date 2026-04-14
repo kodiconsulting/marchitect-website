@@ -114,8 +114,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={state === 'submitting'}
-        className="w-full rounded-xl px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
-        style={{ backgroundColor: 'var(--m-accent)' }}
+        className="btn-primary w-full justify-center disabled:opacity-60"
       >
         {state === 'submitting' ? 'Sending…' : 'Send Message'}
       </button>
