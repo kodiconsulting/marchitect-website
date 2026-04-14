@@ -33,7 +33,7 @@ function ToggleIcon({ open }: { open: boolean }) {
         width: '28px',
         height: '28px',
         borderRadius: '8px',
-        background: 'linear-gradient(135deg, #2952F5 0%, #60A5FA 100%)',
+        background: 'linear-gradient(135deg, #4763D6 0%, #7B94E8 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -76,7 +76,7 @@ function FaqItem({
         border: '1px solid rgba(255,255,255,0.06)',
         overflow: 'hidden',
         transition: 'border-color 0.2s ease',
-        ...(isOpen && { borderColor: 'rgba(41,82,245,0.25)' }),
+        ...(isOpen && { borderColor: 'rgba(71,99,214,0.25)' }),
       }}
     >
       <button

@@ -131,7 +131,7 @@ export default function Hero() {
             transform: 'translateY(-50%)',
             width: '700px',
             height: '600px',
-            background: 'radial-gradient(ellipse at center, rgba(41,82,245,0.25) 0%, transparent 65%)',
+            background: 'radial-gradient(ellipse at center, rgba(71,99,214,0.25) 0%, transparent 65%)',
             pointerEvents: 'none',
             zIndex: 0,
           }}
@@ -178,8 +178,8 @@ export default function Hero() {
               {['Marketing Plan', 'Strategy', 'Budgets', 'Timelines', 'Performance', 'Team'].map((label, i) => (
                 <div key={label} style={{
                   padding: '8px 12px', borderRadius: '8px', fontSize: '12px',
-                  background: i === 0 ? 'rgba(41,82,245,0.15)' : 'transparent',
-                  color: i === 0 ? '#60A5FA' : 'rgba(255,255,255,0.3)',
+                  background: i === 0 ? 'rgba(71,99,214,0.15)' : 'transparent',
+                  color: i === 0 ? '#7B94E8' : 'rgba(255,255,255,0.3)',
                   fontWeight: i === 0 ? 600 : 400,
                 }}>
                   {label}
@@ -196,7 +196,7 @@ export default function Hero() {
                     borderRadius: '10px', padding: '12px',
                   }}>
                     <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.3)', marginBottom: '5px' }}>{label}</div>
-                    <div style={{ fontSize: '16px', fontWeight: 700, color: '#60A5FA' }}>{val}</div>
+                    <div style={{ fontSize: '16px', fontWeight: 700, color: '#7B94E8' }}>{val}</div>
                   </div>
                 ))}
               </div>
@@ -209,7 +209,7 @@ export default function Hero() {
                   {[55, 70, 45, 85, 60, 90, 75, 95].map((h, i) => (
                     <div key={i} style={{
                       flex: 1, height: `${h}%`, borderRadius: '4px 4px 0 0',
-                      background: i === 7 ? 'linear-gradient(180deg, #2952F5, #60A5FA)' : 'rgba(41,82,245,0.2)',
+                      background: i === 7 ? 'linear-gradient(180deg, #4763D6, #7B94E8)' : 'rgba(71,99,214,0.2)',
                     }} />
                   ))}
                 </div>
@@ -219,9 +219,9 @@ export default function Hero() {
                   <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', width: '90px', flexShrink: 0 }}>{item}</span>
                     <div style={{ flex: 1, height: '4px', borderRadius: '2px', background: 'rgba(255,255,255,0.06)' }}>
-                      <div style={{ height: '100%', borderRadius: '2px', background: 'linear-gradient(90deg, #2952F5, #60A5FA)', width: `${[88, 65, 42][i]}%` }} />
+                      <div style={{ height: '100%', borderRadius: '2px', background: 'linear-gradient(90deg, #4763D6, #7B94E8)', width: `${[88, 65, 42][i]}%` }} />
                     </div>
-                    <span style={{ fontSize: '11px', color: '#60A5FA', width: '28px', textAlign: 'right' }}>{[88, 65, 42][i]}%</span>
+                    <span style={{ fontSize: '11px', color: '#7B94E8', width: '28px', textAlign: 'right' }}>{[88, 65, 42][i]}%</span>
                   </div>
                 ))}
               </div>

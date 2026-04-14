@@ -45,7 +45,7 @@ export default function WhyMarketingFails() {
           transform: 'translateX(-50%)',
           width: '80%',
           height: '400px',
-          background: 'radial-gradient(ellipse at center bottom, rgba(41,82,245,0.35) 0%, rgba(41,82,245,0.1) 40%, transparent 70%)',
+          background: 'radial-gradient(ellipse at center bottom, rgba(71,99,214,0.35) 0%, rgba(71,99,214,0.1) 40%, transparent 70%)',
           pointerEvents: 'none',
           zIndex: 0,
         }}
@@ -154,7 +154,7 @@ export default function WhyMarketingFails() {
                 width: '8px',
                 height: '8px',
                 borderRadius: '50%',
-                backgroundColor: '#2952F5',
+                backgroundColor: '#4763D6',
               }}
             />
           ))}

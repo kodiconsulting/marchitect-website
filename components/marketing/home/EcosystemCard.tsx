@@ -94,7 +94,7 @@ export default function EcosystemCard() {
               aria-hidden="true"
               style={{
                 fontSize: '14px',
-                color: '#60A5FA',
+                color: '#7B94E8',
                 flexShrink: 0,
               }}
             >
@@ -124,7 +124,7 @@ export default function EcosystemCard() {
             transform: 'translateX(-50%)',
             width: '80%',
             height: '220px',
-            background: 'radial-gradient(ellipse, rgba(41,82,245,0.3) 0%, transparent 60%)',
+            background: 'radial-gradient(ellipse, rgba(71,99,214,0.3) 0%, transparent 60%)',
             pointerEvents: 'none',
             zIndex: 0,
           }}
@@ -140,7 +140,7 @@ export default function EcosystemCard() {
             transform: 'translateX(-50%)',
             width: '75%',
             height: '60px',
-            border: '1px solid rgba(41,82,245,0.25)',
+            border: '1px solid rgba(71,99,214,0.25)',
             borderRadius: '50%',
             pointerEvents: 'none',
           }}
