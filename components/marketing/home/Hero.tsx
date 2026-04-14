@@ -19,6 +19,7 @@ export default function Hero() {
     >
       {/* ── Left content — constrained to max-width container ── */}
       <div
+        className="hero-outer-container"
         style={{
           position: 'relative',
           zIndex: 1,
@@ -52,7 +53,7 @@ export default function Hero() {
           style={{
             color: 'var(--m-text)',
             fontWeight: 700,
-            fontSize: 'clamp(36px, 3.5vw, 48px)',
+            fontSize: 'clamp(36px, 3.5vw, 52px)',
             lineHeight: 1.1,
             letterSpacing: '-0.03em',
             maxWidth: '700px',
@@ -61,7 +62,11 @@ export default function Hero() {
         >
           You don&apos;t need a marketer.
           <br />
-          You need a Marchitect.
+          You need a{' '}
+          <span style={{ textDecoration: 'underline', textUnderlineOffset: '4px', textDecorationColor: 'rgba(255,255,255,0.5)' }}>
+            Marchitect
+          </span>
+          .
         </h1>
 
         {/* Subheadline */}
@@ -245,6 +250,10 @@ export default function Hero() {
       {/* Responsive */}
       <style>{`
         @media (max-width: 767px) {
+          .hero-outer-container {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+          }
           .hero-content {
             width: 100% !important;
             min-height: unset !important;
