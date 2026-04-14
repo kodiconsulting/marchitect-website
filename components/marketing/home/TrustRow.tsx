@@ -55,7 +55,7 @@ export default function TrustRow() {
           display: 'flex',
           alignItems: 'center',
           width: 'max-content',
-          animation: 'trust-scroll 15s linear infinite',
+          animation: 'trust-scroll 30s linear infinite',
           willChange: 'transform',
         }}>
           {track.map((client, i) => (
