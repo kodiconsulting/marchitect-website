@@ -6,32 +6,75 @@ interface ClosingCtaProps {
 }
 
 export default function ClosingCta({
-  heading = 'Ready to Stop Guessing?',
-  body = 'Take the 5-minute assessment to find out exactly where your marketing architecture is breaking down.',
+  heading = 'On your 5th agency? See where your marketing is breaking down.',
+  body = 'Take the 5-minute assessment to see exactly which parts of your marketing department are missing, broken, or ungoverned.',
 }: ClosingCtaProps) {
   return (
-    <section aria-label="Call to action" className="py-24" style={{ backgroundColor: 'var(--m-bg)' }}>
-      <div className="mx-auto max-w-2xl px-6 text-center">
+    <section
+      aria-label="Call to action"
+      className="section-glow"
+      style={{
+        backgroundColor: '#07080f',
+        padding: '120px 48px',
+        textAlign: 'center',
+      }}
+    >
+      <div style={{ maxWidth: '700px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+        {/* H2 */}
         <h2
-          className="mb-4 text-4xl font-bold leading-tight md:text-5xl"
-          style={{ color: 'var(--m-text)' }}
+          style={{
+            fontSize: 'clamp(32px, 4vw, 48px)',
+            fontWeight: 700,
+            lineHeight: 1.25,
+            letterSpacing: '-0.02em',
+            color: '#ffffff',
+            marginBottom: '24px',
+          }}
         >
           {heading}
         </h2>
+
+        {/* Body */}
         <p
-          className="mb-10 text-lg leading-relaxed"
-          style={{ color: 'var(--m-text-secondary)' }}
+          style={{
+            fontSize: '18px',
+            lineHeight: 1.6,
+            color: '#9ca3af',
+            maxWidth: '520px',
+            marginBottom: '40px',
+          }}
         >
           {body}
         </p>
-        <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-          <Link href="/assessment" className="btn-primary">
-            See Where Your Marketing Gaps Are <span aria-hidden="true">→</span>
-          </Link>
-          <Link href="/contact" className="btn-secondary">
+
+        {/* Primary CTA */}
+        <Link
+          href="/assessment"
+          className="btn-primary"
+          style={{ fontSize: '16px', padding: '16px 32px', marginBottom: '16px' }}
+        >
+          Identify Your Marketing Gaps Now <span aria-hidden="true">→</span>
+        </Link>
+
+        {/* Secondary text link */}
+        <p style={{ fontSize: '15px', color: '#9ca3af' }}>
+          Or if you&rsquo;re ready to talk —{' '}
+          <Link
+            href="/contact"
+            style={{
+              color: '#ffffff',
+              fontWeight: 600,
+              textDecoration: 'underline',
+              textUnderlineOffset: '3px',
+              textDecorationColor: 'rgba(255,255,255,0.3)',
+              transition: 'text-decoration-color 0.2s ease',
+            }}
+          >
             Book a Call
           </Link>
-        </div>
+        </p>
+
       </div>
     </section>
   )
