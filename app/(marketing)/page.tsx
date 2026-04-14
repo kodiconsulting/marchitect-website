@@ -5,6 +5,7 @@ import SystemOverview from '@/components/marketing/home/SystemOverview'
 import StatsBanner from '@/components/marketing/home/StatsBanner'
 import EcosystemCard from '@/components/marketing/home/EcosystemCard'
 import Testimonials from '@/components/marketing/home/Testimonials'
+import AboutSplit from '@/components/marketing/home/AboutSplit'
 import ProblemBlock from '@/components/marketing/home/ProblemBlock'
 import SolutionBlock from '@/components/marketing/home/SolutionBlock'
 import KpiCards from '@/components/marketing/home/KpiCards'
@@ -23,6 +24,7 @@ export default function HomePage() {
       <StatsBanner />
       <EcosystemCard />
       <Testimonials />
+      <AboutSplit />
       <ProblemBlock />
       <SolutionBlock />
       <KpiCards />
