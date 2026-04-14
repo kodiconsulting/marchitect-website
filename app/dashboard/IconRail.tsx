@@ -19,7 +19,30 @@ export default function IconRail({
   userInitials: string
 }) {
   const pathname = usePathname()
-  const { allNavItems } = buildNav(cid, isAdmin)
+  const { navSections } = buildNav(cid, isAdmin)
+
+  // One icon per top-level section: null-heading sections expose each item
+  // individually; named sections collapse to a single icon (first item).
+  const railItems = navSections.flatMap((section) => {
+    if (!section.heading) {
+      return section.items.map((item) => ({
+        icon: item.icon,
+        label: item.label,
+        href: item.href,
+        exact: item.exact,
+        sectionItems: [item],
+      }))
+    }
+    const first = section.items[0]
+    if (!first) return []
+    return [{
+      icon: first.icon,
+      label: section.heading,
+      href: first.href,
+      exact: first.exact,
+      sectionItems: section.items,
+    }]
+  })
 
   return (
     <div className="w-[60px] shrink-0 bg-white border-r border-[#e8e8e8] flex flex-col items-center py-4">
@@ -28,16 +51,18 @@ export default function IconRail({
         M
       </div>
 
-      {/* Nav icons */}
+      {/* Nav icons — one per section */}
       <nav className="flex flex-col items-center gap-1 flex-1 w-full px-2">
-        {allNavItems.map((item) => {
-          const active = isActive(pathname, item.href, item.exact)
-          const Icon = item.icon
+        {railItems.map((railItem) => {
+          const active = railItem.sectionItems.some((item) =>
+            isActive(pathname, item.href, item.exact)
+          )
+          const Icon = railItem.icon
           return (
             <Link
-              key={item.href}
-              href={item.href}
-              title={item.label}
+              key={railItem.href}
+              href={railItem.href}
+              title={railItem.label}
               className={`w-full flex items-center justify-center h-10 rounded-xl transition-colors ${
                 active
                   ? 'bg-[#1B84FF]/10 text-[#1B84FF]'

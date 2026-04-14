@@ -48,7 +48,7 @@ export default function TextNav({
         {navSections.map((section, i) => (
           <div key={i}>
             {section.heading && (
-              <p className="px-3 mb-1 text-[11px] font-semibold uppercase tracking-[0.5px] text-[#9a9cae]">
+              <p className="px-3 pb-2 mb-2 text-[11px] font-semibold uppercase tracking-[0.5px] text-[#9a9cae] border-b border-[#e8e8e8]">
                 {section.heading}
               </p>
             )}
