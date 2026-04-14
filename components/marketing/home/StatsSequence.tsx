@@ -19,100 +19,93 @@ const stats = [
   },
 ];
 
-// Scroll budget per stat (in viewport heights)
-const SLIDE_VH = 1.2;       // non-last slides: 1.2vh of scroll each
-const LAST_VH = 1.8;        // last slide: 1.8vh (approach + hold, then sticky releases)
+// --- Timing config ---
+const SLIDE_VH   = 1.2;  // scroll budget per non-last stat (in viewport heights)
+const LAST_VH    = 1.8;  // scroll budget for the last stat
+const APPROACH   = 0.20; // fraction of SLIDE_VH used to zoom in
+const HOLD_END   = 0.30; // fraction where hold phase ends, exit begins
+// Exit = 0.30 → 1.00 = 70% of budget ≈ 3.5× the approach (20%)
 
-// Phase boundaries as fraction of each slide's scroll budget
-const APPROACH_END = 0.18;  // 0.00 → 0.18: scale 0→1, rise up, fade in
-const HOLD_END = 0.25;      // 0.18 → 0.25: hold stable at center
-                             // 0.25 → 1.00: exit (75% of budget ≈ 3× the approach)
+const LAST_APPROACH = 0.40; // fraction of LAST_VH used to zoom in for last stat
 
 export default function StatsSequence() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const total = stats.length;
+  const sectionRef  = useRef<HTMLDivElement>(null);
+  const slideRefs   = useRef<(HTMLDivElement | null)[]>([]);
+  const blurRefs    = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Total section height in vh
-  const sectionVh = (total - 1) * SLIDE_VH + LAST_VH;
+  const total      = stats.length;
+  const sectionVh  = (total - 1) * SLIDE_VH + LAST_VH;
 
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
-    function easeOutCubic(t: number): number {
-      return 1 - Math.pow(1 - t, 3);
-    }
-
-    function easeInQuad(t: number): number {
-      return t * t;
-    }
+    function easeOut(t: number) { return 1 - Math.pow(1 - t, 3); }
+    function easeIn(t: number)  { return t * t; }
+    function clamp(v: number, min = 0, max = 1) { return Math.min(max, Math.max(min, v)); }
 
     function update() {
       if (!section) return;
-      const scrolledPx = -section.getBoundingClientRect().top;
-      const scrolledVh = scrolledPx / window.innerHeight;
+      const scrolledVh = -section.getBoundingClientRect().top / window.innerHeight;
 
-      slideRefs.current.forEach((slide, i) => {
-        if (!slide) return;
-        const blurWrapper = slide.querySelector(`.stat-blur-${i}`) as HTMLElement | null;
+      stats.forEach((_, i) => {
+        const slide = slideRefs.current[i];
+        const blur  = blurRefs.current[i];
+        if (!slide || !blur) return;
 
-        const isLast = i === total - 1;
-        const slideStartVh = i * SLIDE_VH;
-        const slideRangeVh = isLast ? LAST_VH : SLIDE_VH;
+        const isLast      = i === total - 1;
+        const startVh     = i * SLIDE_VH;
+        const rangeVh     = isLast ? LAST_VH : SLIDE_VH;
+        const t           = (scrolledVh - startVh) / rangeVh;
 
-        // Local progress through this slide's scroll budget (0 → 1)
-        const t = (scrolledVh - slideStartVh) / slideRangeVh;
-
+        // --- LAST STAT ---
         if (isLast) {
-          const LAST_APPROACH = 0.40;  // 40% of LAST_VH to zoom in
-          const LAST_HOLD = 1.0;       // hold for the rest — sticky releases naturally
-
           if (t < 0) {
-            slide.style.opacity = '0';
+            slide.style.opacity   = '0';
             slide.style.transform = 'scale(0) translateY(80px)';
-            if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
+            blur.style.filter     = 'blur(0px)';
           } else if (t <= LAST_APPROACH) {
-            const p = easeOutCubic(t / LAST_APPROACH);
-            slide.style.opacity = p.toFixed(3);
+            const p = easeOut(t / LAST_APPROACH);
+            slide.style.opacity   = String(p.toFixed(3));
             slide.style.transform = `scale(${p.toFixed(4)}) translateY(${((1 - p) * 80).toFixed(1)}px)`;
-            if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
+            blur.style.filter     = 'blur(0px)';
           } else {
-            slide.style.opacity = '1';
+            // Hold — sticky releases and page scrolls on naturally
+            slide.style.opacity   = '1';
             slide.style.transform = 'scale(1) translateY(0px)';
-            if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
+            blur.style.filter     = 'blur(0px)';
           }
           return;
         }
 
-        // Non-last stats
+        // --- NON-LAST STATS ---
         if (t < 0) {
-          // Not yet visible — waiting below
-          slide.style.opacity = '0';
+          // Not yet in view
+          slide.style.opacity   = '0';
           slide.style.transform = 'scale(0) translateY(80px)';
-          if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
-        } else if (t <= APPROACH_END) {
-          // Approach: scale from 0, rise from below
-          const p = easeOutCubic(t / APPROACH_END);
-          slide.style.opacity = p.toFixed(3);
+          blur.style.filter     = 'blur(0px)';
+        } else if (t <= APPROACH) {
+          // Zoom in from zero, rise from below
+          const p = easeOut(t / APPROACH);
+          slide.style.opacity   = String(p.toFixed(3));
           slide.style.transform = `scale(${p.toFixed(4)}) translateY(${((1 - p) * 80).toFixed(1)}px)`;
-          if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
+          blur.style.filter     = 'blur(0px)';
         } else if (t <= HOLD_END) {
-          // Hold: stable
-          slide.style.opacity = '1';
+          // Hold at full size
+          slide.style.opacity   = '1';
           slide.style.transform = 'scale(1) translateY(0px)';
-          if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
+          blur.style.filter     = 'blur(0px)';
         } else if (t <= 1) {
-          // Exit: slow blur + scale past 1 + fade (75% of scroll budget)
-          const p = easeInQuad((t - HOLD_END) / (1 - HOLD_END));
-          slide.style.opacity = (1 - p).toFixed(3);
+          // Slow exit — blur + scale past 1 + fade
+          const p = easeIn((t - HOLD_END) / (1 - HOLD_END));
+          slide.style.opacity   = String((1 - p).toFixed(3));
           slide.style.transform = `scale(${(1 + 0.08 * p).toFixed(4)}) translateY(0px)`;
-          if (blurWrapper) blurWrapper.style.filter = `blur(${(p * 10).toFixed(1)}px)`;
+          blur.style.filter     = `blur(${(p * 10).toFixed(1)}px)`;
         } else {
           // Fully exited
-          slide.style.opacity = '0';
+          slide.style.opacity   = '0';
           slide.style.transform = 'scale(1.08) translateY(0px)';
-          if (blurWrapper) blurWrapper.style.filter = 'blur(10px)';
+          blur.style.filter     = 'blur(10px)';
         }
       });
     }
@@ -127,20 +120,18 @@ export default function StatsSequence() {
       ref={sectionRef}
       style={{ height: `${sectionVh * 100}vh`, position: 'relative' }}
     >
-      {/* Sticky viewport — pinned while stats animate, releases after last stat holds */}
-      <div
-        style={{
-          position: 'sticky',
-          top: 0,
-          height: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#07080f',
-          overflow: 'hidden',
-        }}
-      >
+      <div style={{
+        position: 'sticky',
+        top: 0,
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'var(--color-bg-primary)',
+        overflow: 'hidden',
+      }}>
         {stats.map((stat, i) => (
+          // Outer div: handles opacity + transform only (no filter — avoids breaking gradient text)
           <div
             key={i}
             ref={(el) => { slideRefs.current[i] = el; }}
@@ -154,20 +145,23 @@ export default function StatsSequence() {
               willChange: 'opacity, transform',
             }}
           >
-            {/* Blur applied to inner wrapper so it never sits on same element as gradient text */}
-            <div className={`stat-blur-${i}`} style={{ willChange: 'filter' }}>
+            {/* Inner div: handles blur only — kept separate so background-clip: text works */}
+            <div
+              ref={(el) => { blurRefs.current[i] = el; }}
+              style={{ willChange: 'filter' }}
+            >
               <p style={{
                 fontSize: '13px',
                 fontWeight: 600,
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
-                color: '#4b5563',
+                color: 'var(--color-text-muted)',
                 marginBottom: '16px',
               }}>
                 {stat.label}
               </p>
               <h2 style={{
-                fontSize: 'clamp(32px, 7vw, 80px)',
+                fontSize: 'clamp(40px, 9vw, 96px)',
                 fontWeight: 900,
                 lineHeight: 1,
                 marginBottom: '24px',
@@ -181,7 +175,7 @@ export default function StatsSequence() {
               </h2>
               <p style={{
                 fontSize: '18px',
-                color: '#9ca3af',
+                color: 'var(--color-text-secondary)',
                 lineHeight: 1.6,
                 maxWidth: '560px',
                 margin: '0 auto',
