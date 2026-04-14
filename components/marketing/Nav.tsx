@@ -69,7 +69,7 @@ export default function Nav() {
             src="/images/marchitect-logo.png"
             alt="Marchitect"
             style={{
-              height: '36px',
+              height: '22px',
               width: 'auto',
               mixBlendMode: 'screen',
               display: 'block',
