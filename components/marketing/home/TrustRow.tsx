@@ -9,80 +9,55 @@ const clients = [
   { src: '/images/logos/logo-we-are-the-mighty.png',   alt: 'We Are The Mighty' },
 ]
 
-// Duplicate for seamless loop
+// Duplicated for seamless loop — each logo carries its own trailing margin
+// so both halves are exactly equal width and translateX(-50%) lands perfectly.
 const track = [...clients, ...clients]
 
 export default function TrustRow() {
   return (
     <section
       aria-label="Recent clients and partners"
-      style={{
-        padding: '48px 0',
-        background: '#000000',
-        textAlign: 'center',
-      }}
+      style={{ padding: '48px 0', background: '#000000', textAlign: 'center' }}
     >
-      <p
-        style={{
-          fontSize: '13px',
-          fontWeight: 600,
-          letterSpacing: '0.1em',
-          textTransform: 'uppercase',
-          color: '#4b5563',
-          marginBottom: '32px',
-        }}
-      >
+      <p style={{
+        fontSize: '13px',
+        fontWeight: 600,
+        letterSpacing: '0.1em',
+        textTransform: 'uppercase',
+        color: '#4b5563',
+        marginBottom: '32px',
+      }}>
         Recent clients &amp; partners
       </p>
 
-      {/* Scrolling track with edge fades */}
-      <div
-        style={{
-          position: 'relative',
-          overflow: 'hidden',
-          width: '100%',
-        }}
-      >
+      {/* Constrained to page container with edge fades */}
+      <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
         {/* Left fade */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            bottom: 0,
-            width: '80px',
-            background: 'linear-gradient(to right, #000000 0%, transparent 100%)',
-            zIndex: 2,
-            pointerEvents: 'none',
-          }}
-        />
+        <div aria-hidden="true" style={{
+          position: 'absolute', left: 0, top: 0, bottom: 0, width: '80px',
+          background: 'linear-gradient(to right, #000000, transparent)',
+          zIndex: 2, pointerEvents: 'none',
+        }} />
         {/* Right fade */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            right: 0,
-            top: 0,
-            bottom: 0,
-            width: '80px',
-            background: 'linear-gradient(to left, #000000 0%, transparent 100%)',
-            zIndex: 2,
-            pointerEvents: 'none',
-          }}
-        />
+        <div aria-hidden="true" style={{
+          position: 'absolute', right: 0, top: 0, bottom: 0, width: '80px',
+          background: 'linear-gradient(to left, #000000, transparent)',
+          zIndex: 2, pointerEvents: 'none',
+        }} />
 
-        {/* Scrolling inner track */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '64px',
-            width: 'max-content',
-            animation: 'trust-scroll 15s linear infinite',
-            paddingInline: '32px',
-          }}
-        >
+        {/* Scrolling track — marginRight on each img so the seam gap matches item gap */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          width: 'max-content',
+          animation: 'trust-scroll 15s linear infinite',
+          willChange: 'transform',
+        }}>
           {track.map((client, i) => (
             /* eslint-disable-next-line @next/next/no-img-element */
             <img
@@ -93,6 +68,7 @@ export default function TrustRow() {
                 height: '50px',
                 width: 'auto',
                 flexShrink: 0,
+                marginRight: '80px',
                 mixBlendMode: 'screen',
                 opacity: 0.8,
                 transition: 'opacity 0.2s ease',
@@ -106,11 +82,11 @@ export default function TrustRow() {
 
       <style>{`
         @keyframes trust-scroll {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
         }
         @media (prefers-reduced-motion: reduce) {
-          [style*="trust-scroll"] { animation: none; }
+          [style*="trust-scroll"] { animation-play-state: paused !important; }
         }
       `}</style>
     </section>
