@@ -15,9 +15,21 @@ export interface Campaign {
   notes: string | null
 }
 
+interface ObjectiveRef {
+  id: string
+  name: string
+}
+
 interface Props {
   items: Campaign[]
   workspaceId: string
+  objectives: ObjectiveRef[]
+}
+
+interface ReadinessResult {
+  ready: boolean
+  missing: Array<{ category: string; workshop: string | null; prompt: string | null }>
+  complete: string[]
 }
 
 const INPUT = 'w-full bg-[#f9f9f9] border border-[#e8e8e8] rounded-lg px-3 py-2 text-sm text-[#252f4a] placeholder-[#78829d] outline-none focus:border-[#1B84FF] transition-colors'
@@ -47,7 +59,7 @@ function Modal({ title, onClose, children }: { title: string; onClose: () => voi
   )
 }
 
-export default function CampaignsManager({ items: initial, workspaceId }: Props) {
+export default function CampaignsManager({ items: initial, workspaceId, objectives }: Props) {
   const router = useRouter()
   const [items, setItems] = useState(initial)
   const [showAdd, setShowAdd] = useState(false)
@@ -56,9 +68,48 @@ export default function CampaignsManager({ items: initial, workspaceId }: Props)
   const [saving, setSaving] = useState(false)
   const [form, setForm] = useState(EMPTY_FORM)
 
-  function openAdd() {
-    setForm(EMPTY_FORM)
-    setShowAdd(true)
+  // Readiness gate state
+  const [objectiveStep, setObjectiveStep] = useState(false)
+  const [selectedObjectiveId, setSelectedObjectiveId] = useState('')
+  const [readiness, setReadiness] = useState<ReadinessResult | null>(null)
+  const [checkingReadiness, setCheckingReadiness] = useState(false)
+
+  async function openAdd() {
+    if (objectives.length > 0) {
+      setSelectedObjectiveId(objectives[0].id)
+      setReadiness(null)
+      setObjectiveStep(true)
+    } else {
+      setForm(EMPTY_FORM)
+      setShowAdd(true)
+    }
+  }
+
+  async function proceedWithObjective() {
+    if (!selectedObjectiveId) {
+      setForm(EMPTY_FORM)
+      setObjectiveStep(false)
+      setShowAdd(true)
+      return
+    }
+    setCheckingReadiness(true)
+    try {
+      const res = await fetch(
+        `/api/workspaces/${workspaceId}/objectives/${selectedObjectiveId}/campaign-readiness`
+      )
+      if (res.ok) {
+        const data: ReadinessResult = await res.json()
+        setReadiness(data)
+        if (data.ready) {
+          setObjectiveStep(false)
+          setForm(EMPTY_FORM)
+          setShowAdd(true)
+        }
+        // If not ready, readiness is shown within the objectiveStep modal
+      }
+    } finally {
+      setCheckingReadiness(false)
+    }
   }
 
   function openEdit(item: Campaign) {
@@ -193,6 +244,82 @@ export default function CampaignsManager({ items: initial, workspaceId }: Props)
         </div>
       )}
 
+      {/* Objective selection + readiness gate */}
+      {objectiveStep && (
+        <Modal title="Select Objective" onClose={() => { setObjectiveStep(false); setReadiness(null) }}>
+          <div className="space-y-4">
+            <div>
+              <label className={LABEL}>Objective</label>
+              <select
+                value={selectedObjectiveId}
+                onChange={e => { setSelectedObjectiveId(e.target.value); setReadiness(null) }}
+                className={INPUT}
+              >
+                {objectives.map(o => (
+                  <option key={o.id} value={o.id}>{o.name}</option>
+                ))}
+                <option value="">No specific objective</option>
+              </select>
+              <p className="text-xs text-[#78829d] mt-1.5">
+                Associating a campaign with an Objective lets us check Oracle readiness before you proceed.
+              </p>
+            </div>
+
+            {readiness && !readiness.ready && (
+              <div className="rounded-lg bg-yellow-50 border border-yellow-200 p-4">
+                <p className="text-xs font-semibold text-yellow-800 mb-2">Missing Oracle sections — complete these before building this campaign:</p>
+                <ul className="space-y-2">
+                  {readiness.missing.map((m) => (
+                    <li key={m.category} className="rounded-lg border border-dashed border-yellow-200 bg-white p-3">
+                      <p className="text-xs font-semibold text-[#252f4a] mb-0.5">📋 {m.category}</p>
+                      {m.prompt && <p className="text-xs text-[#78829d]">{m.prompt}</p>}
+                    </li>
+                  ))}
+                </ul>
+                {readiness.complete.length > 0 && (
+                  <p className="text-xs text-[#78829d] mt-3">
+                    Complete: {readiness.complete.join(', ')}
+                  </p>
+                )}
+                <p className="text-xs text-[#78829d] mt-3">
+                  You can still save this campaign as a draft.
+                </p>
+              </div>
+            )}
+
+            <div className="flex justify-end gap-2 pt-1">
+              <button
+                onClick={() => { setObjectiveStep(false); setReadiness(null) }}
+                className="text-sm text-[#78829d] hover:text-[#252f4a] transition-colors px-3 py-1.5"
+              >
+                Cancel
+              </button>
+              {readiness && !readiness.ready && (
+                <button
+                  onClick={() => {
+                    setObjectiveStep(false)
+                    setReadiness(null)
+                    setForm({ ...EMPTY_FORM, status: 'active' })
+                    setShowAdd(true)
+                  }}
+                  className="text-sm border border-[#e8e8e8] text-[#4b5675] hover:bg-[#f1f1f4] font-medium px-4 py-1.5 rounded-lg transition-colors"
+                >
+                  Save as Draft
+                </button>
+              )}
+              <button
+                onClick={proceedWithObjective}
+                disabled={checkingReadiness}
+                className="text-sm bg-[#1B84FF] hover:bg-[#1366cc] disabled:opacity-50 text-white font-medium px-4 py-1.5 rounded-lg transition-colors"
+              >
+                {checkingReadiness ? 'Checking…' : 'Check Readiness'}
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {/* Add / Edit campaign form */}
       {(showAdd || editing) && (
         <Modal title={editing ? 'Edit Campaign' : 'Add Campaign'} onClose={() => { setShowAdd(false); setEditing(null) }}>
           <div className="space-y-3">

@@ -1,41 +1,18 @@
 import { auth } from '@/auth'
 import { redirect, notFound } from 'next/navigation'
 import { db } from '@/lib/db'
-import { workspaces, oracleFields } from '@/lib/db/schema'
-import { eq, and } from 'drizzle-orm'
+import { workspaces, oracleFields, oracleCategoryDefs, objectives } from '@/lib/db/schema'
+import { eq, isNull, isNotNull, and } from 'drizzle-orm'
 import Link from 'next/link'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
 import { ORACLE_CATEGORIES } from '@/lib/oracle-schema'
-import {
-  Building2,
-  Sparkles,
-  Users,
-  Layers,
-  Target,
-  Radio,
-} from 'lucide-react'
+import OracleTabs, { type OracleTabsProps } from './OracleTabs'
 
-const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  Building2,
-  Sparkles,
-  Users,
-  Layers,
-  Target,
-  Radio,
-}
-
-function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(new Date(date))
-}
+const OBJECTIVE_SECTION_CATEGORIES = [
+  'Product / Service Definition',
+  'Target Avatars / ICP',
+  'Offer Architecture',
+  'Channel Strategy',
+]
 
 export default async function ClientOraclePage({
   params,
@@ -53,29 +30,109 @@ export default async function ClientOraclePage({
     .where(eq(workspaces.id, id))
     .limit(1)
 
-  if (!workspace) {
-    notFound()
+  if (!workspace) notFound()
+
+  const [categoryDefs, brandFields, workspaceObjectives] = await Promise.all([
+    db.select().from(oracleCategoryDefs),
+    db.select().from(oracleFields).where(and(eq(oracleFields.workspaceId, id), isNull(oracleFields.objectiveId))),
+    db.select().from(objectives).where(eq(objectives.workspaceId, id)),
+  ])
+
+  const defByCategory = Object.fromEntries(categoryDefs.map((d) => [d.category, d]))
+  const objectiveSectionDefMap = Object.fromEntries(
+    categoryDefs.filter((d) => d.level === 'objective').map((d) => [d.category, d])
+  )
+
+  // Build brand field map: { [category_or_oracle_id]: { [fieldName]: row } }
+  type FieldRow = (typeof brandFields)[number]
+  const brandFieldMap: Record<string, Record<string, FieldRow>> = {}
+  for (const field of brandFields) {
+    if (!brandFieldMap[field.category]) brandFieldMap[field.category] = {}
+    brandFieldMap[field.category][field.fieldName] = field
   }
 
-  const fields = await db
-    .select()
-    .from(oracleFields)
-    .where(eq(oracleFields.workspaceId, id))
+  // Build brandData — all ORACLE_CATEGORIES shown under Brand tab
+  const brandData: OracleTabsProps['brandData'] = ORACLE_CATEGORIES.map((cat) => {
+    // oracle_fields uses category as the full label (e.g. "Brand & Positioning")
+    // but ORACLE_CATEGORIES uses id (e.g. "brand_positioning") as field keys
+    // Fields are stored with the oracle category id as both category key and fieldName key
+    const categoryFieldMap = brandFieldMap[cat.id] ?? {}
 
-  // Build map: { [category]: { [fieldName]: { value, lastUpdated, updatedBy } } }
-  type FieldData = { value: unknown; lastUpdated: Date; updatedBy: string }
-  const fieldMap: Record<string, Record<string, FieldData>> = {}
+    // Try to find a matching oracle_category_defs entry by label
+    const matchingDef = defByCategory[cat.label] ?? null
 
-  for (const field of fields) {
-    if (!fieldMap[field.category]) {
-      fieldMap[field.category] = {}
+    const fields = cat.fields.map((f) => {
+      const row = categoryFieldMap[f.id]
+      const value = row?.fieldValue
+      const hasValue = value !== undefined && value !== null && value !== ''
+      return {
+        id: f.id,
+        label: f.label,
+        hasValue,
+        displayValue: hasValue
+          ? typeof value === 'string' ? value : JSON.stringify(value)
+          : null,
+        lastUpdated: row?.lastUpdated ?? null,
+        updatedBy: row?.updatedBy ?? null,
+      }
+    })
+
+    return {
+      categoryId: cat.id,
+      categoryLabel: cat.label,
+      icon: cat.icon,
+      fields,
+      populatedCount: fields.filter((f) => f.hasValue).length,
+      totalCount: cat.fields.length,
+      workshopPrompt: matchingDef?.workshopPrompt ?? null,
     }
-    fieldMap[field.category][field.fieldName] = {
-      value: field.fieldValue,
-      lastUpdated: field.lastUpdated,
-      updatedBy: field.updatedBy,
-    }
+  })
+
+  // Fetch objective-scoped oracle fields
+  let objectiveFieldRows: typeof brandFields = []
+  if (workspaceObjectives.length > 0) {
+    objectiveFieldRows = await db
+      .select()
+      .from(oracleFields)
+      .where(and(eq(oracleFields.workspaceId, id), isNotNull(oracleFields.objectiveId)))
   }
+
+  // Build objective field map: { [objectiveId]: { [category]: { [fieldName]: value } } }
+  const objectiveFieldMap: Record<string, Record<string, Record<string, unknown>>> = {}
+  for (const field of objectiveFieldRows) {
+    if (!field.objectiveId) continue
+    if (!objectiveFieldMap[field.objectiveId]) objectiveFieldMap[field.objectiveId] = {}
+    if (!objectiveFieldMap[field.objectiveId][field.category]) {
+      objectiveFieldMap[field.objectiveId][field.category] = {}
+    }
+    objectiveFieldMap[field.objectiveId][field.category][field.fieldName] = field.fieldValue
+  }
+
+  const objectivesData: OracleTabsProps['objectives'] = workspaceObjectives.map((obj) => {
+    const objFields = objectiveFieldMap[obj.id] ?? {}
+
+    const sections = OBJECTIVE_SECTION_CATEGORIES.map((sectionCategory) => {
+      const sectionDef = objectiveSectionDefMap[sectionCategory] ?? null
+      const fields = objFields[sectionCategory] ?? {}
+      return {
+        category: sectionCategory,
+        workshopName: sectionDef?.workshopName ?? null,
+        workshopPrompt: sectionDef?.workshopPrompt ?? null,
+        fields,
+        isEmpty: Object.keys(fields).length === 0,
+      }
+    })
+
+    return {
+      id: obj.id,
+      name: obj.name,
+      successDefinition: obj.successDefinition,
+      priority: obj.priority,
+      status: obj.status,
+      targetTimeline: obj.targetTimeline,
+      sections,
+    }
+  })
 
   return (
     <div className="p-8 max-w-6xl mx-auto">
@@ -93,92 +150,11 @@ export default async function ClientOraclePage({
         </p>
       </div>
 
-      <div className="space-y-4">
-        {ORACLE_CATEGORIES.map((category) => {
-          const Icon = ICON_MAP[category.icon] ?? Building2
-          const categoryFields = fieldMap[category.id] ?? {}
-          const populatedCount = category.fields.filter(
-            (f) => {
-              const val = categoryFields[f.id]?.value
-              return val !== undefined && val !== null && val !== ''
-            }
-          ).length
-          const totalCount = category.fields.length
-          const allFilled = populatedCount === totalCount
-          const someFilled = populatedCount > 0 && populatedCount < totalCount
-          const noneFilled = populatedCount === 0
-
-          const badgeClass = allFilled
-            ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-            : someFilled
-            ? 'bg-yellow-500/20 text-[#f6a600] border border-yellow-500/30'
-            : 'bg-[#f1f1f4] text-[#78829d] border border-[#e8e8e8]'
-
-          return (
-            <Card key={category.id} className="bg-white border-[#e8e8e8]">
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="size-9 rounded-lg bg-[#f1f1f4] flex items-center justify-center shrink-0">
-                      <Icon className="size-4 text-[#78829d]" />
-                    </div>
-                    <CardTitle className="text-sm font-semibold text-[#252f4a]">
-                      {category.label}
-                    </CardTitle>
-                  </div>
-                  <div className="flex items-center gap-3 shrink-0">
-                    <span className={`inline-flex items-center rounded px-2 py-0.5 text-xs font-medium ${badgeClass}`}>
-                      {populatedCount} of {totalCount} fields populated
-                    </span>
-                    <Link
-                      href={`/dashboard/clients/${id}/oracle/${category.id}`}
-                      className="inline-flex h-7 items-center justify-center rounded-lg border border-[#e8e8e8] px-3 text-xs font-medium text-[#4b5675] transition-colors hover:border-[#1B84FF] hover:text-[#252f4a]"
-                    >
-                      Edit
-                    </Link>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <ul className="divide-y divide-zinc-800">
-                  {category.fields.map((field) => {
-                    const data = categoryFields[field.id]
-                    const value = data?.value
-                    const hasValue = value !== undefined && value !== null && value !== ''
-                    const displayValue = hasValue
-                      ? (typeof value === 'string' ? value : JSON.stringify(value))
-                      : null
-
-                    return (
-                      <li key={field.id} className="py-3 first:pt-0 last:pb-0">
-                        <div className="flex items-start justify-between gap-4">
-                          <div className="min-w-0 flex-1">
-                            <p className="text-xs font-medium text-[#78829d] mb-0.5">
-                              {field.label}
-                            </p>
-                            {displayValue ? (
-                              <p className="text-sm text-[#252f4a] whitespace-pre-wrap break-words">
-                                {displayValue}
-                              </p>
-                            ) : (
-                              <p className="text-sm text-[#78829d]">—</p>
-                            )}
-                          </div>
-                          {data?.lastUpdated && (
-                            <p className="text-xs text-[#78829d] shrink-0 mt-0.5">
-                              {formatDate(data.lastUpdated)}
-                            </p>
-                          )}
-                        </div>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </CardContent>
-            </Card>
-          )
-        })}
-      </div>
+      <OracleTabs
+        workspaceId={id}
+        brandData={brandData}
+        objectives={objectivesData}
+      />
     </div>
   )
 }

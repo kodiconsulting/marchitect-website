@@ -1,7 +1,7 @@
 import { auth } from '@/auth'
 import { redirect, notFound } from 'next/navigation'
 import { db } from '@/lib/db'
-import { workspaces, campaigns } from '@/lib/db/schema'
+import { workspaces, campaigns, objectives } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
 import Link from 'next/link'
 import CampaignsManager from './CampaignsManager'
@@ -24,10 +24,13 @@ export default async function ClientCampaignsPage({
 
   if (!workspace) notFound()
 
-  const items = await db
-    .select()
-    .from(campaigns)
-    .where(eq(campaigns.workspaceId, id))
+  const [items, workspaceObjectives] = await Promise.all([
+    db.select().from(campaigns).where(eq(campaigns.workspaceId, id)),
+    db
+      .select({ id: objectives.id, name: objectives.name })
+      .from(objectives)
+      .where(eq(objectives.workspaceId, id)),
+  ])
 
   return (
     <div className="p-8 max-w-6xl mx-auto">
@@ -45,7 +48,7 @@ export default async function ClientCampaignsPage({
         </p>
       </div>
 
-      <CampaignsManager items={items} workspaceId={id} />
+      <CampaignsManager items={items} workspaceId={id} objectives={workspaceObjectives} />
     </div>
   )
 }

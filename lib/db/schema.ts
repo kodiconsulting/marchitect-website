@@ -9,6 +9,8 @@ import {
   jsonb,
   numeric,
   unique,
+  serial,
+  index,
 } from 'drizzle-orm/pg-core'
 import { sql } from 'drizzle-orm'
 
@@ -55,6 +57,33 @@ export const workspaceApiKeys = pgTable('workspace_api_keys', {
   lastUsedAt: timestamp('last_used_at'),
 })
 
+export const objectives = pgTable(
+  'objectives',
+  {
+    id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
+    workspaceId: uuid('workspace_id')
+      .notNull()
+      .references(() => workspaces.id, { onDelete: 'cascade' }),
+    name: text('name').notNull(),
+    successDefinition: text('success_definition'),
+    targetTimeline: text('target_timeline'),
+    priority: text('priority').notNull().default('medium'),
+    status: text('status').notNull().default('planning'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().default(sql`now()`),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().default(sql`now()`),
+  },
+  (t) => [index('idx_objectives_workspace').on(t.workspaceId)]
+)
+
+export const oracleCategoryDefs = pgTable('oracle_category_defs', {
+  id: serial('id').primaryKey(),
+  level: text('level').notNull(), // 'brand' | 'objective'
+  category: text('category').notNull().unique(),
+  displayOrder: integer('display_order').notNull(),
+  workshopName: text('workshop_name'),
+  workshopPrompt: text('workshop_prompt'),
+})
+
 export const oracleFields = pgTable(
   'oracle_fields',
   {
@@ -62,6 +91,7 @@ export const oracleFields = pgTable(
     workspaceId: uuid('workspace_id')
       .notNull()
       .references(() => workspaces.id, { onDelete: 'cascade' }),
+    objectiveId: uuid('objective_id').references(() => objectives.id, { onDelete: 'cascade' }),
     category: text('category').notNull(),
     fieldName: text('field_name').notNull(),
     fieldValue: jsonb('field_value'),
@@ -71,7 +101,11 @@ export const oracleFields = pgTable(
       .array()
       .default(sql`'{}'`),
   },
-  (t) => [unique().on(t.workspaceId, t.category, t.fieldName)]
+  (t) => [
+    // uq_oracle_fields_scoped is defined in migration with NULLS NOT DISTINCT
+    // Drizzle doesn't support NULLS NOT DISTINCT natively, so the constraint is DB-only
+    index('idx_oracle_fields_objective').on(t.objectiveId),
+  ]
 )
 
 export const pillars = pgTable('pillars', {
