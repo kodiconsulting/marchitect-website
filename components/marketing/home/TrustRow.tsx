@@ -1,3 +1,5 @@
+'use client'
+
 const clients = [
   { src: '/images/logos/logo-liv-golf.png',            alt: 'LIV Golf' },
   { src: '/images/logos/logo-suzuki.png',              alt: 'Suzuki' },

@@ -59,7 +59,7 @@ export default function Nav() {
             display: 'flex',
             alignItems: 'center',
             textDecoration: 'none',
-            background: 'var(--color-bg-primary)',
+            background: 'var(--m-bg)',
             borderRadius: '4px',
             flexShrink: 0,
           }}

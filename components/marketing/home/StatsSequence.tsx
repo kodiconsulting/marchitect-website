@@ -127,7 +127,7 @@ export default function StatsSequence() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'var(--color-bg-primary)',
+        background: '#07080f',
         overflow: 'hidden',
       }}>
         {stats.map((stat, i) => (
@@ -155,7 +155,7 @@ export default function StatsSequence() {
                 fontWeight: 600,
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
-                color: 'var(--color-text-muted)',
+                color: '#4b5563',
                 marginBottom: '16px',
               }}>
                 {stat.label}
@@ -175,7 +175,7 @@ export default function StatsSequence() {
               </h2>
               <p style={{
                 fontSize: '18px',
-                color: 'var(--color-text-secondary)',
+                color: '#9ca3af',
                 lineHeight: 1.6,
                 maxWidth: '560px',
                 margin: '0 auto',
