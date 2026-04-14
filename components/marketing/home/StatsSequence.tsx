@@ -28,6 +28,10 @@ const HOLD_END   = 0.30; // fraction where hold phase ends, exit begins
 
 const LAST_APPROACH = 0.40; // fraction of LAST_VH used to zoom in for last stat
 
+// Start animating while section is still scrolling into view from below.
+// 0.5 = stats begin appearing when section top is at the midpoint of the viewport.
+const ENTRY_OFFSET = 0.5;
+
 export default function StatsSequence() {
   const sectionRef  = useRef<HTMLDivElement>(null);
   const slideRefs   = useRef<(HTMLDivElement | null)[]>([]);
@@ -46,7 +50,7 @@ export default function StatsSequence() {
 
     function update() {
       if (!section) return;
-      const scrolledVh = -section.getBoundingClientRect().top / window.innerHeight;
+      const scrolledVh = -section.getBoundingClientRect().top / window.innerHeight + ENTRY_OFFSET;
 
       stats.forEach((_, i) => {
         const slide = slideRefs.current[i];

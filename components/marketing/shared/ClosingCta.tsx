@@ -6,7 +6,7 @@ interface ClosingCtaProps {
 }
 
 export default function ClosingCta({
-  heading = 'On your 5th agency? See where your marketing is breaking down.',
+  heading = 'On your 5th agency?\nSee where your real marketing problem is...',
   body = 'Take the 5-minute assessment to see exactly which parts of your marketing department are missing, broken, or ungoverned.',
 }: ClosingCtaProps) {
   return (
@@ -30,6 +30,7 @@ export default function ClosingCta({
             letterSpacing: '-0.02em',
             color: '#ffffff',
             marginBottom: '24px',
+            whiteSpace: 'pre-line',
           }}
         >
           {heading}
