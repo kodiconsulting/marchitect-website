@@ -66,14 +66,14 @@ function OsMockup() {
           gap: '12px',
           padding: '14px 16px',
           borderRadius: '10px',
-          background: i === 0 ? 'rgba(124,92,252,0.12)' : 'rgba(255,255,255,0.03)',
-          border: `1px solid ${i === 0 ? 'rgba(124,92,252,0.3)' : 'rgba(255,255,255,0.06)'}`,
+          background: i === 0 ? 'rgba(41,82,245,0.12)' : 'rgba(255,255,255,0.03)',
+          border: `1px solid ${i === 0 ? 'rgba(41,82,245,0.3)' : 'rgba(255,255,255,0.06)'}`,
         }}>
           <div style={{
             width: '28px', height: '28px', borderRadius: '8px', flexShrink: 0,
-            background: i === 0 ? 'rgba(124,92,252,0.2)' : 'rgba(255,255,255,0.05)',
+            background: i === 0 ? 'rgba(41,82,245,0.2)' : 'rgba(255,255,255,0.05)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '11px', fontWeight: 700, color: i === 0 ? '#a78bfa' : '#4b5563',
+            fontSize: '11px', fontWeight: 700, color: i === 0 ? '#60A5FA' : '#4b5563',
           }}>
             {String(i + 1).padStart(2, '0')}
           </div>
@@ -81,7 +81,7 @@ function OsMockup() {
             {pillar}
           </span>
           {i === 0 && (
-            <span style={{ marginLeft: 'auto', fontSize: '11px', color: '#a78bfa', fontWeight: 500 }}>Active</span>
+            <span style={{ marginLeft: 'auto', fontSize: '11px', color: '#60A5FA', fontWeight: 500 }}>Active</span>
           )}
         </div>
       ))}
@@ -107,9 +107,9 @@ function WorkshopsMockup() {
             <span style={{ fontSize: '13px', fontWeight: 600, color: '#ffffff' }}>{session}</span>
             <span style={{
               fontSize: '11px', padding: '3px 10px', borderRadius: '999px', fontWeight: 500,
-              background: i === 0 ? 'rgba(124,92,252,0.15)' : i === 1 ? 'rgba(34,197,94,0.1)' : 'rgba(255,255,255,0.05)',
-              color: i === 0 ? '#a78bfa' : i === 1 ? '#4ade80' : '#4b5563',
-              border: `1px solid ${i === 0 ? 'rgba(124,92,252,0.3)' : i === 1 ? 'rgba(34,197,94,0.2)' : 'rgba(255,255,255,0.06)'}`,
+              background: i === 0 ? 'rgba(41,82,245,0.15)' : i === 1 ? 'rgba(34,197,94,0.1)' : 'rgba(255,255,255,0.05)',
+              color: i === 0 ? '#60A5FA' : i === 1 ? '#4ade80' : '#4b5563',
+              border: `1px solid ${i === 0 ? 'rgba(41,82,245,0.3)' : i === 1 ? 'rgba(34,197,94,0.2)' : 'rgba(255,255,255,0.06)'}`,
             }}>
               {i === 0 ? 'In Progress' : i === 1 ? 'Complete' : 'Upcoming'}
             </span>
@@ -117,7 +117,7 @@ function WorkshopsMockup() {
           <div style={{ height: '4px', borderRadius: '2px', background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
             <div style={{
               height: '100%', borderRadius: '2px',
-              background: 'linear-gradient(90deg, #7c5cfc, #a78bfa)',
+              background: 'linear-gradient(90deg, #2952F5, #60A5FA)',
               width: i === 0 ? '60%' : i === 1 ? '100%' : '0%',
             }} />
           </div>
@@ -138,8 +138,8 @@ function PortalMockup() {
         {['Dashboard', 'Playbook', 'Strategy', 'Budget', 'Performance'].map((label, i) => (
           <div key={label} style={{
             padding: '7px 10px', borderRadius: '7px', fontSize: '12px', fontWeight: i === 0 ? 600 : 400,
-            background: i === 0 ? 'rgba(124,92,252,0.15)' : 'transparent',
-            color: i === 0 ? '#a78bfa' : 'rgba(255,255,255,0.25)',
+            background: i === 0 ? 'rgba(41,82,245,0.15)' : 'transparent',
+            color: i === 0 ? '#60A5FA' : 'rgba(255,255,255,0.25)',
           }}>{label}</div>
         ))}
       </div>
@@ -152,7 +152,7 @@ function PortalMockup() {
               borderRadius: '9px', padding: '12px',
             }}>
               <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.3)', marginBottom: '5px' }}>{lbl}</div>
-              <div style={{ fontSize: '16px', fontWeight: 700, color: '#a78bfa' }}>{val}</div>
+              <div style={{ fontSize: '16px', fontWeight: 700, color: '#60A5FA' }}>{val}</div>
             </div>
           ))}
         </div>
@@ -167,11 +167,11 @@ function PortalMockup() {
               <div style={{ flex: 1, height: '4px', borderRadius: '2px', background: 'rgba(255,255,255,0.06)' }}>
                 <div style={{
                   height: '100%', borderRadius: '2px',
-                  background: 'linear-gradient(90deg, #7c5cfc, #a78bfa)',
+                  background: 'linear-gradient(90deg, #2952F5, #60A5FA)',
                   width: `${[88, 65, 42][i]}%`,
                 }} />
               </div>
-              <span style={{ fontSize: '11px', color: '#a78bfa', width: '28px', textAlign: 'right' }}>{[88, 65, 42][i]}%</span>
+              <span style={{ fontSize: '11px', color: '#60A5FA', width: '28px', textAlign: 'right' }}>{[88, 65, 42][i]}%</span>
             </div>
           ))}
         </div>
@@ -260,14 +260,16 @@ export default function SystemOverview() {
                   onClick={() => switchTab(t.id)}
                   style={{
                     padding: '10px 24px',
-                    borderRadius: '9px',
-                    border: isActive ? '1px solid rgba(124,92,252,0.4)' : '1px solid transparent',
-                    background: isActive ? '#1a1b2e' : 'transparent',
+                    borderRadius: '8px',
+                    border: 'none',
+                    background: isActive
+                      ? 'linear-gradient(135deg, #2952F5 0%, #60A5FA 100%)'
+                      : 'transparent',
                     color: isActive ? '#ffffff' : '#9ca3af',
                     fontSize: '14px',
-                    fontWeight: isActive ? 600 : 500,
+                    fontWeight: 600,
                     cursor: 'pointer',
-                    transition: 'background 0.2s ease, color 0.2s ease, border-color 0.2s ease',
+                    transition: 'background 0.2s ease, color 0.2s ease',
                     whiteSpace: 'nowrap',
                   }}
                 >
@@ -349,7 +351,7 @@ export default function SystemOverview() {
                 transform: 'translate(-30%, -50%)',
                 width: '600px',
                 height: '400px',
-                background: 'radial-gradient(ellipse at center, rgba(124,92,252,0.25) 0%, transparent 65%)',
+                background: 'radial-gradient(ellipse at center, rgba(41,82,245,0.25) 0%, transparent 65%)',
                 pointerEvents: 'none',
                 zIndex: 0,
               }}

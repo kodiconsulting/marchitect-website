@@ -104,8 +104,11 @@ export default function Nav() {
           })}
         </div>
 
-        {/* Desktop CTA */}
-        <div className="hidden md:flex" style={{ flexShrink: 0 }}>
+        {/* Desktop CTAs */}
+        <div className="hidden md:flex" style={{ flexShrink: 0, gap: '8px', display: 'flex', alignItems: 'center' }}>
+          <Link href="/login" className="btn-login">
+            Log In
+          </Link>
           <Link
             href="/assessment"
             className="btn-primary"

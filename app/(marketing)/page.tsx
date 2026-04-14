@@ -2,7 +2,7 @@ import Hero from '@/components/marketing/home/Hero'
 import TrustRow from '@/components/marketing/home/TrustRow'
 import WhyMarketingFails from '@/components/marketing/home/WhyMarketingFails'
 import SystemOverview from '@/components/marketing/home/SystemOverview'
-import StatsBanner from '@/components/marketing/home/StatsBanner'
+import StatsSequence from '@/components/marketing/home/StatsSequence'
 import EcosystemCard from '@/components/marketing/home/EcosystemCard'
 import Testimonials from '@/components/marketing/home/Testimonials'
 import AboutSplit from '@/components/marketing/home/AboutSplit'
@@ -16,7 +16,7 @@ export default function HomePage() {
       <TrustRow />
       <WhyMarketingFails />
       <SystemOverview />
-      <StatsBanner />
+      <StatsSequence />
       <EcosystemCard />
       <Testimonials />
       <AboutSplit />

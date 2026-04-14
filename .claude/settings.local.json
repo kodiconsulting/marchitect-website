@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(npx next:*)",
+      "Bash(node_modules/.bin/next build:*)",
+      "Bash(gh run:*)",
+      "Bash(npx tsx:*)",
+      "Bash(node_modules/.bin/tsx scripts/setup-client.ts \"Marchitect\")",
+      "Bash(npm run:*)",
+      "Bash(npm install:*)",
+      "Bash(ls:*)",
+      "Bash(cd \"C:\\\\\\\\Users\\\\\\\\Owner\\\\\\\\Claude\\\\\\\\Projects\\\\\\\\marchitect-website\")",
+      "Bash(node:*)",
+      "Bash(git:*)",
+      "Bash(xargs sed:*)"
+    ]
+  }
+}

@@ -110,7 +110,7 @@ export default function AboutSplit() {
                 transform: 'translateX(-50%)',
                 width: '80%',
                 height: '200px',
-                background: 'radial-gradient(ellipse, rgba(124,92,252,0.15) 0%, transparent 70%)',
+                background: 'radial-gradient(ellipse, rgba(41,82,245,0.15) 0%, transparent 70%)',
                 pointerEvents: 'none',
               }}
             />
@@ -120,14 +120,14 @@ export default function AboutSplit() {
                 width: '80px',
                 height: '80px',
                 borderRadius: '50%',
-                background: 'rgba(124,92,252,0.15)',
-                border: '2px solid rgba(124,92,252,0.3)',
+                background: 'rgba(41,82,245,0.15)',
+                border: '2px solid rgba(41,82,245,0.3)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '28px',
                 fontWeight: 900,
-                color: '#a78bfa',
+                color: '#60A5FA',
                 zIndex: 1,
               }}
             >

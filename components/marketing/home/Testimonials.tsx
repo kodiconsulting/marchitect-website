@@ -56,8 +56,8 @@ function QuoteIcon() {
         width: '36px',
         height: '36px',
         borderRadius: '8px',
-        background: 'rgba(124,92,252,0.15)',
-        border: '1px solid rgba(124,92,252,0.2)',
+        background: 'rgba(41,82,245,0.15)',
+        border: '1px solid rgba(41,82,245,0.2)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -68,7 +68,7 @@ function QuoteIcon() {
       <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
         <path
           d="M0 12V7.2C0 3.22 2.56 1.02 7.68 0L8.32 1.44C5.97 2.01 4.48 3.17 3.84 4.92H6.4V12H0ZM9.6 12V7.2C9.6 3.22 12.16 1.02 17.28 0L17.92 1.44C15.57 2.01 14.08 3.17 13.44 4.92H16V12H9.6Z"
-          fill="#a78bfa"
+          fill="#60A5FA"
         />
       </svg>
     </div>
@@ -91,14 +91,14 @@ function Avatar({ name }: { name: string }) {
         width: '32px',
         height: '32px',
         borderRadius: '50%',
-        background: 'rgba(124,92,252,0.2)',
-        border: '1px solid rgba(124,92,252,0.3)',
+        background: 'rgba(41,82,245,0.2)',
+        border: '1px solid rgba(41,82,245,0.3)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: '11px',
         fontWeight: 700,
-        color: '#a78bfa',
+        color: '#60A5FA',
         flexShrink: 0,
       }}
     >
@@ -216,7 +216,7 @@ export default function Testimonials() {
 
       <style>{`
         .testimonial-card:hover {
-          border-color: rgba(124, 92, 252, 0.3) !important;
+          border-color: rgba(41, 82, 245, 0.3) !important;
         }
         @media (max-width: 1023px) and (min-width: 768px) {
           .testimonials-grid {

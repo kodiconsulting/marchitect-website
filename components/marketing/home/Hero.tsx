@@ -14,281 +14,248 @@ export default function Hero() {
         position: 'relative',
         minHeight: '100vh',
         backgroundColor: 'var(--m-bg)',
-        display: 'flex',
-        alignItems: 'center',
         overflow: 'hidden',
       }}
     >
-      {/* Inner container */}
+      {/* ── Left content — sits in normal flow ───────────────── */}
       <div
+        className="hero-content"
         style={{
           position: 'relative',
           zIndex: 1,
-          width: '100%',
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '120px 48px 80px',
+          width: '52%',
+          minHeight: '100vh',
           display: 'flex',
-          alignItems: 'center',
-          gap: '64px',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: '80px 48px 80px 48px',
         }}
-        className="hero-inner"
       >
-
-        {/* ── Left column ────────────────────────────────────────── */}
-        <div
-          style={{
-            flex: '0 0 55%',
-            maxWidth: '55%',
-          }}
-          className="hero-left"
-        >
-          {/* Eyebrow pill */}
-          <div style={{ marginBottom: '28px' }}>
-            <span className="eyebrow-pill">The AI Enabled Marketing Framework</span>
-          </div>
-
-          {/* H1 */}
-          <h1
-            style={{
-              color: 'var(--m-text)',
-              fontWeight: 900,
-              fontSize: 'clamp(40px, 5.5vw, 80px)',
-              lineHeight: 1.1,
-              letterSpacing: '-0.03em',
-              marginBottom: '24px',
-            }}
-          >
-            You don&apos;t need a marketer.
-            <br />
-            You need a Marchitect.
-          </h1>
-
-          {/* Subheadline */}
-          <p
-            style={{
-              color: 'var(--m-text-secondary)',
-              fontWeight: 400,
-              fontSize: '18px',
-              lineHeight: 1.6,
-              marginBottom: '16px',
-            }}
-          >
-            Marketing budgets only go so far without a proper plan.
-          </p>
-
-          {/* Body */}
-          <p
-            style={{
-              color: 'var(--m-text-secondary)',
-              fontWeight: 400,
-              fontSize: '16px',
-              lineHeight: 1.6,
-              maxWidth: '480px',
-              marginBottom: '36px',
-            }}
-          >
-            Our decision-making framework governs your objectives, teams, strategies, budgets,
-            timelines, and performance — to help you market confidently.
-          </p>
-
-          {/* Checkmark row */}
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '20px',
-              marginBottom: '40px',
-            }}
-          >
-            {CHECK_ITEMS.map((item) => (
-              <div key={item} className="check-item">
-                <span className="check-icon" aria-hidden="true">✓</span>
-                {item}
-              </div>
-            ))}
-          </div>
-
-          {/* Button row */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-            <Link href="/assessment" className="btn-primary">
-              Identify Your Marketing Gaps Now <span aria-hidden="true">→</span>
-            </Link>
-            <Link href="/contact" className="btn-secondary">
-              Book a Call <span aria-hidden="true">→</span>
-            </Link>
-          </div>
+        {/* Eyebrow pill */}
+        <div style={{ marginBottom: '28px' }}>
+          <span className="eyebrow-pill">The AI Enabled Marketing Framework</span>
         </div>
 
-        {/* ── Right column ───────────────────────────────────────── */}
+        {/* H1 */}
+        <h1
+          style={{
+            color: 'var(--m-text)',
+            fontWeight: 700,
+            fontSize: 'clamp(36px, 3.5vw, 48px)',
+            lineHeight: 1.1,
+            letterSpacing: '-0.03em',
+            maxWidth: '700px',
+            marginBottom: '24px',
+          }}
+        >
+          You don&apos;t need a marketer.
+          <br />
+          You need a Marchitect.
+        </h1>
+
+        {/* Subheadline */}
+        <p
+          style={{
+            color: 'var(--m-text-secondary)',
+            fontWeight: 400,
+            fontSize: '18px',
+            lineHeight: 1.6,
+            marginBottom: '16px',
+          }}
+        >
+          Marketing budgets only go so far without a proper plan.
+        </p>
+
+        {/* Body */}
+        <p
+          style={{
+            color: 'var(--m-text-secondary)',
+            fontWeight: 400,
+            fontSize: '16px',
+            lineHeight: 1.6,
+            maxWidth: '480px',
+            marginBottom: '36px',
+          }}
+        >
+          Our decision-making framework governs your objectives, teams, strategies, budgets,
+          timelines, and performance — to help you market confidently.
+        </p>
+
+        {/* Checkmark row */}
         <div
           style={{
-            flex: '0 0 45%',
-            maxWidth: '45%',
-            position: 'relative',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '20px',
+            marginBottom: '40px',
           }}
-          className="hero-right"
         >
-          {/* Purple radial glow behind card */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-40%, -50%)',
-              width: '700px',
-              height: '500px',
-              background: 'radial-gradient(ellipse at center, rgba(124,92,252,0.25) 0%, transparent 65%)',
-              pointerEvents: 'none',
-              zIndex: 0,
-            }}
-          />
+          {CHECK_ITEMS.map((item) => (
+            <div key={item} className="check-item">
+              <span className="check-icon" aria-hidden="true">✓</span>
+              {item}
+            </div>
+          ))}
+        </div>
 
-          {/* Floating UI card — swap inner content for real screenshot when ready */}
-          <div
-            style={{
-              position: 'relative',
-              zIndex: 1,
-              background: '#12131f',
-              borderRadius: '16px',
-              border: '1px solid rgba(255,255,255,0.08)',
-              boxShadow: '0 40px 80px rgba(0,0,0,0.4)',
-              overflow: 'hidden',
-              marginRight: '-48px', /* bleed off right edge */
-            }}
-          >
-            {/* Top bar chrome */}
+        {/* Button row */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+          <Link href="/assessment" className="btn-primary">
+            Identify Your Marketing Gaps Now <span aria-hidden="true">→</span>
+          </Link>
+          <Link href="/contact" className="btn-secondary">
+            Book a Call <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      </div>
+
+      {/* ── Right panel — absolutely positioned, bleeds to viewport edge ── */}
+      <div
+        className="hero-image-bleed"
+        style={{
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          bottom: 0,
+          width: '52%',
+          overflow: 'hidden',
+        }}
+      >
+        {/* Blue radial glow behind card */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '10%',
+            transform: 'translateY(-50%)',
+            width: '700px',
+            height: '600px',
+            background: 'radial-gradient(ellipse at center, rgba(41,82,245,0.25) 0%, transparent 65%)',
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}
+        />
+
+        {/* Floating UI card */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '5%',
+            right: 0,
+            transform: 'translateY(-50%)',
+            zIndex: 1,
+            background: '#12131f',
+            borderRadius: '16px 0 0 16px',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRight: 'none',
+            boxShadow: '-40px 40px 80px rgba(0,0,0,0.4)',
+            overflow: 'hidden',
+          }}
+        >
+          {/* Chrome bar */}
+          <div style={{
+            padding: '14px 18px',
+            borderBottom: '1px solid rgba(255,255,255,0.06)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}>
+            {[0, 1, 2].map((i) => (
+              <span key={i} style={{ width: 10, height: 10, borderRadius: '50%', background: 'rgba(255,255,255,0.12)', display: 'block' }} />
+            ))}
+            <div style={{ flex: 1, marginLeft: '8px', height: '8px', borderRadius: '4px', background: 'rgba(255,255,255,0.06)', maxWidth: '200px' }} />
+          </div>
+
+          {/* Mock dashboard body */}
+          <div style={{ display: 'flex', height: '440px' }}>
+            {/* Sidebar */}
             <div style={{
-              padding: '14px 18px',
-              borderBottom: '1px solid rgba(255,255,255,0.06)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
+              width: '160px', flexShrink: 0, borderRight: '1px solid rgba(255,255,255,0.06)',
+              padding: '20px 14px', display: 'flex', flexDirection: 'column', gap: '6px',
             }}>
-              <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'rgba(255,255,255,0.12)', display: 'block' }} />
-              <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'rgba(255,255,255,0.12)', display: 'block' }} />
-              <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'rgba(255,255,255,0.12)', display: 'block' }} />
-              <div style={{
-                flex: 1,
-                marginLeft: '8px',
-                height: '8px',
-                borderRadius: '4px',
-                background: 'rgba(255,255,255,0.06)',
-                maxWidth: '200px',
-              }} />
+              {['Marketing Plan', 'Strategy', 'Budgets', 'Timelines', 'Performance', 'Team'].map((label, i) => (
+                <div key={label} style={{
+                  padding: '8px 12px', borderRadius: '8px', fontSize: '12px',
+                  background: i === 0 ? 'rgba(41,82,245,0.15)' : 'transparent',
+                  color: i === 0 ? '#60A5FA' : 'rgba(255,255,255,0.3)',
+                  fontWeight: i === 0 ? 600 : 400,
+                }}>
+                  {label}
+                </div>
+              ))}
             </div>
 
-            {/* Mock dashboard body */}
-            <div style={{ display: 'flex', height: '400px' }}>
-              {/* Sidebar */}
-              <div style={{
-                width: '180px',
-                flexShrink: 0,
-                borderRight: '1px solid rgba(255,255,255,0.06)',
-                padding: '20px 16px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '8px',
-              }}>
-                {['Marketing Plan', 'Strategy', 'Budgets', 'Timelines', 'Performance', 'Team'].map((label, i) => (
+            {/* Main content area */}
+            <div style={{ flex: 1, padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                {[['Pipeline', '↑ 42%'], ['MQLs', '↑ 18%'], ['CAC', '↓ 23%']].map(([label, val]) => (
                   <div key={label} style={{
-                    padding: '8px 12px',
-                    borderRadius: '8px',
-                    background: i === 0 ? 'rgba(124,92,252,0.15)' : 'transparent',
-                    color: i === 0 ? '#a78bfa' : 'rgba(255,255,255,0.3)',
-                    fontSize: '13px',
-                    fontWeight: i === 0 ? 600 : 400,
+                    flex: 1, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)',
+                    borderRadius: '10px', padding: '12px',
                   }}>
-                    {label}
+                    <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.3)', marginBottom: '5px' }}>{label}</div>
+                    <div style={{ fontSize: '16px', fontWeight: 700, color: '#60A5FA' }}>{val}</div>
                   </div>
                 ))}
               </div>
-
-              {/* Main content area */}
-              <div style={{ flex: 1, padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {/* Stat cards row */}
-                <div style={{ display: 'flex', gap: '12px' }}>
-                  {[['Pipeline', '↑ 42%'], ['MQLs', '↑ 18%'], ['CAC', '↓ 23%']].map(([label, val]) => (
-                    <div key={label} style={{
-                      flex: 1,
-                      background: 'rgba(255,255,255,0.04)',
-                      border: '1px solid rgba(255,255,255,0.06)',
-                      borderRadius: '10px',
-                      padding: '14px',
-                    }}>
-                      <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', marginBottom: '6px' }}>{label}</div>
-                      <div style={{ fontSize: '18px', fontWeight: 700, color: '#a78bfa' }}>{val}</div>
-                    </div>
+              <div style={{
+                flex: 1, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)',
+                borderRadius: '10px', padding: '14px', display: 'flex', flexDirection: 'column', gap: '10px',
+              }}>
+                <div style={{ height: '7px', width: '100px', background: 'rgba(255,255,255,0.08)', borderRadius: '3px' }} />
+                <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', gap: '6px' }}>
+                  {[55, 70, 45, 85, 60, 90, 75, 95].map((h, i) => (
+                    <div key={i} style={{
+                      flex: 1, height: `${h}%`, borderRadius: '4px 4px 0 0',
+                      background: i === 7 ? 'linear-gradient(180deg, #2952F5, #60A5FA)' : 'rgba(41,82,245,0.2)',
+                    }} />
                   ))}
                 </div>
-
-                {/* Chart placeholder */}
-                <div style={{
-                  flex: 1,
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  borderRadius: '10px',
-                  padding: '16px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px',
-                }}>
-                  <div style={{ height: '8px', width: '120px', background: 'rgba(255,255,255,0.08)', borderRadius: '4px' }} />
-                  <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', gap: '8px', paddingTop: '8px' }}>
-                    {[55, 70, 45, 85, 60, 90, 75, 95].map((h, i) => (
-                      <div key={i} style={{
-                        flex: 1,
-                        height: `${h}%`,
-                        borderRadius: '4px 4px 0 0',
-                        background: i === 7
-                          ? 'linear-gradient(180deg, #7c5cfc, #a78bfa)'
-                          : 'rgba(124,92,252,0.2)',
-                      }} />
-                    ))}
+              </div>
+              <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '10px', padding: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {['ICP & Offer', 'Channel Strategy', 'Budget'].map((item, i) => (
+                  <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', width: '90px', flexShrink: 0 }}>{item}</span>
+                    <div style={{ flex: 1, height: '4px', borderRadius: '2px', background: 'rgba(255,255,255,0.06)' }}>
+                      <div style={{ height: '100%', borderRadius: '2px', background: 'linear-gradient(90deg, #2952F5, #60A5FA)', width: `${[88, 65, 42][i]}%` }} />
+                    </div>
+                    <span style={{ fontSize: '11px', color: '#60A5FA', width: '28px', textAlign: 'right' }}>{[88, 65, 42][i]}%</span>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
-
       </div>
 
-      {/* Responsive styles */}
+      {/* Responsive */}
       <style>{`
         @media (max-width: 767px) {
-          .hero-inner {
-            flex-direction: column !important;
-            padding: 100px 24px 60px !important;
-            gap: 48px !important;
-          }
-          .hero-left {
-            flex: unset !important;
-            max-width: 100% !important;
+          .hero-content {
+            width: 100% !important;
+            min-height: unset !important;
+            padding: 100px 24px 40px !important;
             text-align: center;
           }
-          .hero-left .eyebrow-pill {
-            margin-left: auto;
-            margin-right: auto;
+          .hero-content .eyebrow-pill { margin: 0 auto; }
+          .hero-content p { margin-left: auto; margin-right: auto; }
+          .hero-content > div:nth-child(4) { justify-content: center; }
+          .hero-content > div:last-child { justify-content: center; }
+          .hero-image-bleed {
+            position: relative !important;
+            width: 100% !important;
+            height: 320px !important;
+            margin-top: 40px;
           }
-          .hero-left p {
-            margin-left: auto;
-            margin-right: auto;
-          }
-          .hero-left > div:nth-child(4) {
-            justify-content: center;
-          }
-          .hero-left > div:last-child {
-            justify-content: center;
-          }
-          .hero-right {
-            flex: unset !important;
-            max-width: 100% !important;
-            width: 100%;
-          }
-          .hero-right > div:last-child {
-            margin-right: 0 !important;
+          .hero-image-bleed > div:last-child {
+            border-radius: 0 !important;
+            border-right: 1px solid rgba(255,255,255,0.08) !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            transform: none !important;
           }
         }
       `}</style>

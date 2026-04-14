@@ -14,9 +14,7 @@ export default function TrustRow() {
     <section
       aria-label="Trusted by growing businesses"
       style={{
-        backgroundColor: '#0d0e1a',
-        borderTop: '1px solid rgba(255,255,255,0.08)',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
+        backgroundColor: '#07080f',
         padding: '48px 24px',
       }}
     >
@@ -33,11 +31,10 @@ export default function TrustRow() {
         {/* Label */}
         <p
           style={{
-            fontSize: '11px',
-            fontWeight: 500,
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
-            color: 'var(--m-text-muted)',
+            fontSize: '21px',
+            fontWeight: 700,
+            color: '#ffffff',
+            marginBottom: '32px',
           }}
         >
           Trusted by growing businesses

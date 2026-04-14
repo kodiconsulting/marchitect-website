@@ -27,12 +27,31 @@ export default function WhyMarketingFails() {
   return (
     <section
       aria-label="Why most marketing departments fail"
+      className="problems-section"
       style={{
         backgroundColor: '#07080f',
         padding: '120px 48px',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      {/* Blue ambient glow at bottom */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          bottom: '-80px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '80%',
+          height: '400px',
+          background: 'radial-gradient(ellipse at center bottom, rgba(41,82,245,0.35) 0%, rgba(41,82,245,0.1) 40%, transparent 70%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
+
+      <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
 
         {/* Section headline */}
         <div style={{ textAlign: 'center', marginBottom: '80px' }}>
@@ -122,7 +141,7 @@ export default function WhyMarketingFails() {
               width: '100%',
             }}
           />
-          {/* Three purple dots */}
+          {/* Three blue dots */}
           {[16.5, 50, 83.5].map((pct) => (
             <span
               key={pct}
@@ -135,7 +154,7 @@ export default function WhyMarketingFails() {
                 width: '8px',
                 height: '8px',
                 borderRadius: '50%',
-                backgroundColor: '#7c5cfc',
+                backgroundColor: '#2952F5',
               }}
             />
           ))}
