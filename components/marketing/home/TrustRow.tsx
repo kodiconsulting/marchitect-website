@@ -9,45 +9,90 @@ const clients = [
   { src: '/images/logos/logo-we-are-the-mighty.png',   alt: 'We Are The Mighty' },
 ]
 
+// Duplicate for seamless loop
+const track = [...clients, ...clients]
+
 export default function TrustRow() {
   return (
     <section
-      aria-label="Trusted by growing businesses"
+      aria-label="Recent clients and partners"
       style={{
         padding: '48px 0',
         background: '#000000',
+        textAlign: 'center',
       }}
     >
-      <div className="container">
-        <p
+      <p
+        style={{
+          fontSize: '13px',
+          fontWeight: 600,
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          color: '#4b5563',
+          marginBottom: '32px',
+        }}
+      >
+        Recent clients &amp; partners
+      </p>
+
+      {/* Scrolling track with edge fades */}
+      <div
+        style={{
+          position: 'relative',
+          overflow: 'hidden',
+          width: '100%',
+        }}
+      >
+        {/* Left fade */}
+        <div
+          aria-hidden="true"
           style={{
-            textAlign: 'center',
-            fontSize: '21px',
-            fontWeight: 700,
-            color: '#ffffff',
-            marginBottom: '32px',
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: '80px',
+            background: 'linear-gradient(to right, #000000 0%, transparent 100%)',
+            zIndex: 2,
+            pointerEvents: 'none',
           }}
-        >
-          Trusted by growing businesses
-        </p>
+        />
+        {/* Right fade */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            bottom: 0,
+            width: '80px',
+            background: 'linear-gradient(to left, #000000 0%, transparent 100%)',
+            zIndex: 2,
+            pointerEvents: 'none',
+          }}
+        />
+
+        {/* Scrolling inner track */}
         <div
           style={{
             display: 'flex',
-            justifyContent: 'center',
             alignItems: 'center',
-            gap: '48px',
-            flexWrap: 'wrap',
+            gap: '64px',
+            width: 'max-content',
+            animation: 'trust-scroll 15s linear infinite',
+            paddingInline: '32px',
           }}
         >
-          {clients.map((client) => (
+          {track.map((client, i) => (
             /* eslint-disable-next-line @next/next/no-img-element */
             <img
-              key={client.alt}
+              key={`${client.alt}-${i}`}
               src={client.src}
               alt={client.alt}
               style={{
-                height: '32px',
+                height: '50px',
                 width: 'auto',
+                flexShrink: 0,
                 mixBlendMode: 'screen',
                 opacity: 0.8,
                 transition: 'opacity 0.2s ease',
@@ -58,6 +103,16 @@ export default function TrustRow() {
           ))}
         </div>
       </div>
+
+      <style>{`
+        @keyframes trust-scroll {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="trust-scroll"] { animation: none; }
+        }
+      `}</style>
     </section>
   )
 }
