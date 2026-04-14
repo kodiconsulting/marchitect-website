@@ -167,10 +167,11 @@ export default function StatsSequence() {
                 {stat.label}
               </p>
               <h2 style={{
-                fontSize: 'clamp(52px, 9vw, 96px)',
+                fontSize: 'clamp(32px, 7vw, 80px)',
                 fontWeight: 900,
                 lineHeight: 1,
                 marginBottom: '24px',
+                whiteSpace: 'nowrap',
                 background: 'linear-gradient(135deg, #4763D6 0%, #C8D4FA 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
