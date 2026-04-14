@@ -20,8 +20,8 @@ const stats = [
 ];
 
 // Scroll budget per stat (in viewport heights)
-const SLIDE_VH = 3.5;       // non-last slides: 3.5vh of scroll each
-const LAST_VH = 1.0;        // last slide: 1vh (approach + hold, then sticky releases)
+const SLIDE_VH = 1.2;       // non-last slides: 1.2vh of scroll each
+const LAST_VH = 1.8;        // last slide: 1.8vh (approach + hold, then sticky releases)
 
 // Phase boundaries as fraction of each slide's scroll budget
 const APPROACH_END = 0.18;  // 0.00 → 0.18: scale 0→1, rise up, fade in
@@ -65,19 +65,19 @@ export default function StatsSequence() {
         const t = (scrolledVh - slideStartVh) / slideRangeVh;
 
         if (isLast) {
-          // Last stat: zoom in, hold. No exit — sticky releases naturally.
+          const LAST_APPROACH = 0.40;  // 40% of LAST_VH to zoom in
+          const LAST_HOLD = 1.0;       // hold for the rest — sticky releases naturally
+
           if (t < 0) {
             slide.style.opacity = '0';
             slide.style.transform = 'scale(0) translateY(80px)';
             if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
-          } else if (t <= APPROACH_END * (SLIDE_VH / LAST_VH)) {
-            // Scale approach to the shorter LAST_VH window
-            const p = easeOutCubic(Math.min(t / (APPROACH_END * (SLIDE_VH / LAST_VH)), 1));
+          } else if (t <= LAST_APPROACH) {
+            const p = easeOutCubic(t / LAST_APPROACH);
             slide.style.opacity = p.toFixed(3);
             slide.style.transform = `scale(${p.toFixed(4)}) translateY(${((1 - p) * 80).toFixed(1)}px)`;
             if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
           } else {
-            // Hold — sticky releases and page scrolls normally after this point
             slide.style.opacity = '1';
             slide.style.transform = 'scale(1) translateY(0px)';
             if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
