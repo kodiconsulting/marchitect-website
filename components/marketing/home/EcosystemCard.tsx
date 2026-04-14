@@ -50,9 +50,7 @@ export default function EcosystemCard() {
           margin: '0 auto 64px',
         }}
       >
-        Most marketing departments have all the pieces.
-        <br />
-        Marchitect makes them work together.
+        A marketing framework that ties it all together.
       </h2>
 
       {/* Floating card */}
