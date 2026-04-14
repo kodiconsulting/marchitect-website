@@ -17,18 +17,29 @@ export default function Hero() {
         overflow: 'hidden',
       }}
     >
-      {/* ── Left content — sits in normal flow ───────────────── */}
+      {/* ── Left content — constrained to max-width container ── */}
       <div
-        className="hero-content"
         style={{
           position: 'relative',
           zIndex: 1,
-          width: '52%',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 48px',
           minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          width: '100%',
+        }}
+      >
+      <div
+        className="hero-content"
+        style={{
+          width: '60%',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: '80px 48px 80px 48px',
+          paddingTop: '120px',
+          paddingBottom: '80px',
         }}
       >
         {/* Eyebrow pill */}
@@ -108,6 +119,7 @@ export default function Hero() {
           </Link>
         </div>
       </div>
+      </div>
 
       {/* ── Right panel — absolutely positioned, bleeds to viewport edge ── */}
       <div
@@ -117,7 +129,7 @@ export default function Hero() {
           right: 0,
           top: 0,
           bottom: 0,
-          width: '52%',
+          width: '40%',
           overflow: 'hidden',
         }}
       >
