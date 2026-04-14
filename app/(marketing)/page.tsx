@@ -3,6 +3,7 @@ import TrustRow from '@/components/marketing/home/TrustRow'
 import WhyMarketingFails from '@/components/marketing/home/WhyMarketingFails'
 import SystemOverview from '@/components/marketing/home/SystemOverview'
 import StatsBanner from '@/components/marketing/home/StatsBanner'
+import EcosystemCard from '@/components/marketing/home/EcosystemCard'
 import ProblemBlock from '@/components/marketing/home/ProblemBlock'
 import SolutionBlock from '@/components/marketing/home/SolutionBlock'
 import KpiCards from '@/components/marketing/home/KpiCards'
@@ -19,6 +20,7 @@ export default function HomePage() {
       <WhyMarketingFails />
       <SystemOverview />
       <StatsBanner />
+      <EcosystemCard />
       <ProblemBlock />
       <SolutionBlock />
       <KpiCards />
