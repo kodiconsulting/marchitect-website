@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 const NAV_LINKS = [
@@ -54,16 +53,29 @@ export default function Nav() {
         }}
       >
         {/* Logo */}
-        <Link href="/" className="nav-logo" style={{ flexShrink: 0, lineHeight: 0 }}>
-          <Image
-            src="/marchitect-logo.png"
+        <a
+          href="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            textDecoration: 'none',
+            background: 'var(--color-bg-primary)',
+            borderRadius: '4px',
+            flexShrink: 0,
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/marchitect-logo.png"
             alt="Marchitect"
-            height={32}
-            width={180}
-            priority
-            style={{ objectFit: 'contain', objectPosition: 'left center', mixBlendMode: 'screen' }}
+            style={{
+              height: '36px',
+              width: 'auto',
+              mixBlendMode: 'screen',
+              display: 'block',
+            }}
           />
-        </Link>
+        </a>
 
         {/* Desktop center links */}
         <div

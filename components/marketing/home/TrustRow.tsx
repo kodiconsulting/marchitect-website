@@ -1,12 +1,10 @@
-// Logo placeholders — replace src values with real client SVGs when available.
-// All logos are rendered white/gray via CSS filter.
-const LOGOS = [
-  { name: 'Client 1', src: null },
-  { name: 'Client 2', src: null },
-  { name: 'Client 3', src: null },
-  { name: 'Client 4', src: null },
-  { name: 'Client 5', src: null },
-  { name: 'Client 6', src: null },
+const clients = [
+  { src: '/images/logos/logo-liv-golf.png',            alt: 'LIV Golf' },
+  { src: '/images/logos/logo-suzuki.png',              alt: 'Suzuki' },
+  { src: '/images/logos/logo-hardwood-bargains.png',   alt: 'Hardwood Bargains' },
+  { src: '/images/logos/logo-european-wax-center.png', alt: 'European Wax Center' },
+  { src: '/images/logos/logo-anytime-fitness.png',     alt: 'Anytime Fitness' },
+  { src: '/images/logos/logo-we-are-the-mighty.png',   alt: 'We Are The Mighty' },
 ]
 
 export default function TrustRow() {
@@ -14,23 +12,14 @@ export default function TrustRow() {
     <section
       aria-label="Trusted by growing businesses"
       style={{
-        backgroundColor: '#07080f',
-        padding: '48px 24px',
+        padding: '48px 0',
+        background: 'var(--color-bg-primary)',
       }}
     >
-      <div
-        style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '32px',
-        }}
-      >
-        {/* Label */}
+      <div className="container">
         <p
           style={{
+            textAlign: 'center',
             fontSize: '21px',
             fontWeight: 700,
             color: '#ffffff',
@@ -39,55 +28,31 @@ export default function TrustRow() {
         >
           Trusted by growing businesses
         </p>
-
-        {/* Logo row */}
         <div
           style={{
             display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
             justifyContent: 'center',
+            alignItems: 'center',
             gap: '48px',
+            flexWrap: 'wrap',
           }}
         >
-          {LOGOS.map((logo) => (
-            <div
-              key={logo.name}
+          {clients.map((client) => (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              key={client.alt}
+              src={client.src}
+              alt={client.alt}
               style={{
-                height: '28px',
-                display: 'flex',
-                alignItems: 'center',
+                height: '32px',
+                width: 'auto',
+                mixBlendMode: 'screen',
+                opacity: 0.8,
+                transition: 'opacity 0.2s ease',
               }}
-            >
-              {logo.src ? (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
-                  src={logo.src}
-                  alt={logo.name}
-                  style={{
-                    height: '28px',
-                    width: 'auto',
-                    filter: 'brightness(0) invert(1)',
-                    opacity: 0.4,
-                    transition: 'opacity 0.2s ease',
-                  }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '0.7' }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '0.4' }}
-                />
-              ) : (
-                /* Placeholder pill — remove once real logos are added */
-                <div
-                  aria-label={logo.name}
-                  style={{
-                    height: '28px',
-                    width: '96px',
-                    borderRadius: '6px',
-                    background: 'rgba(255,255,255,0.07)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                  }}
-                />
-              )}
-            </div>
+              onMouseEnter={(e) => { e.currentTarget.style.opacity = '1' }}
+              onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.8' }}
+            />
           ))}
         </div>
       </div>
