@@ -6,11 +6,6 @@ import StatsBanner from '@/components/marketing/home/StatsBanner'
 import EcosystemCard from '@/components/marketing/home/EcosystemCard'
 import Testimonials from '@/components/marketing/home/Testimonials'
 import AboutSplit from '@/components/marketing/home/AboutSplit'
-import ProblemBlock from '@/components/marketing/home/ProblemBlock'
-import SolutionBlock from '@/components/marketing/home/SolutionBlock'
-import KpiCards from '@/components/marketing/home/KpiCards'
-import FrameworkTeaser from '@/components/marketing/home/FrameworkTeaser'
-import WhoItsFor from '@/components/marketing/home/WhoItsFor'
 import FaqStrip from '@/components/marketing/home/FaqStrip'
 import ClosingCta from '@/components/marketing/shared/ClosingCta'
 
@@ -25,11 +20,6 @@ export default function HomePage() {
       <EcosystemCard />
       <Testimonials />
       <AboutSplit />
-      <ProblemBlock />
-      <SolutionBlock />
-      <KpiCards />
-      <FrameworkTeaser />
-      <WhoItsFor />
       <FaqStrip />
       <ClosingCta />
     </>
