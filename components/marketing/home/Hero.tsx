@@ -45,7 +45,7 @@ export default function Hero() {
       >
         {/* Eyebrow pill */}
         <div style={{ marginBottom: '28px' }}>
-          <span className="eyebrow-pill">The AI Enabled Marketing Framework</span>
+          <span className="eyebrow-pill">The Marketing Operating System You Need</span>
         </div>
 
         {/* H1 */}
@@ -63,7 +63,7 @@ export default function Hero() {
           You don&apos;t need a marketer.
           <br />
           You need a{' '}
-          <span style={{ textDecoration: 'underline', textUnderlineOffset: '4px', textDecorationColor: 'rgba(255,255,255,0.5)' }}>
+          <span style={{ textDecoration: 'underline', textUnderlineOffset: '4px', textDecorationColor: '#4763D6' }}>
             Marchitect
           </span>
           .
