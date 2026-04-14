@@ -61,7 +61,7 @@ export default function Nav() {
             height={32}
             width={180}
             priority
-            style={{ objectFit: 'contain', objectPosition: 'left center' }}
+            style={{ objectFit: 'contain', objectPosition: 'left center', mixBlendMode: 'screen' }}
           />
         </Link>
 

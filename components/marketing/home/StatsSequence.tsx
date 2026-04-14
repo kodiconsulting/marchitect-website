@@ -55,6 +55,7 @@ export default function StatsSequence() {
 
       slideRefs.current.forEach((slide, i) => {
         if (!slide) return;
+        const blurWrapper = slide.querySelector(`.stat-blur-${i}`) as HTMLElement | null;
 
         const isLast = i === total - 1;
         const slideStartVh = i * SLIDE_VH;
@@ -68,18 +69,18 @@ export default function StatsSequence() {
           if (t < 0) {
             slide.style.opacity = '0';
             slide.style.transform = 'scale(0) translateY(80px)';
-            slide.style.filter = 'blur(0px)';
+            if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
           } else if (t <= APPROACH_END * (SLIDE_VH / LAST_VH)) {
             // Scale approach to the shorter LAST_VH window
             const p = easeOutCubic(Math.min(t / (APPROACH_END * (SLIDE_VH / LAST_VH)), 1));
             slide.style.opacity = p.toFixed(3);
             slide.style.transform = `scale(${p.toFixed(4)}) translateY(${((1 - p) * 80).toFixed(1)}px)`;
-            slide.style.filter = 'blur(0px)';
+            if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
           } else {
             // Hold — sticky releases and page scrolls normally after this point
             slide.style.opacity = '1';
             slide.style.transform = 'scale(1) translateY(0px)';
-            slide.style.filter = 'blur(0px)';
+            if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
           }
           return;
         }
@@ -89,29 +90,29 @@ export default function StatsSequence() {
           // Not yet visible — waiting below
           slide.style.opacity = '0';
           slide.style.transform = 'scale(0) translateY(80px)';
-          slide.style.filter = 'blur(0px)';
+          if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
         } else if (t <= APPROACH_END) {
           // Approach: scale from 0, rise from below
           const p = easeOutCubic(t / APPROACH_END);
           slide.style.opacity = p.toFixed(3);
           slide.style.transform = `scale(${p.toFixed(4)}) translateY(${((1 - p) * 80).toFixed(1)}px)`;
-          slide.style.filter = 'blur(0px)';
+          if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
         } else if (t <= HOLD_END) {
           // Hold: stable
           slide.style.opacity = '1';
           slide.style.transform = 'scale(1) translateY(0px)';
-          slide.style.filter = 'blur(0px)';
+          if (blurWrapper) blurWrapper.style.filter = 'blur(0px)';
         } else if (t <= 1) {
           // Exit: slow blur + scale past 1 + fade (75% of scroll budget)
           const p = easeInQuad((t - HOLD_END) / (1 - HOLD_END));
           slide.style.opacity = (1 - p).toFixed(3);
           slide.style.transform = `scale(${(1 + 0.08 * p).toFixed(4)}) translateY(0px)`;
-          slide.style.filter = `blur(${(p * 10).toFixed(1)}px)`;
+          if (blurWrapper) blurWrapper.style.filter = `blur(${(p * 10).toFixed(1)}px)`;
         } else {
           // Fully exited
           slide.style.opacity = '0';
           slide.style.transform = 'scale(1.08) translateY(0px)';
-          slide.style.filter = 'blur(10px)';
+          if (blurWrapper) blurWrapper.style.filter = 'blur(10px)';
         }
       });
     }
@@ -150,40 +151,43 @@ export default function StatsSequence() {
               padding: '0 24px',
               opacity: 0,
               transform: 'scale(0) translateY(80px)',
-              willChange: 'opacity, transform, filter',
+              willChange: 'opacity, transform',
             }}
           >
-            <p style={{
-              fontSize: '13px',
-              fontWeight: 600,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: '#4b5563',
-              marginBottom: '16px',
-            }}>
-              {stat.label}
-            </p>
-            <h2 style={{
-              fontSize: 'clamp(52px, 9vw, 96px)',
-              fontWeight: 900,
-              lineHeight: 1,
-              marginBottom: '24px',
-              background: 'linear-gradient(135deg, #4763D6 0%, #C8D4FA 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}>
-              {stat.number}
-            </h2>
-            <p style={{
-              fontSize: '18px',
-              color: '#9ca3af',
-              lineHeight: 1.6,
-              maxWidth: '560px',
-              margin: '0 auto',
-            }}>
-              {stat.description}
-            </p>
+            {/* Blur applied to inner wrapper so it never sits on same element as gradient text */}
+            <div className={`stat-blur-${i}`} style={{ willChange: 'filter' }}>
+              <p style={{
+                fontSize: '13px',
+                fontWeight: 600,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                color: '#4b5563',
+                marginBottom: '16px',
+              }}>
+                {stat.label}
+              </p>
+              <h2 style={{
+                fontSize: 'clamp(52px, 9vw, 96px)',
+                fontWeight: 900,
+                lineHeight: 1,
+                marginBottom: '24px',
+                background: 'linear-gradient(135deg, #4763D6 0%, #C8D4FA 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>
+                {stat.number}
+              </h2>
+              <p style={{
+                fontSize: '18px',
+                color: '#9ca3af',
+                lineHeight: 1.6,
+                maxWidth: '560px',
+                margin: '0 auto',
+              }}>
+                {stat.description}
+              </p>
+            </div>
           </div>
         ))}
       </div>
