@@ -14,7 +14,7 @@ export default function ClosingCta({
       aria-label="Call to action"
       className="section-glow"
       style={{
-        backgroundColor: '#07080f',
+        backgroundColor: '#000000',
         padding: '120px 48px',
         textAlign: 'center',
       }}

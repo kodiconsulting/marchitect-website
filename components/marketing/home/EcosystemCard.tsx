@@ -32,7 +32,7 @@ export default function EcosystemCard() {
     <section
       aria-label="Marketing ecosystem"
       style={{
-        backgroundColor: '#07080f',
+        backgroundColor: '#000000',
         padding: '120px 48px',
       }}
     >

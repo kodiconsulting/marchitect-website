@@ -127,7 +127,7 @@ export default function StatsSequence() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#07080f',
+        background: '#000000',
         overflow: 'hidden',
       }}>
         {stats.map((stat, i) => (

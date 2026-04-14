@@ -87,7 +87,7 @@ export default function StatsBanner() {
       ref={sectionRef}
       aria-label="Client results"
       style={{
-        backgroundColor: '#07080f',
+        backgroundColor: '#000000',
         padding: '120px 48px',
       }}
     >

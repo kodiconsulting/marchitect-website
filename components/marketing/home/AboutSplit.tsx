@@ -5,7 +5,7 @@ export default function AboutSplit() {
     <section
       aria-label="About Marchitect"
       style={{
-        backgroundColor: '#07080f',
+        backgroundColor: '#000000',
         padding: '120px 48px',
       }}
     >

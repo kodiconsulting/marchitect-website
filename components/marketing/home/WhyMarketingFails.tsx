@@ -29,7 +29,7 @@ export default function WhyMarketingFails() {
       aria-label="Why most marketing departments fail"
       className="problems-section"
       style={{
-        backgroundColor: '#07080f',
+        backgroundColor: '#000000',
         padding: '120px 48px',
         position: 'relative',
         overflow: 'hidden',

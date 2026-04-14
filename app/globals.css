@@ -99,7 +99,7 @@
   /* ─── Marchitect design system ─────────────────────────────── */
 
   /* Backgrounds */
-  --m-bg:             #07080f;   /* near-black — default page background */
+  --m-bg:             #000000;   /* near-black — default page background */
   --m-bg-section:     #0d0e1a;   /* alternating sections */
   --m-bg-card:        #12131f;   /* card backgrounds */
   --m-bg-input:       #1a1b2e;   /* form input backgrounds */
