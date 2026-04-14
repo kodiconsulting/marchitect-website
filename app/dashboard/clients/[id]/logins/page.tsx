@@ -44,7 +44,7 @@ export default async function ClientLoginsPage({
       </Link>
 
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-[#252f4a]">Login Directory</h1>
+        <h1 className="text-2xl font-bold text-[#252f4a]">Login & Asset Directory</h1>
         <p className="text-[#78829d] mt-1 text-sm">
           {workspace.clientName} — tools, credentials, and access. URLs and usernames only — no passwords.
         </p>

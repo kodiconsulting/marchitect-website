@@ -42,7 +42,7 @@ export default async function ClientSourceDocsPage({
       </Link>
 
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-[#252f4a]">Source Materials</h1>
+        <h1 className="text-2xl font-bold text-[#252f4a]">Source Material</h1>
         <p className="text-[#78829d] mt-1 text-sm">
           {workspace.clientName} — research docs, transcripts, and reference files.
         </p>

@@ -1,12 +1,11 @@
 import { auth } from '@/auth'
 import { redirect, notFound } from 'next/navigation'
 import { db } from '@/lib/db'
-import { workspaces, teamMembers } from '@/lib/db/schema'
+import { workspaces } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
 import Link from 'next/link'
-import TeamMembersManager from './TeamMembersManager'
 
-export default async function TeamPage({
+export default async function ClientContentStrategyPage({
   params,
 }: {
   params: Promise<{ id: string }>
@@ -24,13 +23,8 @@ export default async function TeamPage({
 
   if (!workspace) notFound()
 
-  const members = await db
-    .select()
-    .from(teamMembers)
-    .where(eq(teamMembers.workspaceId, id))
-
   return (
-    <div className="p-8 max-w-5xl mx-auto">
+    <div className="p-8 max-w-6xl mx-auto">
       <Link
         href={`/dashboard/clients/${id}`}
         className="text-sm text-[#78829d] hover:text-[#252f4a] transition-colors mb-6 inline-block"
@@ -39,13 +33,15 @@ export default async function TeamPage({
       </Link>
 
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-[#252f4a]">Team Directory</h1>
+        <h1 className="text-2xl font-bold text-[#252f4a]">Content Strategy</h1>
         <p className="text-[#78829d] mt-1 text-sm">
-          {workspace.clientName} — team members, roles, and contact information.
+          {workspace.clientName} — content pillars, formats, and strategic direction.
         </p>
       </div>
 
-      <TeamMembersManager members={members} workspaceId={id} />
+      <div className="rounded-xl border border-dashed border-[#e1e3ea] p-12 text-center">
+        <p className="text-[#78829d] text-sm">Coming soon</p>
+      </div>
     </div>
   )
 }

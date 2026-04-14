@@ -144,7 +144,7 @@ export default async function ClientOraclePage({
       </Link>
 
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-[#252f4a]">Content Oracle</h1>
+        <h1 className="text-2xl font-bold text-[#252f4a]">Brand & Market Intelligence</h1>
         <p className="text-[#78829d] mt-1 text-sm">
           {workspace.clientName} — knowledge base fields
         </p>

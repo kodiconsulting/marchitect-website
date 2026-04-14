@@ -114,7 +114,7 @@ export default async function ClientRocksPage({
       </Link>
 
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-[#252f4a]">Rocks & Goals</h1>
+        <h1 className="text-2xl font-bold text-[#252f4a]">Goals & Objectives</h1>
         <p className="text-[#78829d] mt-1 text-sm">
           {workspace.clientName} — quarterly priorities and key performance indicators.
         </p>

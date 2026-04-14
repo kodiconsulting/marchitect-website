@@ -5,17 +5,20 @@ import {
   Database,
   Users,
   Key,
-  BookOpen,
   Settings,
   UserSquare2,
   Contact,
   Megaphone,
   CalendarDays,
-  Mail,
   DollarSign,
   Palette,
   FolderOpen,
-  ClipboardList,
+  Globe,
+  LineChart,
+  FileText,
+  Tag,
+  ClipboardCheck,
+  BrainCircuit,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -32,44 +35,83 @@ export type NavSection = {
 }
 
 export function buildNav(cid: string | null, isAdmin: boolean) {
+  const c = (path: string) => cid ? `/dashboard/clients/${cid}${path}` : null
+
   const allNavItems: NavItem[] = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, exact: true },
-    { href: '/dashboard/clients', label: 'Clients', icon: UserSquare2 },
-    { href: cid ? `/dashboard/clients/${cid}/team` : '/dashboard/team', label: 'Team', icon: Contact },
-    { href: cid ? `/dashboard/clients/${cid}/audit` : '/dashboard/audit', label: 'Audit', icon: BarChart2 },
-    { href: cid ? `/dashboard/clients/${cid}/rocks` : '/dashboard/rocks', label: 'Rocks & Goals', icon: Target },
-    { href: cid ? `/dashboard/clients/${cid}/oracle` : '/dashboard/oracle', label: 'Oracle', icon: Database },
-    { href: cid ? `/dashboard/clients/${cid}/matrix` : '/dashboard/responsibility', label: 'Responsibility Matrix', icon: Users },
-    { href: cid ? `/dashboard/clients/${cid}/logins` : '/dashboard/logins', label: 'Login Directory', icon: Key },
-    { href: cid ? `/dashboard/clients/${cid}/playbooks` : '/dashboard/playbooks', label: 'Playbooks', icon: BookOpen },
-    { href: cid ? `/dashboard/clients/${cid}/campaigns` : '/dashboard/campaigns', label: 'Campaigns', icon: Megaphone },
-    { href: cid ? `/dashboard/clients/${cid}/promo` : '/dashboard/promo', label: 'Promo Calendar', icon: CalendarDays },
-    { href: cid ? `/dashboard/clients/${cid}/sequences` : '/dashboard/sequences', label: 'Sequences', icon: Mail },
-    { href: cid ? `/dashboard/clients/${cid}/budgets` : '/dashboard/budgets', label: 'Budgets', icon: DollarSign },
-    { href: cid ? `/dashboard/clients/${cid}/brand-assets` : '/dashboard/brand-assets', label: 'Brand Assets', icon: Palette },
-    { href: cid ? `/dashboard/clients/${cid}/source-docs` : '/dashboard/source-docs', label: 'Source Materials', icon: FolderOpen },
-    { href: cid ? `/dashboard/clients/${cid}/projects` : '/dashboard/projects', label: 'Projects', icon: ClipboardList },
+    ...(isAdmin ? [{ href: '/dashboard/clients', label: 'Clients', icon: UserSquare2 }] : []),
+    { href: c('/audit') ?? '/dashboard/audit', label: 'Audit', icon: BarChart2 },
+
+    // Operations
+    { href: c('/team') ?? '/dashboard/team', label: 'Team Directory', icon: Contact },
+    { href: c('/matrix') ?? '/dashboard/responsibility', label: 'Responsibility Matrix', icon: Users },
+    { href: c('/logins') ?? '/dashboard/logins', label: 'Login & Asset Directory', icon: Key },
+    { href: c('/brand-assets') ?? '/dashboard/brand-assets', label: 'Brand Assets', icon: Palette },
+    { href: c('/digital-properties') ?? '/dashboard/digital-properties', label: 'Digital Properties', icon: Globe },
+
+    // Brand & Market Intelligence
+    { href: c('/oracle') ?? '/dashboard/oracle', label: 'Brand', icon: BrainCircuit },
+
+    // Goals & Objectives
+    { href: c('/rocks') ?? '/dashboard/rocks', label: 'Goals & Objectives', icon: Target },
+    { href: c('/budgets') ?? '/dashboard/budgets', label: 'Budget', icon: DollarSign },
+
+    // Campaigns
+    { href: c('/campaigns') ?? '/dashboard/campaigns', label: 'Campaigns', icon: Megaphone },
+
+    // Content & Promotions
+    { href: c('/content-strategy') ?? '/dashboard/content-strategy', label: 'Content Strategy', icon: FileText },
+    { href: c('/content-calendar') ?? '/dashboard/content-calendar', label: 'Content Calendar', icon: CalendarDays },
+    { href: c('/promo') ?? '/dashboard/promo', label: 'Promotions', icon: Tag },
+    { href: c('/production-tracker') ?? '/dashboard/production-tracker', label: 'Production Tracker', icon: ClipboardCheck },
+
+    // Source Material
+    { href: c('/source-docs') ?? '/dashboard/source-docs', label: 'Source Material', icon: FolderOpen },
+
+    // Dashboards & Reporting
+    { href: c('/reporting') ?? '/dashboard/reporting', label: 'Dashboards & Reporting', icon: LineChart },
+
     ...(isAdmin ? [{ href: '/dashboard/settings', label: 'Settings', icon: Settings }] : []),
   ]
 
   const navSections: NavSection[] = [
     {
       heading: null,
-      items: allNavItems.filter(i => i.href === '/dashboard' || i.href === '/dashboard/clients'),
+      items: allNavItems.filter(i =>
+        i.label === 'Dashboard' || i.label === 'Clients' || i.label === 'Audit'
+      ),
     },
     {
-      heading: 'TOOLS',
-      items: allNavItems.filter(i => ['Team', 'Audit', 'Rocks & Goals', 'Oracle', 'Responsibility Matrix'].includes(i.label)),
+      heading: 'Operations',
+      items: allNavItems.filter(i =>
+        ['Team Directory', 'Responsibility Matrix', 'Login & Asset Directory', 'Brand Assets', 'Digital Properties'].includes(i.label)
+      ),
     },
     {
-      heading: 'MARKETING',
-      items: allNavItems.filter(i => ['Campaigns', 'Promo Calendar', 'Sequences', 'Budgets'].includes(i.label)),
+      heading: 'Brand & Market Intelligence',
+      items: allNavItems.filter(i => i.label === 'Brand'),
     },
     {
-      heading: 'RESOURCES',
-      items: allNavItems.filter(i => ['Login Directory', 'Playbooks', 'Brand Assets', 'Source Materials', 'Projects'].includes(i.label)),
+      heading: 'Goals & Objectives',
+      items: allNavItems.filter(i => ['Goals & Objectives', 'Budget'].includes(i.label)),
     },
-    ...(isAdmin ? [{ heading: 'ADMINISTRATION', items: allNavItems.filter(i => i.label === 'Settings') }] : []),
+    {
+      heading: null,
+      items: allNavItems.filter(i => i.label === 'Campaigns'),
+    },
+    {
+      heading: 'Content & Promotions',
+      items: allNavItems.filter(i =>
+        ['Content Strategy', 'Content Calendar', 'Promotions', 'Production Tracker'].includes(i.label)
+      ),
+    },
+    {
+      heading: null,
+      items: allNavItems.filter(i =>
+        ['Source Material', 'Dashboards & Reporting'].includes(i.label)
+      ),
+    },
+    ...(isAdmin ? [{ heading: 'Administration', items: allNavItems.filter(i => i.label === 'Settings') }] : []),
   ]
 
   return { allNavItems, navSections }
