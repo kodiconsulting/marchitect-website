@@ -15,7 +15,7 @@ export default function TrustRow() {
       aria-label="Trusted by growing businesses"
       style={{
         padding: '48px 0',
-        background: 'var(--color-bg-primary)',
+        background: '#000000',
       }}
     >
       <div className="container">

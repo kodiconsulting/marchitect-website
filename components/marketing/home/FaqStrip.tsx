@@ -144,7 +144,7 @@ export default function FaqStrip() {
     <section
       aria-label="Frequently asked questions"
       style={{
-        backgroundColor: '#0d0e1a',
+        backgroundColor: '#000000',
         padding: '120px 48px',
       }}
     >

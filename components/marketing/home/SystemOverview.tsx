@@ -209,7 +209,7 @@ export default function SystemOverview() {
     <section
       aria-label="An end-to-end system for your marketing department"
       style={{
-        backgroundColor: '#0d0e1a',
+        backgroundColor: '#000000',
         padding: '120px 48px',
       }}
     >

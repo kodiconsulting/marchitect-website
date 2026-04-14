@@ -112,7 +112,7 @@ export default function Testimonials() {
     <section
       aria-label="Client testimonials"
       style={{
-        backgroundColor: '#0d0e1a',
+        backgroundColor: '#000000',
         padding: '120px 48px',
       }}
     >

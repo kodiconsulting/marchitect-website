@@ -39,7 +39,7 @@ export default function Nav() {
           left: 0,
           right: 0,
           zIndex: 100,
-          backgroundColor: scrolled || menuOpen ? 'rgba(7, 8, 15, 0.9)' : 'transparent',
+          backgroundColor: scrolled || menuOpen ? 'rgba(0, 0, 0, 0.9)' : 'transparent',
           backdropFilter: scrolled || menuOpen ? 'blur(12px)' : 'none',
           WebkitBackdropFilter: scrolled || menuOpen ? 'blur(12px)' : 'none',
           borderBottom: scrolled || menuOpen
@@ -186,7 +186,7 @@ export default function Nav() {
             position: 'fixed',
             inset: 0,
             zIndex: 40,
-            backgroundColor: 'rgba(7, 8, 15, 0.97)',
+            backgroundColor: 'rgba(0, 0, 0, 0.97)',
             backdropFilter: 'blur(12px)',
             WebkitBackdropFilter: 'blur(12px)',
             display: 'flex',
