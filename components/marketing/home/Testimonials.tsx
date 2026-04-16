@@ -1,52 +1,26 @@
-// Placeholder testimonials — swap quote/name/title/company for real client content when ready.
-
 const QUOTES = [
   {
     quote:
-      "Before Marchitect, we were spending $30K a month on ads with no real idea what was working. Within three months we had a clear framework, an ICP we could actually use, and attribution we trusted for the first time.",
-    name: 'Client Name',
-    title: 'CEO',
-    company: 'Company A',
+      "Can't recommend Marchitect and his team enough. Not only has our revenue grown substantially, but his guidance, expertise and genuine care for our success has made the experience fantastic. Highly recommend.",
+    name: 'Matt Fuller',
+    company: 'Insight Picture Co',
   },
   {
     quote:
-      "The workshops were structured in a way I'd never experienced. Every session had a clear output and we left with something concrete. No fluff, no open-ended brainstorming — just answers.",
-    name: 'Client Name',
-    title: 'Founder',
-    company: 'Company B',
+      "Marchitect was amazing to work with! They always respond quickly and have great solutions for my business!",
+    name: 'Kevin Conners',
+    company: 'Wolf Royalties',
   },
   {
     quote:
-      "We finally understand why our funnel wasn't converting. The offer wasn't built for cold traffic. Marchitect diagnosed it in the first session and we rebuilt it in the second. Our CPL dropped by 60%.",
-    name: 'Client Name',
-    title: 'VP Marketing',
-    company: 'Company C',
-  },
-  {
-    quote:
-      "I've worked with a lot of consultants. Marchitect is the only one that left us with something we actually own and can run ourselves. The Portal alone is worth it.",
-    name: 'Client Name',
-    title: 'COO',
-    company: 'Company D',
-  },
-  {
-    quote:
-      "Our marketing team had been spinning for two years. Not because they were bad — because nobody had ever defined what success looked like or how decisions should get made. Marchitect fixed that.",
-    name: 'Client Name',
-    title: 'CEO',
-    company: 'Company E',
-  },
-  {
-    quote:
-      "The five-pillar framework gave our entire team a shared language. Now when we debate channel strategy or budget allocation, everyone's working from the same model. It changed how we operate.",
-    name: 'Client Name',
-    title: 'Director of Growth',
-    company: 'Company F',
+      "I've worked with Mike and his team for several years and continue to do so. Professional, fast, and fair. His firm is also one of the few agencies that can develop and execute artistic and strategic game plans. Highly recommended.",
+    name: 'Elias Corey',
+    company: 'Fighter Pilot Supps',
   },
 ]
 
-// Masonry stagger — cards in column 2 drop by 40px on desktop for visual rhythm
-const STAGGER: Record<number, string> = { 1: '40px', 4: '40px' }
+// Masonry stagger — middle card drops by 40px on desktop for visual rhythm
+const STAGGER: Record<number, string> = { 1: '40px' }
 
 function QuoteIcon() {
   return (
@@ -205,7 +179,7 @@ export default function Testimonials() {
                       marginTop: '2px',
                     }}
                   >
-                    {q.title}, {q.company}
+                    {q.company}
                   </p>
                 </div>
               </div>
