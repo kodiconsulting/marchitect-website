@@ -22,7 +22,22 @@
       "Bash(gh api:*)",
       "Bash(curl -s https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/README.md)",
       "mcp__claude_ai_Vercel__web_fetch_vercel_url",
-      "mcp__claude_ai_Vercel__deploy_to_vercel"
+      "mcp__claude_ai_Vercel__deploy_to_vercel",
+      "Skill(update-config)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"C:/Users/Owner/Claude/Projects/marchitect-website\" && git diff --quiet HEAD || (git add -u && git commit -m \"auto: push session update\" && git push) 2>/dev/null || true",
+            "timeout": 30,
+            "statusMessage": "Auto-pushing changes to Vercel..."
+          }
+        ]
+      }
     ]
   }
 }
