@@ -20,13 +20,13 @@ const stats = [
 ];
 
 // --- Timing config ---
-const SLIDE_VH   = 1.2;  // scroll budget per non-last stat (in viewport heights)
-const LAST_VH    = 1.8;  // scroll budget for the last stat
+const SLIDE_VH   = 1.0;  // scroll budget per non-last stat (in viewport heights)
+const LAST_VH    = 1.4;  // scroll budget for the last stat
 const APPROACH   = 0.20; // fraction of SLIDE_VH used to zoom in
-const HOLD_END   = 0.30; // fraction where hold phase ends, exit begins
-// Exit = 0.30 → 1.00 = 70% of budget ≈ 3.5× the approach (20%)
+const HOLD_END   = 0.65; // fraction where hold phase ends, exit begins
+// Exit = 0.65 → 1.00 = 35% of budget (was 70% — much shorter)
 
-const LAST_APPROACH = 0.40; // fraction of LAST_VH used to zoom in for last stat
+const LAST_APPROACH = 0.35; // fraction of LAST_VH used to zoom in for last stat
 
 // Start animating while section is still scrolling into view from below.
 // 0.5 = stats begin appearing when section top is at the midpoint of the viewport.
