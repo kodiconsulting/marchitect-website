@@ -250,14 +250,14 @@
   color: #ffffff;
   font-size: 15px;
   font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--m-accent);
   cursor: pointer;
   text-decoration: none;
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 .btn-secondary:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--m-accent-2);
+  background: rgba(71, 99, 214, 0.08);
 }
 .btn-secondary:focus-visible {
   outline: 2px solid var(--m-accent);
