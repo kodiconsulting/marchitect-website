@@ -86,7 +86,7 @@ export default function Nav() {
             left: '50%',
             transform: 'translateX(-50%)',
           }}
-          className="hidden md:flex"
+          className="hidden lg:flex"
         >
           {NAV_LINKS.map((link) => {
             const isActive = pathname === link.href
@@ -115,7 +115,7 @@ export default function Nav() {
         </div>
 
         {/* Desktop CTAs */}
-        <div className="hidden md:flex" style={{ flexShrink: 0, gap: '8px', display: 'flex', alignItems: 'center' }}>
+        <div className="hidden lg:flex" style={{ flexShrink: 0, gap: '8px', display: 'flex', alignItems: 'center' }}>
           <Link href="/login" className="btn-login">
             Log In
           </Link>
@@ -130,7 +130,7 @@ export default function Nav() {
 
         {/* Mobile hamburger */}
         <button
-          className="flex md:hidden"
+          className="flex lg:hidden"
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-expanded={menuOpen}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -196,7 +196,7 @@ export default function Nav() {
             gap: '2.5rem',
             paddingTop: '80px',
           }}
-          className="md:hidden"
+          className="lg:hidden"
         >
           {NAV_LINKS.map((link) => {
             const isActive = pathname === link.href

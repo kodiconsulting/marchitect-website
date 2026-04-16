@@ -13,7 +13,16 @@
       "Bash(cd \"C:\\\\\\\\Users\\\\\\\\Owner\\\\\\\\Claude\\\\\\\\Projects\\\\\\\\marchitect-website\")",
       "Bash(node:*)",
       "Bash(git:*)",
-      "Bash(xargs sed:*)"
+      "Bash(xargs sed:*)",
+      "mcp__claude_ai_Vercel__list_teams",
+      "mcp__claude_ai_Vercel__list_projects",
+      "mcp__claude_ai_Vercel__list_deployments",
+      "mcp__claude_ai_Vercel__get_deployment_build_logs",
+      "mcp__claude_ai_Vercel__get_runtime_logs",
+      "Bash(gh api:*)",
+      "Bash(curl -s https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/README.md)",
+      "mcp__claude_ai_Vercel__web_fetch_vercel_url",
+      "mcp__claude_ai_Vercel__deploy_to_vercel"
     ]
   }
 }

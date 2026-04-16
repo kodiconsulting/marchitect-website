@@ -20,13 +20,13 @@ const stats = [
 ];
 
 // --- Timing config ---
-const SLIDE_VH   = 1.0;  // scroll budget per non-last stat (in viewport heights)
-const LAST_VH    = 1.4;  // scroll budget for the last stat
-const APPROACH   = 0.20; // fraction of SLIDE_VH used to zoom in
-const HOLD_END   = 0.65; // fraction where hold phase ends, exit begins
-// Exit = 0.65 → 1.00 = 35% of budget (was 70% — much shorter)
-
-const LAST_APPROACH = 0.35; // fraction of LAST_VH used to zoom in for last stat
+const SLIDE_VH   = 1.0;  // scroll budget per stat animation
+const LAST_VH    = 1.2;  // scroll budget for the last stat
+const STEP_VH    = 0.65; // how far apart each stat starts (= HOLD_END * SLIDE_VH)
+                          // next stat begins exactly when current stat starts exiting
+const APPROACH   = 0.20; // fraction of SLIDE_VH to zoom in
+const HOLD_END   = 0.65; // fraction where hold ends and exit begins
+const LAST_APPROACH = 0.35;
 
 // Start animating while section is still scrolling into view from below.
 // 0.5 = stats begin appearing when section top is at the midpoint of the viewport.
@@ -38,7 +38,7 @@ export default function StatsSequence() {
   const blurRefs    = useRef<(HTMLDivElement | null)[]>([]);
 
   const total      = stats.length;
-  const sectionVh  = (total - 1) * SLIDE_VH + LAST_VH;
+  const sectionVh  = (total - 1) * STEP_VH + LAST_VH;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -58,7 +58,7 @@ export default function StatsSequence() {
         if (!slide || !blur) return;
 
         const isLast      = i === total - 1;
-        const startVh     = i * SLIDE_VH;
+        const startVh     = i * STEP_VH;
         const rangeVh     = isLast ? LAST_VH : SLIDE_VH;
         const t           = (scrolledVh - startVh) / rangeVh;
 
